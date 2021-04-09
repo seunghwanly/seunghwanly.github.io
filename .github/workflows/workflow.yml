@@ -14,12 +14,13 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: 'dev'
-      - run: flutter config --enable-web
-        working-directory: ./seunghwanly_portfolio
-      - run: flutter pub get
-      - run: flutter build web --release
+      - run: | 
+        flutter config --enable-web
+        flutter pub get
+        flutter build web --release
+
         # 1. change path which exist lib/main.dart
-        working-directory: ./seunghwanly_portfolio
+      working-directory: ./seunghwanly_portfolio
       - run: |
           # 2. change path to [existed lib/main.dart path]/build/web
           cd seunghwanly_portfolio/
