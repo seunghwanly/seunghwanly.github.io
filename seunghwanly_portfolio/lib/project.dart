@@ -173,7 +173,7 @@ class _ProjectListState extends State<ProjectList> {
                           onExit: _incrementExit,
                           child: TextButton(
                               onPressed: () =>
-                                  _showModal(context, data: projectData[index]),
+                                  _showModal(data: projectData[index]),
                               style: TextButton.styleFrom(
                                 primary: backgroundColor,
                                 onSurface: themeDeepBlue,
@@ -222,221 +222,242 @@ class _ProjectListState extends State<ProjectList> {
     );
   }
 
-  _showModal(BuildContext context, {data}) {
-    final size = MediaQuery.of(context).size;
+  _showModal({data}) {
     void launchURL(url) async =>
         await canLaunch(url) ? await launch(url) : print('cannot open');
     ScrollController controller = new ScrollController();
     showModal(
         context: context,
-        builder: (_) => Dialog(
-              backgroundColor: Colors.transparent,
-              elevation: 16.0,
-              child: SingleChildScrollView(
-                  controller: controller,
-                  child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.white,
-                      ),
-                      padding: paddingH20V20,
-                      child: Column(
-                        children: <Widget>[
-                          Align(
-                            alignment: Alignment.topCenter,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Icon(Icons.label_rounded,
-                                    size: 24, color: themeLightOrange),
-                                IconButton(
-                                  onPressed: () => Navigator.pop(context),
-                                  icon: Icon(
-                                    Icons.close_rounded,
-                                    color: Colors.black87,
-                                    size: 24,
-                                  ),
-                                )
-                              ],
-                            ),
+        builder: (context) {
+          final size = MediaQuery.of(context).size;
+          return Dialog(
+            backgroundColor: Colors.transparent,
+            elevation: 16.0,
+            child: SingleChildScrollView(
+                controller: controller,
+                child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.white,
+                    ),
+                    padding: paddingH20V20,
+                    child: Column(
+                      children: <Widget>[
+                        Align(
+                          alignment: Alignment.topCenter,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Icon(Icons.label_rounded,
+                                  size: 30, color: themeLightOrange),
+                              IconButton(
+                                onPressed: () => Navigator.pop(context),
+                                icon: Icon(
+                                  Icons.close_rounded,
+                                  color: Colors.black87,
+                                  size: 30,
+                                ),
+                              )
+                            ],
                           ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              data.name,
-                              style: headlineTextStyle,
-                            ),
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            data.name,
+                            style: headlineTextStyle,
                           ),
-                          SizedBox(height: 20),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: Text(
-                              data.period,
-                              style: buttonTextStyle,
-                            ),
+                        ),
+                        SizedBox(height: 20),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            data.period,
+                            style: buttonTextStyle,
                           ),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: Text(data.type, style: buttonTextStyle),
+                        ),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: Text(data.type, style: buttonTextStyle),
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            data.mainDesc,
+                            style: bodyTextStyle,
                           ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              data.mainDesc,
-                              style: bodyTextStyle,
-                            ),
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(data.subDesc, style: awardTitleTextStyle),
+                        ),
+                        SizedBox(
+                          height: 25,
+                          child: divider,
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            data.aboutProject,
+                            style: buttonTextStyle,
                           ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child:
-                                Text(data.subDesc, style: awardTitleTextStyle),
-                          ),
-                          SizedBox(
-                            height: 25,
-                            child: divider,
-                          ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              data.aboutProject,
-                              style: buttonTextStyle,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 25,
-                            child: divider,
-                          ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Row(
-                              children: <Widget>[
-                                Expanded(
-                                    flex: 5,
-                                    child: ListView.builder(
-                                      physics: NeverScrollableScrollPhysics(),
-                                      shrinkWrap: true,
-                                      itemCount: data.myJob.length,
-                                      itemBuilder: (context, index) =>
-                                          Text('+ ' + data.myJob[index]),
-                                    )),
-                                Expanded(
-                                    flex: 5,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: <Widget>[
-                                        Image.network(
-                                          'https://cors.bridged.cc/' +
-                                              data.imageURL[0],
-                                          width: 300,
-                                          fit: BoxFit.cover,
-                                        ),
-                                        Image.network(
-                                            'https://cors.bridged.cc/' +
-                                                data.imageURL[1],
-                                            width: 300,
-                                            fit: BoxFit.cover),
-                                        // GetNetworkImage(src: data.imageURL[0]),
-                                        // GetNetworkImage(src: data.imageURL[1]),
-                                      ],
-                                    ))
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 25,
-                            child: divider,
-                          ),
-                          Align(
-                              alignment: Alignment.center,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: <Widget>[
-                                  data.store.length > 0
-                                      ? Container(
-                                          width: size.width > 600 ? 160 : 50,
-                                          child: TextButton(
-                                            onPressed: () =>
-                                                launchURL(data.store[0]),
-                                            child: Row(
-                                              children: <Widget>[
-                                                SvgPicture.asset(
-                                                  'images/icon/logo-google-playstore.svg',
-                                                  fit: BoxFit.cover,
-                                                  height: 35,
-                                                  width: 35,
-                                                ),
-                                                size.width > 600
-                                                    ? Text(' PlayStore',
-                                                        style:
-                                                            GoogleFonts.raleway(
-                                                                fontSize: 22,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                                color:
-                                                                    textPrimary))
-                                                    : SizedBox()
-                                              ],
-                                            ),
-                                          ))
-                                      : SizedBox(),
-                                  data.store.length > 1
-                                      ? Container(
-                                          width: size.width > 600 ? 160 : 50,
-                                          child: TextButton(
-                                            onPressed: () =>
-                                                launchURL(data.store[1]),
-                                            child: Row(
-                                              children: <Widget>[
-                                                SvgPicture.asset(
-                                                  'images/icon/logo-apple.svg',
-                                                  fit: BoxFit.cover,
-                                                  height: 35,
-                                                  width: 35,
-                                                ),
-                                                size.width > 600
-                                                    ? Text(' AppStore',
-                                                        style:
-                                                            GoogleFonts.raleway(
-                                                                fontSize: 22,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                                color:
-                                                                    textPrimary))
-                                                    : SizedBox()
-                                              ],
-                                            ),
-                                          ))
-                                      : SizedBox(),
-                                  Container(
-                                      width: size.width > 600 ? 120 : 50,
-                                      child: TextButton(
-                                        onPressed: () => launchURL(data.url),
-                                        child: Row(
+                        ),
+                        SizedBox(
+                          height: 25,
+                          child: divider,
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Row(
+                            children: <Widget>[
+                              Expanded(
+                                  flex: 5,
+                                  child: ListView.builder(
+                                    physics: NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemCount: data.myJob.length,
+                                    itemBuilder: (context, index) =>
+                                        Text('+ ' + data.myJob[index]),
+                                  )),
+                              Expanded(
+                                  flex: 5,
+                                  child: size.width > 800
+                                      ? Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
                                           children: <Widget>[
-                                            SvgPicture.asset(
-                                              'images/icon/logo-github.svg',
+                                            Image.network(
+                                              'https://cors.bridged.cc/' +
+                                                  data.imageURL[0],
+                                              width: size.width * 0.15,
                                               fit: BoxFit.cover,
-                                              height: 35,
-                                              width: 35,
                                             ),
-                                            size.width > 600
-                                                ? Text(' Github',
-                                                    style: GoogleFonts.raleway(
-                                                        fontSize: 22,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color: textPrimary))
-                                                : SizedBox()
+                                            Image.network(
+                                                'https://cors.bridged.cc/' +
+                                                    data.imageURL[1],
+                                                width: size.width * 0.15,
+                                                fit: BoxFit.cover),
+                                            // GetNetworkImage(src: data.imageURL[0]),
+                                            // GetNetworkImage(src: data.imageURL[1]),
                                           ],
-                                        ),
-                                      )),
-                                ],
-                              )),
-                        ],
-                      ))),
-            ));
+                                        )
+                                      : Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: <Widget>[
+                                            Image.network(
+                                              'https://cors.bridged.cc/' +
+                                                  data.imageURL[0],
+                                              width: 200,
+                                              fit: BoxFit.cover,
+                                            ),
+                                            Image.network(
+                                                'https://cors.bridged.cc/' +
+                                                    data.imageURL[1],
+                                                width: 200,
+                                                fit: BoxFit.cover),
+                                            // GetNetworkImage(src: data.imageURL[0]),
+                                            // GetNetworkImage(src: data.imageURL[1]),
+                                          ],
+                                        ))
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 25,
+                          child: divider,
+                        ),
+                        Align(
+                            alignment: Alignment.center,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: <Widget>[
+                                data.store.length > 0
+                                    ? Container(
+                                        width: size.width > 600 ? 160 : 50,
+                                        child: TextButton(
+                                          onPressed: () =>
+                                              launchURL(data.store[0]),
+                                          child: Row(
+                                            children: <Widget>[
+                                              SvgPicture.asset(
+                                                'images/icon/logo-google-playstore.svg',
+                                                fit: BoxFit.cover,
+                                                height: 35,
+                                                width: 35,
+                                              ),
+                                              size.width > 600
+                                                  ? Text(' PlayStore',
+                                                      style:
+                                                          GoogleFonts.raleway(
+                                                              fontSize: 22,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              color:
+                                                                  textPrimary))
+                                                  : SizedBox()
+                                            ],
+                                          ),
+                                        ))
+                                    : SizedBox(),
+                                data.store.length > 1
+                                    ? Container(
+                                        width: size.width > 600 ? 160 : 50,
+                                        child: TextButton(
+                                          onPressed: () =>
+                                              launchURL(data.store[1]),
+                                          child: Row(
+                                            children: <Widget>[
+                                              SvgPicture.asset(
+                                                'images/icon/logo-apple.svg',
+                                                fit: BoxFit.cover,
+                                                height: 35,
+                                                width: 35,
+                                              ),
+                                              size.width > 600
+                                                  ? Text(' AppStore',
+                                                      style:
+                                                          GoogleFonts.raleway(
+                                                              fontSize: 22,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              color:
+                                                                  textPrimary))
+                                                  : SizedBox()
+                                            ],
+                                          ),
+                                        ))
+                                    : SizedBox(),
+                                Container(
+                                    width: size.width > 600 ? 120 : 50,
+                                    child: TextButton(
+                                      onPressed: () => launchURL(data.url),
+                                      child: Row(
+                                        children: <Widget>[
+                                          SvgPicture.asset(
+                                            'images/icon/logo-github.svg',
+                                            fit: BoxFit.cover,
+                                            height: 35,
+                                            width: 35,
+                                          ),
+                                          size.width > 600
+                                              ? Text(' Github',
+                                                  style: GoogleFonts.raleway(
+                                                      fontSize: 22,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: textPrimary))
+                                              : SizedBox()
+                                        ],
+                                      ),
+                                    )),
+                              ],
+                            )),
+                      ],
+                    ))),
+          );
+        });
   }
 }
