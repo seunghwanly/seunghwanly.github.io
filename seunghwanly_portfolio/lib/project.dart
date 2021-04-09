@@ -320,17 +320,26 @@ class _ProjectListState extends State<ProjectList> {
                                           Text('+ ' + data.myJob[index]),
                                     )),
                                 Expanded(
-                                  flex: 5,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: <Widget>[
-                                      // Image.network(data.imageURL[0], width: 300, fit: BoxFit.cover,),
-                                      // Image.network(data.imageURL[1], width: 300, fit: BoxFit.cover),
-                                      GetNetworkImage(src: data.imageURL[0]),
-                                      GetNetworkImage(src: data.imageURL[1]),
-                                    ],
-                                  )
-                                )
+                                    flex: 5,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: <Widget>[
+                                        Image.network(
+                                          'https://cors.bridged.cc/' +
+                                              data.imageURL[0],
+                                          width: 300,
+                                          fit: BoxFit.cover,
+                                        ),
+                                        Image.network(
+                                            'https://cors.bridged.cc/' +
+                                                data.imageURL[1],
+                                            width: 300,
+                                            fit: BoxFit.cover),
+                                        // GetNetworkImage(src: data.imageURL[0]),
+                                        // GetNetworkImage(src: data.imageURL[1]),
+                                      ],
+                                    ))
                               ],
                             ),
                           ),

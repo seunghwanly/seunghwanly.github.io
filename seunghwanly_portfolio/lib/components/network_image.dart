@@ -22,7 +22,7 @@ class _GetNetworkImageState extends State<GetNetworkImage> {
   }
 
   void _fetchData() async {
-    _bytes = (await http.get(new Uri(scheme: widget.src))).bodyBytes;
+    _bytes = (await http.get(new Uri(scheme: 'https://cors.bridged.cc/' + widget.src))).bodyBytes;
 
     if (mounted) {
       setState(() {});
