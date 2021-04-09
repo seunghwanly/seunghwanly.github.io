@@ -1,4 +1,4 @@
-name: Seunghwanly Portfolio
+name: Flutter Web
 on:
   push:
     branches:
