@@ -8,6 +8,7 @@ import 'package:seunghwanly_portfolio/components/spacing.dart';
 import 'package:seunghwanly_portfolio/components/typography.dart';
 import 'package:seunghwanly_portfolio/project_data.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'components/network_image.dart';
 
 class ProjectPage extends StatefulWidget {
   @override
@@ -62,7 +63,7 @@ class _ProjectPageState extends State<ProjectPage> {
           width: double.infinity,
           decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage('title/proj.jpg'),
+                  image: AssetImage('images/title/proj.jpg'),
                   colorFilter: ColorFilter.mode(
                       Colors.black.withOpacity(0.5), BlendMode.darken),
                   fit: BoxFit.cover)),
@@ -322,9 +323,11 @@ class _ProjectListState extends State<ProjectList> {
                                   flex: 5,
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Image.network(data.imageURL[0], width: 300, fit: BoxFit.cover,),
-                                      Image.network(data.imageURL[1], width: 300, fit: BoxFit.cover),
+                                    children: <Widget>[
+                                      // Image.network(data.imageURL[0], width: 300, fit: BoxFit.cover,),
+                                      // Image.network(data.imageURL[1], width: 300, fit: BoxFit.cover),
+                                      GetNetworkImage(src: data.imageURL[0]),
+                                      GetNetworkImage(src: data.imageURL[1]),
                                     ],
                                   )
                                 )
@@ -349,7 +352,7 @@ class _ProjectListState extends State<ProjectList> {
                                             child: Row(
                                               children: <Widget>[
                                                 SvgPicture.asset(
-                                                  'icon/logo-google-playstore.svg',
+                                                  'images/icon/logo-google-playstore.svg',
                                                   fit: BoxFit.cover,
                                                   height: 35,
                                                   width: 35,
@@ -378,7 +381,7 @@ class _ProjectListState extends State<ProjectList> {
                                             child: Row(
                                               children: <Widget>[
                                                 SvgPicture.asset(
-                                                  'icon/logo-apple.svg',
+                                                  'images/icon/logo-apple.svg',
                                                   fit: BoxFit.cover,
                                                   height: 35,
                                                   width: 35,
@@ -405,7 +408,7 @@ class _ProjectListState extends State<ProjectList> {
                                         child: Row(
                                           children: <Widget>[
                                             SvgPicture.asset(
-                                              'icon/logo-github.svg',
+                                              'images/icon/logo-github.svg',
                                               fit: BoxFit.cover,
                                               height: 35,
                                               width: 35,

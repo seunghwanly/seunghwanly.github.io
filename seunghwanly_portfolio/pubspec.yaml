@@ -55,14 +55,14 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/icon/logo-apple.svg
-    - assets/icon/logo-github.svg
-    - assets/icon/logo-google-playstore.svg
-    - assets/icon/logo-venmo.svg
-    - assets/icon/trophy.svg
-    - assets/title/proj.jpg
-    - assets/title/tech.jpg
-    - assets/title/typing.gif
+    - images/icon/logo-apple.svg
+    - images/icon/logo-github.svg
+    - images/icon/logo-google-playstore.svg
+    - images/icon/logo-venmo.svg
+    - images/icon/trophy.svg
+    - images/title/proj.jpg
+    - images/title/tech.jpg
+    - images/title/typing.gif
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

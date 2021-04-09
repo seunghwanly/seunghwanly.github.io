@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> {
           width: double.infinity,
           decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage('title/tech.jpg'),
+                  image: AssetImage('images/title/tech.jpg'),
                   colorFilter: ColorFilter.mode(
                       Colors.black.withOpacity(0.5), BlendMode.darken),
                   fit: BoxFit.cover)),
@@ -181,7 +181,7 @@ class AboutMe extends StatelessWidget {
                         child: Row(
                           children: <Widget>[
                             SvgPicture.asset(
-                              'icon/logo-github.svg',
+                              'images/icon/logo-github.svg',
                               fit: BoxFit.cover,
                               height: 35,
                               width: 35,
@@ -202,7 +202,7 @@ class AboutMe extends StatelessWidget {
                         child: Row(
                           children: <Widget>[
                             SvgPicture.asset(
-                              'icon/logo-venmo.svg',
+                              'images/icon/logo-venmo.svg',
                               fit: BoxFit.cover,
                               height: 35,
                               width: 35,
@@ -308,7 +308,7 @@ class Awards extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          SvgPicture.asset('icon/trophy.svg',
+                          SvgPicture.asset('images/icon/trophy.svg',
                               height: 24, width: 24, color: themeLightOrange),
                           Text(list[index]['year'], style: awardPriceTextStyle)
                         ],
