@@ -1,34 +1,16 @@
-name: Flutter Web
+name: Gh-Pages
+
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
+
 jobs:
   build:
-    name: Build Web
-    env:
-      my_secret: ${{secrets.commit_secret}}
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - uses: subosito/flutter-action@v1
+      - uses: erickzanardo/flutter-gh-pages@v3
         with:
-          channel: 'dev'
-      - run: flutter config --enable-web
-      - run: flutter pub get
-      - run: flutter build web --release
-      - run: |
-          cd build/web
-          git init
-          # type configurations: your user.email and user.name followed lines 
-          # git config --global user.email seunghwanly@gmail.com 
-          # git config --global user.name SEUNGHWANLEE 
-          git config --global user.email seunghwanly@gmail.com
-          git config --global user.name SEUNGHWANLEE
-          git status
-          # change this remote url for examle your remote url is https://github.com/seunghwanly/seunghwanly.github.io.git then the following:
-          git remote add origin https://${{secrets.commit_secret}}@github.com/seunghwanly/seunghwanly.github.io.git
-          git checkout -b gh-pages
-          git add --all
-          git commit -m "update"
-          git push origin gh-pages -f
+          workingDir: seunghwanly_portfolio
