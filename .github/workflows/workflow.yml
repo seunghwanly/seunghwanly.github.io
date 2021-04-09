@@ -2,36 +2,32 @@ name: Flutter Web
 on:
   push:
     branches:
-      - main
+      - master
 jobs:
   build:
     name: Build Web
     env:
-      my_secret: $
+      my_secret: ${{secrets.commit_secret}}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
       - uses: subosito/flutter-action@v1
         with:
           channel: 'dev'
-      - run: | 
-        flutter config --enable-web
-        flutter pub get
-        flutter build web --release
-
-        # 1. change path which exist lib/main.dart
-      working-directory: ./seunghwanly_portfolio
+      - run: flutter config --enable-web
+      - run: flutter pub get
+      - run: flutter build web --release
       - run: |
-          # 2. change path to [existed lib/main.dart path]/build/web
-          cd seunghwanly_portfolio/
+          cd build/web
           git init
-          # 3. change your email
+          # type configurations: your user.email and user.name followed lines 
+          # git config --global user.email seunghwanly@gmail.com 
+          # git config --global user.name SEUNGHWANLEE 
           git config --global user.email seunghwanly@gmail.com
-          # 4. change your name
           git config --global user.name SEUNGHWANLEE
           git status
-          # 5. change your repository
-          git remote add origin https://github.com/seunghwanly/seunghwanly.github.io.git
+          # change this remote url for examle your remote url is https://github.com/seunghwanly/seunghwanly.github.io.git then the following:
+          git remote add origin https://${{secrets.commit_secret}}@github.com/seunghwanly/seunghwanly.github.io.git
           git checkout -b gh-pages
           git add --all
           git commit -m "update"
