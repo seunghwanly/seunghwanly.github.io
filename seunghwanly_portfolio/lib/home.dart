@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> {
           width: double.infinity,
           decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage('title/typing.gif'),
+                  image: AssetImage('assets/title/typing.gif'),
                   colorFilter: ColorFilter.mode(
                       Colors.black.withOpacity(0.5), BlendMode.darken),
                   fit: BoxFit.cover)),
