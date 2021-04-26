@@ -69,21 +69,21 @@ class MenuBar extends StatelessWidget {
                               style: ButtonStyle(
                                   overlayColor: MaterialStateColor.resolveWith(
                                       (states) => Colors.transparent))),
-                          TextButton(
-                              onPressed: () => Navigator.pushNamed(
-                                  context, Routes.experience),
-                              child: Text(
-                                "Experience",
-                                style: buttonTextStyle,
-                              ),
-                              style: ButtonStyle(
-                                  overlayColor: MaterialStateColor.resolveWith(
-                                      (states) => Colors.transparent))),
+                          // TextButton(
+                          //     onPressed: () => Navigator.pushNamed(
+                          //         context, Routes.experience),
+                          //     child: Text(
+                          //       "Experience",
+                          //       style: buttonTextStyle,
+                          //     ),
+                          //     style: ButtonStyle(
+                          //         overlayColor: MaterialStateColor.resolveWith(
+                          //             (states) => Colors.transparent))),
                           TextButton(
                               onPressed: () =>
                                   Navigator.pushNamed(context, Routes.project),
                               child: Text(
-                                "Project",
+                                "Skills and Project",
                                 style: buttonTextStyle,
                               ),
                               style: ButtonStyle(

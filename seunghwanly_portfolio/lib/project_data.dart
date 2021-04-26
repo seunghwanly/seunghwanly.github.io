@@ -59,7 +59,7 @@ List<ProjectData> projectData = [
       from: '2020년 동국대학교 팜(Farm) 경진대회',
       type: '팀장, 4인 팀프로젝트',
       period: '08.2020 ~ 11.2020',
-      mainDesc: 'React-Native 기반 스마트오더 서비스, 사용자 및 관리자',
+      mainDesc: '스마트오더 서비스, 사용자 및 관리자',
       subDesc: 'React-Native, Firebase',
       aboutProject:
           '다음 수업시작까지 커피를 사러 카페에 가기 어려운 학생들을 위해서 동국대학교 생활협동조합카페 통합 스마트오더 시스템을 개발해보았습니다. 미리 주문을 하고 가는 길에 주문한 상품을 찾아 수업을 바로 들어갈 수 있도록 사용자와 관리자 앱을 모두 개발했습니다. 카페에서 가능한 옵션들을 생활협동조합카페 사장님과 이야기를 미리 나누어 보면서 기능 정의를 했습니다.',
@@ -86,7 +86,7 @@ List<ProjectData> projectData = [
       from: '2020년 2학기 소프트웨어공학개론',
       type: '팀장, 4인 팀프로젝트',
       period: '10.2020 ~ 12.2020',
-      mainDesc: 'Flutter 기반 스마트오더 서비스, 사용자 및 관리자',
+      mainDesc: '스마트오더 서비스, 사용자 및 관리자',
       subDesc: 'Flutter, Firebase',
       aboutProject: "테이크-아웃이 이루어지는 '레스토랑 자동화 시스템' 주제의 프로젝트, 사용자 및 관리자",
       myJob: [
@@ -110,7 +110,7 @@ List<ProjectData> projectData = [
       from: 'Olinda High School Book Sharing Club, Califorina Brea 희망나눔 프로젝트',
       type: '5인 팀프로젝트',
       period: '11.2020 ~ 12.2020',
-      mainDesc: 'Flutter 기반 Mini-Marathon 및 Fundraising 서비스',
+      mainDesc: 'Mini-Marathon 및 Fundraising 서비스',
       subDesc: 'Flutter, Firebase',
       aboutProject:
           'Olinda HS Book Sharing Club X Korean Town Senior and Community Center LA, California X 동국대학교 봉사활동 프로젝트, COVID-19으로부터 고통받는 Senior들을 위해서 5K 미니마라톤 및 Fundraising을 할 수 있는 봉사활동 서비스를 개발했습니다.',
@@ -132,21 +132,23 @@ List<ProjectData> projectData = [
         'https://user-images.githubusercontent.com/22142225/101128695-88c12480-3643-11eb-8019-921689c9fdcb.gif'
       ]),
   ProjectData(
-      name: 'Mobius Platform 레이더 연동',
+      name: 'Mobius 레이더 연동',
       from: '브릿지티솔루션(주)',
-      type: '2020 겨울하기 현장실습',
+      type: '2020 겨울학기 현장실습',
       period: '12.2020 ~ 02.2021',
       mainDesc:
-          'Node.js 기반 Mobius, IoT Open Source Platform를 이용한 레이더 데이터 시각화 프로젝트',
+          'Mobius, IoT Open Source Platform를 이용한 UWB레이더 데이터 시각화 프로젝트',
       subDesc: 'Node.js, Express.js, Docker, Grafana',
       aboutProject:
           '(주)탑엔지니어링 레이더를 이용한 레이더를 시각화 오픈소스 툴인 Grafana를 통해 시각화하는 과정에서 데이터 전송 flow 설계 및 구현을 해보았습니다.',
       myJob: [
-        'ubuntu 16.04 환경에서 Node.js 기반 Mobius, docker image화 및 배포',
-        'Mobius에 저장된 데이터를 listen 하는 net.Socket Server 설계 및 구현',
+        'ubuntu 16.04 환경에서 Node.js 기반 Mobius 연동',
+        'Mobius Docker image화 및 배포',
+        'listener역할 net.Socket Server 설계 및 구현',
         '레이더에서 송신하는 데이터 Parsing 작업',
         'MySQL 실시간 데이터 listener 구현',
-        'Grafana 전반적인 UI 디자인 및 데이터 가공 작업'
+        'Grafana 전반적인 UI 디자인 및 데이터 가공 작업',
+        'Mobius 가이드라인 작성'
       ],
       url: 'https://github.com/seunghwanly/mobius-docker',
       store: [],

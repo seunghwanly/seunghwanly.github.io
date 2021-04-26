@@ -5,9 +5,12 @@ import 'package:seunghwanly_portfolio/components/components.dart';
 import 'package:seunghwanly_portfolio/components/spacing.dart';
 import 'package:seunghwanly_portfolio/components/typography.dart';
 // packages
+import 'package:flutter_icons/flutter_icons.dart';
+import 'package:seunghwanly_portfolio/experience.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+GlobalKey key = new GlobalKey();
 
 class HomePage extends StatefulWidget {
   @override
@@ -21,7 +24,9 @@ class _HomePageState extends State<HomePage> {
   ScrollController _controller = new ScrollController();
 
   void scrollTo() {
-    _controller.animateTo(600,
+    RenderBox box = key.currentContext.findRenderObject();
+    Offset pos = box.localToGlobal(Offset.zero);
+    _controller.animateTo(pos.dy,
         duration: Duration(milliseconds: 1000), curve: Curves.ease);
   }
 
@@ -58,38 +63,37 @@ class _HomePageState extends State<HomePage> {
 
   Widget title(BuildContext context, {title}) {
     final size = MediaQuery.of(context).size;
-
     return Stack(
       alignment: AlignmentDirectional.center,
       children: <Widget>[
         Container(
-          height: 500,
+          height: 600,
           width: double.infinity,
           decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage('images/title/tech.jpg'),
+                  image: AssetImage('title/typing.gif'),
                   colorFilter: ColorFilter.mode(
                       Colors.black.withOpacity(0.5), BlendMode.darken),
                   fit: BoxFit.cover)),
         ),
+        Container(
+          margin: marginHorizontal(size.width),
+          child: Text(
+            title,
+            style: imageTitleWhiteTextStyle,
+            textAlign: TextAlign.center,
+          ),
+        ),
         Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
             SizedBox(
-              height: 150,
-            ),
-            Container(
-              margin: marginHorizontal(size.width),
-              child: Text(
-                title,
-                style: imageTitleWhiteTextStyle,
-                textAlign: TextAlign.center,
-              ),
+              height: 200,
             ),
             SizedBox(
-              height: 150,
+              height: 200,
             ),
-            GestureDetector(
+            InkWell(
                 onTap: () => scrollTo(),
                 child: Container(
                   height: 80,
@@ -103,15 +107,13 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ))
           ],
-        )
+        ),
       ],
     );
   }
 }
 
 class AboutMe extends StatelessWidget {
-  const AboutMe({Key key}) : super(key: key);
-
   void launchURL(url) async =>
       await canLaunch(url) ? await launch(url) : print('cannot open');
 
@@ -119,15 +121,16 @@ class AboutMe extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Container(
+      key: key,
       color: Colors.white,
       child: Column(
         children: <Widget>[
-          SizedBox(height: 100),
+          SizedBox(height: 200),
           Align(
             alignment: Alignment.topLeft,
             child: Container(
                 margin: marginHorizontal(size.width),
-                child: Text('About Me', style: subtitleTextStyle)),
+                child: Text('About Me', style: headlineSecondaryTextStyle)),
           ),
           SizedBox(height: 50),
           Align(
@@ -138,29 +141,19 @@ class AboutMe extends StatelessWidget {
                   textAlign: TextAlign.center,
                   text: TextSpan(children: <TextSpan>[
                     TextSpan(
-                        text: '안녕하세요 !\n',
-                        style: GoogleFonts.nanumGothicCoding(
-                            fontSize: 20,
-                            height: 2,
-                            color: textPrimary,
-                            fontWeight: FontWeight.w600)),
-                    TextSpan(text: '현재 동국대학교에서 재학 중인 ', style: bodyTextStyle),
-                    TextSpan(
-                        text: '앱 개발',
-                        style: GoogleFonts.nanumGothicCoding(
-                            fontSize: 20,
-                            height: 2,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold)),
+                        text: '안녕하세요 !\n현재 동국대학교 컴퓨터공학과에서 재학 중인 ',
+                        style: bodyTextStyle),
+                    TextSpan(text: ' 그림🎨', style: subtitleTextStyle),
+                    TextSpan(text: ' 과 ', style: bodyTextStyle),
+                    TextSpan(text: '앱 개발👨‍💻', style: subtitleTextStyle),
                     TextSpan(text: '을 좋아하는\n', style: bodyTextStyle),
                     TextSpan(
-                        text: '이승환',
-                        style: GoogleFonts.nanumGothicCoding(
-                            fontSize: 20,
-                            height: 2,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold)),
-                    TextSpan(text: '이라고 합니다.', style: bodyTextStyle),
+                        text: '이승환, Seunghwan Lee', style: subtitleTextStyle),
+                    TextSpan(text: ' 이라고 합니다.\n', style: bodyTextStyle),
+                    TextSpan(
+                        text:
+                            '프로젝트 관리는 Github에서 하고 있으며, 공유하고 싶은 내용들은 velog.io에서 포스팅하고 있습니다.',
+                        style: bodyTextStyle),
                   ]),
                 )),
           ),
@@ -180,11 +173,10 @@ class AboutMe extends StatelessWidget {
                             launchURL('https://github.com/seunghwanly'),
                         child: Row(
                           children: <Widget>[
-                            SvgPicture.asset(
-                              'images/icon/logo-github.svg',
-                              fit: BoxFit.cover,
-                              height: 35,
-                              width: 35,
+                            Icon(
+                              Ionicons.logo_github,
+                              size: 35,
+                              color: Colors.black,
                             ),
                             Text(' Github',
                                 style: GoogleFonts.raleway(
@@ -201,11 +193,10 @@ class AboutMe extends StatelessWidget {
                             launch('https://velog.io/@seunghwanly'),
                         child: Row(
                           children: <Widget>[
-                            SvgPicture.asset(
-                              'images/icon/logo-venmo.svg',
-                              fit: BoxFit.cover,
-                              height: 35,
-                              width: 35,
+                            Icon(
+                              Ionicons.logo_vimeo,
+                              color: Colors.black,
+                              size: 35,
                             ),
                             Text(' velog',
                                 style: GoogleFonts.raleway(
@@ -219,7 +210,7 @@ class AboutMe extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 100),
+          SizedBox(height: 200),
         ],
       ),
     );
@@ -271,14 +262,14 @@ class Awards extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Container(
-        color: lightWhite,
+        color: themeLightOrange.withOpacity(0.3),
         child: Column(children: <Widget>[
-          SizedBox(height: 100),
+          SizedBox(height: 200),
           Align(
             alignment: Alignment.topLeft,
             child: Container(
                 margin: marginHorizontal(size.width),
-                child: Text('Awards', style: subtitleTextStyle)),
+                child: Text('Awards', style: headlineSecondaryTextStyle)),
           ),
           SizedBox(height: 50),
           Container(
@@ -308,8 +299,11 @@ class Awards extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          SvgPicture.asset('images/icon/trophy.svg',
-                              height: 24, width: 24, color: themeLightOrange),
+                          Icon(
+                            Ionicons.ios_trophy,
+                            size: 24,
+                            color: themeLightOrange,
+                          ),
                           Text(list[index]['year'], style: awardPriceTextStyle)
                         ],
                       ),
@@ -342,7 +336,7 @@ class Awards extends StatelessWidget {
               },
             ),
           ),
-          SizedBox(height: 100),
+          SizedBox(height: 200),
         ]));
   }
 }
@@ -354,12 +348,12 @@ class Education extends StatelessWidget {
     return Container(
         color: Colors.white,
         child: Column(children: <Widget>[
-          SizedBox(height: 100),
+          SizedBox(height: 200),
           Align(
             alignment: Alignment.topLeft,
             child: Container(
                 margin: marginHorizontal(size.width),
-                child: Text('Education', style: subtitleTextStyle)),
+                child: Text('Education', style: headlineSecondaryTextStyle)),
           ),
           SizedBox(height: 50),
           Align(
@@ -411,7 +405,7 @@ class Education extends StatelessWidget {
                         ],
                       )),
           ),
-          SizedBox(height: 100),
+          SizedBox(height: 200),
         ]));
   }
 }

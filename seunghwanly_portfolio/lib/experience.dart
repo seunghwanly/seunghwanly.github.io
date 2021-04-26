@@ -69,7 +69,7 @@ class TechChart extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Container(
-      color: themeBlue,
+      color: themeBlue.withOpacity(0.5),
       child: Column(
         children: <Widget>[
           SizedBox(height: 100),
@@ -77,17 +77,24 @@ class TechChart extends StatelessWidget {
             alignment: Alignment.topLeft,
             child: Container(
                 margin: marginHorizontal(size.width),
-                child: Text("WHAT I'M PASSIONATE ABOUT", style: imageTitleWhiteTextStyle)),
+                child: Text("Skills", style: headlineSecondaryWhiteTextStyle)),
           ),
-          SizedBox(height: 50),
+          Align(
+            alignment: Alignment.topLeft,
+            child: Container(
+                margin: marginHorizontal(size.width),
+                child: Text(
+                    "Programming Language and Frameworks, I'd likely to use",
+                    style: subtitleWhiteTextStyle)),
+          ),
           Align(
             alignment: Alignment.center,
-            child: size.width > 600
+            child: size.width > 800
                 ? Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                         Container(
-                            width: size.width * 0.4,
+                            width: size.width * 0.45,
                             height: size.width * 0.48,
                             child: SfCircularChart(
                               annotations: <CircularChartAnnotation>[
@@ -95,7 +102,7 @@ class TechChart extends StatelessWidget {
                                   widget: Container(
                                       child: Text("Programming\nLanguage",
                                           textAlign: TextAlign.center,
-                                          style: GoogleFonts.raleway(
+                                          style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               fontSize: size.width * 0.02,
                                               color: Colors.white))),
@@ -108,24 +115,21 @@ class TechChart extends StatelessWidget {
                                         data.name,
                                     yValueMapper: (ChartData data, _) =>
                                         data.percentage,
-                                    cornerStyle: CornerStyle.bothCurve,
-                                    strokeWidth: 40,
-                                    innerRadius: '60%',
+                                    cornerStyle: CornerStyle.bothFlat,
                                     dataLabelMapper: (ChartData data, _) =>
                                         data.name,
                                     dataLabelSettings: DataLabelSettings(
-                                        textStyle: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
+                                        textStyle: subtitleWhiteTextStyle,
                                         isVisible: true,
                                         labelPosition:
                                             ChartDataLabelPosition.inside,
                                         // Renders background rectangle and fills it with series color
-                                        useSeriesColor: true)),
+                                        useSeriesColor: true),
+                                    animationDuration: 1000),
                               ],
                             )),
                         Container(
-                            width: size.width * 0.4,
+                            width: size.width * 0.45,
                             height: size.width * 0.48,
                             child: SfCircularChart(
                               annotations: <CircularChartAnnotation>[
@@ -133,7 +137,7 @@ class TechChart extends StatelessWidget {
                                   widget: Container(
                                       child: Text("Framework",
                                           textAlign: TextAlign.center,
-                                          style: GoogleFonts.raleway(
+                                          style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               fontSize: size.width * 0.02,
                                               color: Colors.white))),
@@ -146,35 +150,31 @@ class TechChart extends StatelessWidget {
                                         data.name,
                                     yValueMapper: (ChartData data, _) =>
                                         data.percentage,
-                                    cornerStyle: CornerStyle.bothCurve,
-                                    strokeWidth: 40,
-                                    innerRadius: '60%',
+                                    cornerStyle: CornerStyle.bothFlat,
                                     dataLabelMapper: (ChartData data, _) =>
                                         data.name,
                                     dataLabelSettings: DataLabelSettings(
-                                        textStyle: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
+                                        textStyle: subtitleWhiteTextStyle,
                                         isVisible: true,
                                         labelPosition:
                                             ChartDataLabelPosition.inside,
                                         // Renders background rectangle and fills it with series color
-                                        useSeriesColor: true)),
+                                        useSeriesColor: true),
+                                    animationDuration: 1000),
                               ],
                             ))
                       ])
                 : Column(
                     children: <Widget>[
                       Container(
-                          width: size.width * 0.4,
-                          height: size.width * 0.48,
+                          width: size.width,
                           child: SfCircularChart(
                             annotations: <CircularChartAnnotation>[
                               CircularChartAnnotation(
                                 widget: Container(
                                     child: Text("Programming\nLanguage",
                                         textAlign: TextAlign.center,
-                                        style: GoogleFonts.raleway(
+                                        style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: size.width * 0.02,
                                             color: Colors.white))),
@@ -187,9 +187,7 @@ class TechChart extends StatelessWidget {
                                       data.name,
                                   yValueMapper: (ChartData data, _) =>
                                       data.percentage,
-                                  cornerStyle: CornerStyle.bothCurve,
-                                  strokeWidth: 40,
-                                  innerRadius: '60%',
+                                  cornerStyle: CornerStyle.bothFlat,
                                   dataLabelMapper: (ChartData data, _) =>
                                       data.name,
                                   dataLabelSettings: DataLabelSettings(
@@ -200,19 +198,19 @@ class TechChart extends StatelessWidget {
                                       labelPosition:
                                           ChartDataLabelPosition.inside,
                                       // Renders background rectangle and fills it with series color
-                                      useSeriesColor: true)),
+                                      useSeriesColor: true),
+                                  animationDuration: 1000),
                             ],
                           )),
                       Container(
-                          width: size.width * 0.4,
-                          height: size.width * 0.48,
+                          width: size.width,
                           child: SfCircularChart(
                             annotations: <CircularChartAnnotation>[
                               CircularChartAnnotation(
                                 widget: Container(
                                     child: Text("Framework",
                                         textAlign: TextAlign.center,
-                                        style: GoogleFonts.raleway(
+                                        style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: size.width * 0.02,
                                             color: Colors.white))),
@@ -225,9 +223,7 @@ class TechChart extends StatelessWidget {
                                       data.name,
                                   yValueMapper: (ChartData data, _) =>
                                       data.percentage,
-                                  cornerStyle: CornerStyle.bothCurve,
-                                  strokeWidth: 40,
-                                  innerRadius: '60%',
+                                  cornerStyle: CornerStyle.bothFlat,
                                   dataLabelMapper: (ChartData data, _) =>
                                       data.name,
                                   dataLabelSettings: DataLabelSettings(
@@ -238,7 +234,8 @@ class TechChart extends StatelessWidget {
                                       labelPosition:
                                           ChartDataLabelPosition.inside,
                                       // Renders background rectangle and fills it with series color
-                                      useSeriesColor: true)),
+                                      useSeriesColor: true),
+                                  animationDuration: 1000),
                             ],
                           ))
                     ],
