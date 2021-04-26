@@ -285,7 +285,7 @@ class _ProjectListState extends State<ProjectList> {
         await canLaunch(url) ? await launch(url) : print('cannot open');
     ScrollController controller = new ScrollController();
 
-    Map<String, String> header = {"Access-Control-Request-Headers": "origin"};
+    Map<String, String> header = {"Access-Control-Allow-Origin": "*"};
 
     showBottomSheet(
         backgroundColor: Colors.black.withOpacity(0.5),
