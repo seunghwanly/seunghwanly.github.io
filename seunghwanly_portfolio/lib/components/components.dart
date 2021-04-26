@@ -15,7 +15,7 @@ class Footer extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 40, horizontal: 20),
       child: Align(
         alignment: Alignment.center,
-        child: TextBody(text: "Copyright © 2021 Seunghwanly"),
+        child: Text("Copyright © 2021 Seunghwanly", style: awardPriceTextStyle,),
       ),
     );
   }
@@ -41,6 +41,7 @@ class MenuBar extends StatelessWidget {
               margin: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
               // color: Colors.white,
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   GestureDetector(
                     onTap: () => Navigator.popUntil(context,
@@ -53,11 +54,12 @@ class MenuBar extends StatelessWidget {
                       ]),
                     ),
                   ),
+                  SizedBox(width: 20),
                   Flexible(
                     child: Container(
                       alignment: Alignment.centerRight,
                       child: Wrap(
-                        spacing: 30,
+                        spacing: 10,
                         children: <Widget>[
                           TextButton(
                               onPressed: () =>

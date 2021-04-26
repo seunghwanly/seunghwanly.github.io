@@ -285,7 +285,7 @@ class _ProjectListState extends State<ProjectList> {
         await canLaunch(url) ? await launch(url) : print('cannot open');
     ScrollController controller = new ScrollController();
 
-    Map<String, String> header = {"Access-Control-Allow-Origin": "*"};
+    Map<String, String> header = {"Access-Control-Request-Headers": "origin"};
 
     showBottomSheet(
         backgroundColor: Colors.black.withOpacity(0.5),
@@ -294,7 +294,7 @@ class _ProjectListState extends State<ProjectList> {
         builder: (context) {
           final size = MediaQuery.of(context).size;
           return Container(
-            height: double.infinity,
+            height: size.height,
             child: SingleChildScrollView(
                 controller: controller,
                 child: Container(
@@ -380,18 +380,26 @@ class _ProjectListState extends State<ProjectList> {
                                           itemCount: data.myJob.length,
                                           itemBuilder: (context, index) =>
                                               Container(
-                                                  child: Row(children: <Widget>[
-                                            Icon(Ionicons.ios_checkmark_circle,
-                                                color: Colors.green[400],
-                                                size: 24),
-                                            SizedBox(
-                                              width: 5,
-                                            ),
-                                            Text(
-                                              data.myJob[index],
-                                              style: bodyTextStyle,
-                                            )
-                                          ])),
+                                                  padding: paddingH20V10,
+                                                  child: Row(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: <Widget>[
+                                                    Expanded(
+                                                      flex: 2,
+                                                      child: Icon(
+                                                          Ionicons
+                                                              .ios_checkmark_circle,
+                                                          color:
+                                                              Colors.green,
+                                                          size: 30),
+                                                    ),
+                                                    Expanded(
+                                                      flex: 8,
+                                                      child: Text(
+                                                          data.myJob[index],
+                                                          style: bodyTextStyle),
+                                                    )
+                                                  ])),
                                         )),
                                     Expanded(
                                         flex: 6,
@@ -407,7 +415,8 @@ class _ProjectListState extends State<ProjectList> {
                                                   image:
                                                       new CachedNetworkImageProvider(
                                                           data.imageURL[0],
-                                                          headers: header),
+                                                          headers: header,
+                                                          imageRenderMethodForWeb: ImageRenderMethodForWeb.HtmlImage),
                                                   fit: BoxFit.contain,
                                                   height: 600,
                                                 )),
@@ -438,17 +447,26 @@ class _ProjectListState extends State<ProjectList> {
                                       itemCount: data.myJob.length,
                                       itemBuilder: (context, index) =>
                                           Container(
-                                              child: Row(children: <Widget>[
-                                        Icon(Ionicons.ios_checkmark_circle,
-                                            color: Colors.green[400], size: 24),
-                                        SizedBox(
-                                          width: 5,
-                                        ),
-                                        Text(
-                                          data.myJob[index],
-                                          style: bodyTextStyle,
-                                        )
-                                      ])),
+                                                  padding: paddingH20V10,
+                                                  child: Row(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: <Widget>[
+                                                    Expanded(
+                                                      flex: 2,
+                                                      child: Icon(
+                                                          Ionicons
+                                                              .ios_checkmark_circle,
+                                                          color:
+                                                              Colors.green,
+                                                          size: 30),
+                                                    ),
+                                                    Expanded(
+                                                      flex: 8,
+                                                      child: Text(
+                                                          data.myJob[index],
+                                                          style: bodyTextStyle),
+                                                    )
+                                                  ])),
                                     ),
                                     SizedBox(
                                       height: 20,

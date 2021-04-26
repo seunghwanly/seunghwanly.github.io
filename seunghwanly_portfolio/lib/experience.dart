@@ -85,7 +85,7 @@ class TechChart extends StatelessWidget {
                 margin: marginHorizontal(size.width),
                 child: Text(
                     "Programming Language and Frameworks, I'd likely to use",
-                    style: subtitleWhiteTextStyle)),
+                    style: bodyWhiteTextStyle)),
           ),
           Align(
             alignment: Alignment.center,

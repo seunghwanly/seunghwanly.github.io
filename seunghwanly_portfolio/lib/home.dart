@@ -56,6 +56,16 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
+          Positioned(
+              right: 45.0,
+              bottom: 45.0,
+              child: FloatingActionButton(
+                onPressed: () => _controller.animateTo(0,
+                    duration: Duration(milliseconds: 1000), curve: Curves.ease),
+                child: Icon(Icons.keyboard_arrow_up_rounded,
+                    size: 30, color: Colors.white),
+                backgroundColor: themeLightOrange,
+              ))
         ],
       ),
     );
@@ -67,11 +77,11 @@ class _HomePageState extends State<HomePage> {
       alignment: AlignmentDirectional.center,
       children: <Widget>[
         Container(
-          height: 600,
+          height: size.height,
           width: double.infinity,
           decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage('assets/title/typing.gif'),
+                  image: AssetImage('assets/title/tech.jpg'),
                   colorFilter: ColorFilter.mode(
                       Colors.black.withOpacity(0.5), BlendMode.darken),
                   fit: BoxFit.cover)),
@@ -138,21 +148,33 @@ class AboutMe extends StatelessWidget {
             child: Container(
                 margin: marginHorizontal(size.width),
                 child: RichText(
-                  textAlign: TextAlign.center,
+                  textAlign: TextAlign.left,
                   text: TextSpan(children: <TextSpan>[
                     TextSpan(
-                        text: '안녕하세요 !\n현재 동국대학교 컴퓨터공학과에서 재학 중인 ',
+                        text:
+                            '안녕하세요 !\nFront-end 개발자를 꿈꾸는 이승환, Seunghwan Lee 입니다.😁\n',
                         style: bodyTextStyle),
-                    TextSpan(text: ' 그림🎨', style: subtitleTextStyle),
-                    TextSpan(text: ' 과 ', style: bodyTextStyle),
-                    TextSpan(text: '앱 개발👨‍💻', style: subtitleTextStyle),
-                    TextSpan(text: '을 좋아하는\n', style: bodyTextStyle),
+                    // TextSpan(
+                    //     text: '그림',
+                    //     style: bodyTextStyleWithBackground(
+                    //         text: Colors.black, background: themeLightOrange.withOpacity(0.2))),
+                    TextSpan(text: '그림', style: bodyTextStyle),
                     TextSpan(
-                        text: '이승환, Seunghwan Lee', style: subtitleTextStyle),
-                    TextSpan(text: ' 이라고 합니다.\n', style: bodyTextStyle),
+                        text: ' 이 취미여서 AdobeXD, Figma로 UI/UX 디자인을 좋아합니다.\n',
+                        style: bodyTextStyle),
+                    TextSpan(
+                        text: 'Cross-platform을 사용해서 ', style: bodyTextStyle),
+                    // TextSpan(
+                    //     text: '앱개발',
+                    //     style: bodyTextStyleWithBackground(
+                    //         text: Colors.black, background: themeBlue.withOpacity(0.2))),
+                    TextSpan(text: '앱개발', style: bodyTextStyle),
+                    TextSpan(
+                        text: '을 주로 경험해봤으며 Flutter란 프레임워크를 가장 많이 사용해봤습니다.\n',
+                        style: bodyTextStyle),
                     TextSpan(
                         text:
-                            '프로젝트 관리는 Github에서 하고 있으며, 공유하고 싶은 내용들은 velog.io에서 포스팅하고 있습니다.',
+                            '프로젝트 관리는 Github에서 하고 있으며, 공유하고 싶은 내용들은 velog에서 포스팅하고 있습니다.',
                         style: bodyTextStyle),
                   ]),
                 )),
@@ -161,13 +183,14 @@ class AboutMe extends StatelessWidget {
           Align(
             alignment: Alignment.center,
             child: Container(
-              margin: marginHorizontal(size.width * 0.8),
+              margin: marginHorizontal(size.width),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Container(
-                      width: 120,
+                  Expanded(
+                      // width: 120,
+                      flex: 2,
                       child: TextButton(
                         onPressed: () =>
                             launchURL('https://github.com/seunghwanly'),
@@ -178,16 +201,19 @@ class AboutMe extends StatelessWidget {
                               size: 35,
                               color: Colors.black,
                             ),
-                            Text(' Github',
-                                style: GoogleFonts.raleway(
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.w600,
-                                    color: textPrimary))
+                            size.width > 800
+                                ? Text(' Github',
+                                    style: GoogleFonts.raleway(
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.w600,
+                                        color: textPrimary))
+                                : SizedBox()
                           ],
                         ),
                       )),
-                  Container(
-                      width: 120,
+                  Expanded(
+                      // width: 120,
+                      flex: 2,
                       child: TextButton(
                         onPressed: () =>
                             launch('https://velog.io/@seunghwanly'),
@@ -198,11 +224,35 @@ class AboutMe extends StatelessWidget {
                               color: Colors.black,
                               size: 35,
                             ),
-                            Text(' velog',
-                                style: GoogleFonts.raleway(
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.w600,
-                                    color: textPrimary))
+                            size.width > 800
+                                ? Text(' velog',
+                                    style: GoogleFonts.raleway(
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.w600,
+                                        color: textPrimary))
+                                : SizedBox()
+                          ],
+                        ),
+                      )),
+                  Expanded(
+                      // width: 120,
+                      flex: 2,
+                      child: TextButton(
+                        onPressed: () => launch('https://youtu.be/tgnJY8BZ5-U'),
+                        child: Row(
+                          children: <Widget>[
+                            Icon(
+                              Ionicons.logo_youtube,
+                              color: Colors.black,
+                              size: 35,
+                            ),
+                            size.width > 800
+                                ? Text(' Youtube',
+                                    style: GoogleFonts.raleway(
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.w600,
+                                        color: textPrimary))
+                                : SizedBox()
                           ],
                         ),
                       ))
