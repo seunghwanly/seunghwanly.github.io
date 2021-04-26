@@ -285,7 +285,7 @@ class _ProjectListState extends State<ProjectList> {
         await canLaunch(url) ? await launch(url) : print('cannot open');
     ScrollController controller = new ScrollController();
 
-    Map<String, String> header = {"Access-Control-Allow-Origin": "*"};
+    Map<String, String> header = {"Origin": "*"};
 
     showBottomSheet(
         backgroundColor: Colors.black.withOpacity(0.5),
@@ -414,7 +414,7 @@ class _ProjectListState extends State<ProjectList> {
                                                 child: Image(
                                                   image:
                                                       new CachedNetworkImageProvider(
-                                                          data.imageURL[0],
+                                                          'https://cors.bridged.cc/'+data.imageURL[0],
                                                           headers: header,
                                                           imageRenderMethodForWeb: ImageRenderMethodForWeb.HtmlImage),
                                                   fit: BoxFit.contain,
@@ -429,7 +429,7 @@ class _ProjectListState extends State<ProjectList> {
                                                 child: Image(
                                                   image:
                                                       new CachedNetworkImageProvider(
-                                                    data.imageURL[1],
+                                                    'https://cors.bridged.cc/'+data.imageURL[1],
                                                     headers: header,
                                                   ),
                                                   fit: BoxFit.contain,
