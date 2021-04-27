@@ -50,13 +50,13 @@ TextStyle bodyWhiteTextStyle =
   
 
 TextStyle bottomSheetBodyTextStyle = TextStyle(
-  fontFamily: 'NanumSquare', fontSize: 18, color: lightBlack, height: 1.25
+  fontFamily: 'NanumSquare', fontSize: 18, color: lightBlack, height: 1.5
 );
 TextStyle bottomSheetH3TextStyle = TextStyle(
-  fontFamily: 'NanumSquare', fontSize: 22, color: lightBlack, height: 1.25
+  fontFamily: 'NanumSquare', fontSize: 22, color: lightBlack, height: 1.5
 );
 TextStyle bottomSheetH2TextStyle = TextStyle(
-  fontFamily: 'NanumSquare', fontSize: 22, color: lightBlack, height: 1.25, fontWeight: FontWeight.bold
+  fontFamily: 'NanumSquare', fontSize: 22, color: lightBlack, height: 1.5, fontWeight: FontWeight.bold
 );
 
 

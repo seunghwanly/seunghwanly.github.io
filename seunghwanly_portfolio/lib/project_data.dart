@@ -50,8 +50,8 @@ List<ProjectData> projectData = [
         'https://play.google.com/store/apps/details?id=com.seoullo.seoullotour&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'
       ],
       imageURL: [
-        'https://user-images.githubusercontent.com/22142225/85195206-8ecc7e80-b30b-11ea-8fbb-c68a509790b3.jpeg',
-        'https://user-images.githubusercontent.com/22142225/85195215-955af600-b30b-11ea-8d1b-d9d1a44e8dbf.jpeg'
+        'https://raw.githubusercontent.com/CSID-DGU/2020-1-OSSP2-SEOULLO-3/master/.github/images/seoullo.jpeg',
+        'https://raw.githubusercontent.com/CSID-DGU/2020-1-OSSP2-SEOULLO-3/master/.github/images/seoullo2.jpeg'
       ]
       ),
   ProjectData(

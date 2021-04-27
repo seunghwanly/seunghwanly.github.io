@@ -272,7 +272,7 @@ class _ProjectListState extends State<ProjectList> {
         await canLaunch(url) ? await launch(url) : print('cannot open');
     ScrollController controller = new ScrollController();
 
-    Map<String, String> header = {"Origin": "*"};
+    Map<String, String> header = {"x-requested-with": "XMLHttpRequest"};
 
     showBottomSheet(
         backgroundColor: Colors.white,
@@ -286,7 +286,7 @@ class _ProjectListState extends State<ProjectList> {
                 controller: controller,
                 child: Container(
                     color: Colors.white,
-                    padding: paddingH2V2(size.width),
+                    padding: paddingH2V60(size.width),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
@@ -349,12 +349,13 @@ class _ProjectListState extends State<ProjectList> {
                         Align(
                             alignment: Alignment.centerLeft,
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Expanded(
                                   flex: 1,
                                   child: Icon(Icons.description_rounded,
-                                      size: 24, color: lightGray),
+                                      size: 30, color: themeGrayText),
                                 ),
                                 SizedBox(width: 5),
                                 Expanded(
@@ -371,184 +372,87 @@ class _ProjectListState extends State<ProjectList> {
                           child: divider,
                         ),
                         Align(
-                          alignment: Alignment.centerLeft,
-                          child: size.width > 800
-                              ? Row(
-                                  children: <Widget>[
-                                    Expanded(
-                                        flex: 4,
-                                        child: ListView.builder(
-                                          physics:
-                                              NeverScrollableScrollPhysics(),
-                                          shrinkWrap: true,
-                                          itemCount: data.myJob.length,
-                                          itemBuilder: (context, index) =>
-                                              Container(
-                                                  padding: paddingH20V10,
-                                                  child: Row(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: <Widget>[
-                                                        Expanded(
-                                                          flex: 1,
-                                                          child: Icon(
-                                                              Ionicons
-                                                                  .ios_checkmark_circle,
-                                                              color:
-                                                                  Colors.green,
-                                                              size: 30),
-                                                        ),
-                                                        SizedBox(
-                                                          width: 10,
-                                                        ),
-                                                        Expanded(
-                                                          flex: 9,
-                                                          child: Text(
-                                                              data.myJob[index],
-                                                              style:
-                                                                  bodyTextStyle),
-                                                        )
-                                                      ])),
-                                        )),
-                                    Expanded(
-                                        flex: 6,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
+                            alignment: Alignment.centerLeft,
+                            child: Wrap(
+                              spacing: 20,
+                              runSpacing: 20,
+                              children: <Widget>[
+                                ListView.builder(
+                                  physics: NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount: data.myJob.length,
+                                  itemBuilder: (context, index) => Container(
+                                      padding: paddingH20V10,
+                                      child: Row(
                                           crossAxisAlignment:
-                                              CrossAxisAlignment.center,
+                                              CrossAxisAlignment.start,
                                           children: <Widget>[
                                             Expanded(
-                                                flex: 4,
-                                                child: Image(
-                                                  image: new CachedNetworkImageProvider(
-                                                      'https://cors.bridged.cc/' +
-                                                          data.imageURL[0],
-                                                      headers: header,
-                                                      imageRenderMethodForWeb:
-                                                          ImageRenderMethodForWeb
-                                                              .HtmlImage),
-                                                  fit: BoxFit.contain,
-                                                  height: 600,
-                                                )),
-                                            Expanded(
                                               flex: 1,
-                                              child: SizedBox(),
+                                              child: Icon(
+                                                  Ionicons.ios_checkmark_circle,
+                                                  color: themeLightOrange,
+                                                  size: 30),
+                                            ),
+                                            SizedBox(
+                                              width: 10,
                                             ),
                                             Expanded(
-                                                flex: 4,
-                                                child: Image(
-                                                  image:
-                                                      new CachedNetworkImageProvider(
-                                                    'https://cors.bridged.cc/' +
-                                                        data.imageURL[1],
-                                                    headers: header,
-                                                  ),
+                                              flex: 9,
+                                              child: Text(data.myJob[index],
+                                                  style:
+                                                      bottomSheetBodyTextStyle),
+                                            )
+                                          ])),
+                                ),
+                                SizedBox(
+                                  height: 25,
+                                  child: divider,
+                                ),
+                                Wrap(
+                                  alignment: WrapAlignment.center,
+                                  crossAxisAlignment: WrapCrossAlignment.center,
+                                  spacing: 10,
+                                  runSpacing: 10,
+                                  children: <Widget>[
+                                    CachedNetworkImage(
+                                        httpHeaders: header,
+                                        imageUrl: data.imageURL[0],
+                                        imageBuilder:
+                                            (context, imageProvider) => Image(
+                                                  image: imageProvider,
                                                   fit: BoxFit.contain,
                                                   height: 600,
-                                                )),
-                                          ],
-                                        ))
+                                                ),
+                                        placeholder: (context, url) =>
+                                            LoadingIndicator(
+                                              indicatorType: Indicator.pacman,
+                                              color: themeLightOrange
+                                                  .withOpacity(0.5),
+                                            ),
+                                        errorWidget: (context, url, error) =>
+                                            Icon(Icons.error_outline_rounded)),
+                                    CachedNetworkImage(
+                                        httpHeaders: header,
+                                        imageUrl: data.imageURL[1],
+                                        imageBuilder:
+                                            (context, imageProvider) => Image(
+                                                  image: imageProvider,
+                                                  fit: BoxFit.contain,
+                                                  height: 600,
+                                                ),
+                                        placeholder: (context, url) =>
+                                            LoadingIndicator(
+                                              indicatorType: Indicator.pacman,
+                                              color: themeLightOrange
+                                                  .withOpacity(0.5),
+                                            ),
+                                        errorWidget: (context, url, error) =>
+                                            Icon(Icons.error_outline_rounded))
                                   ],
                                 )
-                              : Column(
-                                  children: <Widget>[
-                                    ListView.builder(
-                                      physics: NeverScrollableScrollPhysics(),
-                                      shrinkWrap: true,
-                                      itemCount: data.myJob.length,
-                                      itemBuilder: (context, index) =>
-                                          Container(
-                                              margin: marginBottom12,
-                                              child: Row(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: <Widget>[
-                                                    Expanded(
-                                                      flex: 1,
-                                                      child: Icon(
-                                                          Ionicons
-                                                              .ios_checkmark_circle,
-                                                          color: Colors.green,
-                                                          size: 30),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    Expanded(
-                                                      flex: 9,
-                                                      child: Text(
-                                                          data.myJob[index],
-                                                          style:
-                                                              bottomSheetBodyTextStyle),
-                                                    )
-                                                  ])),
-                                    ),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    size.width > 800
-                                        ? Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: <Widget>[
-                                              Expanded(
-                                                  flex: 4,
-                                                  child: Image(
-                                                    image:
-                                                        new CachedNetworkImageProvider(
-                                                      data.imageURL[0],
-                                                      headers: header,
-                                                    ),
-                                                    fit: BoxFit.contain,
-                                                    height: 600,
-                                                  )),
-                                              Expanded(
-                                                flex: 1,
-                                                child: SizedBox(),
-                                              ),
-                                              Expanded(
-                                                  flex: 4,
-                                                  child: Image(
-                                                    image:
-                                                        new CachedNetworkImageProvider(
-                                                      data.imageURL[1],
-                                                      headers: header,
-                                                    ),
-                                                    fit: BoxFit.contain,
-                                                    height: 600,
-                                                  )),
-                                            ],
-                                          )
-                                        : Column(
-                                            children: <Widget>[
-                                              Image(
-                                                image:
-                                                    new CachedNetworkImageProvider(
-                                                  data.imageURL[0],
-                                                  headers: header,
-                                                ),
-                                                fit: BoxFit.contain,
-                                                width: size.width * 0.8,
-                                              ),
-                                              SizedBox(height: 20),
-                                              Image(
-                                                image:
-                                                    new CachedNetworkImageProvider(
-                                                  data.imageURL[1],
-                                                  headers: header,
-                                                ),
-                                                fit: BoxFit.contain,
-                                                width: size.width * 0.8,
-                                              )
-                                            ],
-                                          )
-                                  ],
-                                ),
-                        ),
+                              ],
+                            )),
                         SizedBox(
                           height: 25,
                           child: divider,

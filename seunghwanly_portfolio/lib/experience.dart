@@ -72,7 +72,7 @@ class TechChart extends StatelessWidget {
       color: themeBlue.withOpacity(0.5),
       child: Column(
         children: <Widget>[
-          SizedBox(height: 100),
+          SizedBox(height: 200),
           Align(
             alignment: Alignment.topLeft,
             child: Container(
