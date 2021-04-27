@@ -137,10 +137,10 @@ List<ProjectData> projectData = [
       type: '2020 겨울학기 현장실습',
       period: '12.2020 ~ 02.2021',
       mainDesc:
-          'Mobius, IoT Open Source Platform를 이용한 UWB레이더 데이터 시각화 프로젝트',
-      subDesc: 'Node.js, Express.js, Docker, Grafana',
+          'Mobius를 이용한 UWB레이더 데이터 시각화 프로젝트',
+      subDesc: 'Node.js, Express.js, Docker, Grafana, Mobius',
       aboutProject:
-          '(주)탑엔지니어링 레이더를 이용한 레이더를 시각화 오픈소스 툴인 Grafana를 통해 시각화하는 과정에서 데이터 전송 flow 설계 및 구현을 해보았습니다.',
+          'IoT 오픈소스 플랫폼 Mobius와 UWB레이더를 이용한 레이더를 시각화 오픈소스 툴인 Grafana를 통해 시각화 및 데이터 전송 flow 설계 및 구현을 해보았습니다.',
       myJob: [
         'ubuntu 16.04 환경에서 Node.js 기반 Mobius 연동',
         'Mobius Docker image화 및 배포',

@@ -177,7 +177,7 @@ class _ProjectListState extends State<ProjectList> {
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: size.width > 800
                             ? 3
-                            : size.width > 450
+                            : size.width > 600
                                 ? 2
                                 : 1,
                         mainAxisSpacing: 10.0,
@@ -220,8 +220,7 @@ class _ProjectListState extends State<ProjectList> {
                                                 .withOpacity(0.5)),
                                         Text(projectData[index].period,
                                             style: TextStyle(
-                                              fontSize:
-                                                  size.width > 800 ? 12 : 10,
+                                              fontSize: 14,
                                               fontWeight: FontWeight.w300,
                                               color: lightGray,
                                             ))
@@ -233,13 +232,7 @@ class _ProjectListState extends State<ProjectList> {
                                     // title
                                     Text(projectData[index].name,
                                         style: TextStyle(
-                                          fontSize: size.width > 1200
-                                              ? 24
-                                              : size.width > 800
-                                                  ? 22
-                                                  : size.width > 450
-                                                      ? 18
-                                                      : 16,
+                                          fontSize: size.width > 1200 ? 24 : 22,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.black,
                                         )),
@@ -249,13 +242,7 @@ class _ProjectListState extends State<ProjectList> {
                                     // mainDesc
                                     Text(projectData[index].mainDesc,
                                         style: TextStyle(
-                                          fontSize: size.width > 1200
-                                              ? 14
-                                              : size.width > 800
-                                                  ? 12
-                                                  : size.width > 450
-                                                      ? 10
-                                                      : 10,
+                                          fontSize: 14,
                                           color: lightGray,
                                         )),
                                     SizedBox(
@@ -263,7 +250,7 @@ class _ProjectListState extends State<ProjectList> {
                                     ),
                                     Text(projectData[index].subDesc,
                                         style: TextStyle(
-                                          fontSize: size.width > 1200 ? 12 : 10,
+                                          fontSize: 12,
                                           color: lightGray,
                                         ),
                                         textAlign: TextAlign.end)
@@ -288,7 +275,7 @@ class _ProjectListState extends State<ProjectList> {
     Map<String, String> header = {"Origin": "*"};
 
     showBottomSheet(
-        backgroundColor: Colors.black.withOpacity(0.5),
+        backgroundColor: Colors.white,
         elevation: 16.0,
         context: context,
         builder: (context) {
@@ -299,7 +286,7 @@ class _ProjectListState extends State<ProjectList> {
                 controller: controller,
                 child: Container(
                     color: Colors.white,
-                    padding: paddingH20V20,
+                    padding: paddingH2V2(size.width),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
@@ -333,35 +320,52 @@ class _ProjectListState extends State<ProjectList> {
                           alignment: Alignment.centerRight,
                           child: Text(
                             data.period,
-                            style: bodyTextStyle,
+                            style: bottomSheetBodyTextStyle,
                           ),
                         ),
                         Align(
                           alignment: Alignment.centerRight,
-                          child: Text(data.type, style: bodyTextStyle),
+                          child:
+                              Text(data.type, style: bottomSheetBodyTextStyle),
                         ),
+                        SizedBox(height: 20),
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
                             data.mainDesc,
-                            style: subtitleTextStyle,
+                            style: bottomSheetH2TextStyle,
                           ),
                         ),
+                        SizedBox(height: 20),
                         Align(
                           alignment: Alignment.centerLeft,
-                          child: Text(data.subDesc, style: subtitleTextStyle),
+                          child:
+                              Text(data.subDesc, style: bottomSheetH3TextStyle),
                         ),
                         SizedBox(
                           height: 25,
                           child: divider,
                         ),
                         Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            data.aboutProject,
-                            style: bodyTextStyle,
-                          ),
-                        ),
+                            alignment: Alignment.centerLeft,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Expanded(
+                                  flex: 1,
+                                  child: Icon(Icons.description_rounded,
+                                      size: 24, color: lightGray),
+                                ),
+                                SizedBox(width: 5),
+                                Expanded(
+                                  flex: 9,
+                                  child: Text(
+                                    data.aboutProject,
+                                    style: bottomSheetBodyTextStyle,
+                                  ),
+                                ),
+                              ],
+                            )),
                         SizedBox(
                           height: 25,
                           child: divider,
@@ -382,24 +386,30 @@ class _ProjectListState extends State<ProjectList> {
                                               Container(
                                                   padding: paddingH20V10,
                                                   child: Row(
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    children: <Widget>[
-                                                    Expanded(
-                                                      flex: 2,
-                                                      child: Icon(
-                                                          Ionicons
-                                                              .ios_checkmark_circle,
-                                                          color:
-                                                              Colors.green,
-                                                          size: 30),
-                                                    ),
-                                                    Expanded(
-                                                      flex: 8,
-                                                      child: Text(
-                                                          data.myJob[index],
-                                                          style: bodyTextStyle),
-                                                    )
-                                                  ])),
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: <Widget>[
+                                                        Expanded(
+                                                          flex: 1,
+                                                          child: Icon(
+                                                              Ionicons
+                                                                  .ios_checkmark_circle,
+                                                              color:
+                                                                  Colors.green,
+                                                              size: 30),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 10,
+                                                        ),
+                                                        Expanded(
+                                                          flex: 9,
+                                                          child: Text(
+                                                              data.myJob[index],
+                                                              style:
+                                                                  bodyTextStyle),
+                                                        )
+                                                      ])),
                                         )),
                                     Expanded(
                                         flex: 6,
@@ -412,11 +422,13 @@ class _ProjectListState extends State<ProjectList> {
                                             Expanded(
                                                 flex: 4,
                                                 child: Image(
-                                                  image:
-                                                      new CachedNetworkImageProvider(
-                                                          'https://cors.bridged.cc/'+data.imageURL[0],
-                                                          headers: header,
-                                                          imageRenderMethodForWeb: ImageRenderMethodForWeb.HtmlImage),
+                                                  image: new CachedNetworkImageProvider(
+                                                      'https://cors.bridged.cc/' +
+                                                          data.imageURL[0],
+                                                      headers: header,
+                                                      imageRenderMethodForWeb:
+                                                          ImageRenderMethodForWeb
+                                                              .HtmlImage),
                                                   fit: BoxFit.contain,
                                                   height: 600,
                                                 )),
@@ -429,7 +441,8 @@ class _ProjectListState extends State<ProjectList> {
                                                 child: Image(
                                                   image:
                                                       new CachedNetworkImageProvider(
-                                                    'https://cors.bridged.cc/'+data.imageURL[1],
+                                                    'https://cors.bridged.cc/' +
+                                                        data.imageURL[1],
                                                     headers: header,
                                                   ),
                                                   fit: BoxFit.contain,
@@ -447,64 +460,92 @@ class _ProjectListState extends State<ProjectList> {
                                       itemCount: data.myJob.length,
                                       itemBuilder: (context, index) =>
                                           Container(
-                                                  padding: paddingH20V10,
-                                                  child: Row(
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    children: <Widget>[
+                                              margin: marginBottom12,
+                                              child: Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: <Widget>[
                                                     Expanded(
-                                                      flex: 2,
+                                                      flex: 1,
                                                       child: Icon(
                                                           Ionicons
                                                               .ios_checkmark_circle,
-                                                          color:
-                                                              Colors.green,
+                                                          color: Colors.green,
                                                           size: 30),
                                                     ),
+                                                    SizedBox(
+                                                      width: 10,
+                                                    ),
                                                     Expanded(
-                                                      flex: 8,
+                                                      flex: 9,
                                                       child: Text(
                                                           data.myJob[index],
-                                                          style: bodyTextStyle),
+                                                          style:
+                                                              bottomSheetBodyTextStyle),
                                                     )
                                                   ])),
                                     ),
                                     SizedBox(
                                       height: 20,
                                     ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Expanded(
-                                            flex: 4,
-                                            child: Image(
-                                              image:
-                                                  new CachedNetworkImageProvider(
-                                                data.imageURL[0],
-                                                headers: header,
+                                    size.width > 800
+                                        ? Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: <Widget>[
+                                              Expanded(
+                                                  flex: 4,
+                                                  child: Image(
+                                                    image:
+                                                        new CachedNetworkImageProvider(
+                                                      data.imageURL[0],
+                                                      headers: header,
+                                                    ),
+                                                    fit: BoxFit.contain,
+                                                    height: 600,
+                                                  )),
+                                              Expanded(
+                                                flex: 1,
+                                                child: SizedBox(),
                                               ),
-                                              fit: BoxFit.contain,
-                                              height: 600,
-                                            )),
-                                        Expanded(
-                                          flex: 1,
-                                          child: SizedBox(),
-                                        ),
-                                        Expanded(
-                                            flex: 4,
-                                            child: Image(
-                                              image:
-                                                  new CachedNetworkImageProvider(
-                                                data.imageURL[1],
-                                                headers: header,
+                                              Expanded(
+                                                  flex: 4,
+                                                  child: Image(
+                                                    image:
+                                                        new CachedNetworkImageProvider(
+                                                      data.imageURL[1],
+                                                      headers: header,
+                                                    ),
+                                                    fit: BoxFit.contain,
+                                                    height: 600,
+                                                  )),
+                                            ],
+                                          )
+                                        : Column(
+                                            children: <Widget>[
+                                              Image(
+                                                image:
+                                                    new CachedNetworkImageProvider(
+                                                  data.imageURL[0],
+                                                  headers: header,
+                                                ),
+                                                fit: BoxFit.contain,
+                                                width: size.width * 0.8,
                                               ),
-                                              fit: BoxFit.contain,
-                                              height: 600,
-                                            )),
-                                      ],
-                                    )
+                                              SizedBox(height:20),
+                                              Image(
+                                                image:
+                                                    new CachedNetworkImageProvider(
+                                                  data.imageURL[1],
+                                                  headers: header,
+                                                ),
+                                                fit: BoxFit.contain,
+                                                width: size.width * 0.8,
+                                              )
+                                            ],
+                                          )
                                   ],
                                 ),
                         ),
@@ -586,7 +627,7 @@ class _ProjectListState extends State<ProjectList> {
                                           Icon(Ionicons.logo_github,
                                               size: 40,
                                               color: Color.fromRGBO(
-                                                  163, 4, 250, 1.0)),
+                                                  111, 66, 193, 0.76)),
                                           size.width > 800
                                               ? Text(' Github',
                                                   style: GoogleFonts.raleway(

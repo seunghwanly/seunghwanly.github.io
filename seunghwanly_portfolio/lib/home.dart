@@ -6,11 +6,8 @@ import 'package:seunghwanly_portfolio/components/spacing.dart';
 import 'package:seunghwanly_portfolio/components/typography.dart';
 // packages
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:seunghwanly_portfolio/experience.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-GlobalKey key = new GlobalKey();
 
 class HomePage extends StatefulWidget {
   @override
@@ -23,11 +20,29 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   ScrollController _controller = new ScrollController();
 
-  void scrollTo() {
+  // for scroll
+  GlobalKey key;
+
+  @override
+  void initState() {
+    super.initState();
+    key = new GlobalKey();
+  }
+
+  void scrollTo(double height) {
     RenderBox box = key.currentContext.findRenderObject();
     Offset pos = box.localToGlobal(Offset.zero);
-    _controller.animateTo(pos.dy,
-        duration: Duration(milliseconds: 1000), curve: Curves.ease);
+    _controller.animateTo(
+        //pos.dy,
+        height,
+        duration: Duration(milliseconds: 1200),
+        curve: Curves.ease);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
   }
 
   @override
@@ -41,12 +56,10 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                // MENU BAR ----------------------------------------------------------
-                MenuBar(),
                 // Title thumbnail
                 title(context, title: 'THINGS ABOUT\nSEUNGHWAN LEE'),
                 // ABOUT ME ----------------------------------------------------------
-                AboutMe(),
+                AboutMe(key: key),
                 // AWARD -------------------------------------------------------------
                 Awards(),
                 // EDUCATION ---------------------------------------------------------
@@ -65,7 +78,9 @@ class _HomePageState extends State<HomePage> {
                 child: Icon(Icons.keyboard_arrow_up_rounded,
                     size: 30, color: Colors.white),
                 backgroundColor: themeLightOrange,
-              ))
+              )),
+          // MENU BAR ----------------------------------------------------------
+          MenuBar(),
         ],
       ),
     );
@@ -98,13 +113,13 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(
-              height: 200,
+              height: size.height * 0.3,
             ),
             SizedBox(
-              height: 200,
+              height: size.height * 0.3,
             ),
             InkWell(
-                onTap: () => scrollTo(),
+                onTap: () => scrollTo(size.height),
                 child: Container(
                   height: 80,
                   width: double.infinity,
@@ -123,7 +138,14 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class AboutMe extends StatelessWidget {
+class AboutMe extends StatefulWidget {
+  AboutMe({Key key}) : super(key: key);
+
+  @override
+  _AboutMeState createState() => _AboutMeState();
+}
+
+class _AboutMeState extends State<AboutMe> {
   void launchURL(url) async =>
       await canLaunch(url) ? await launch(url) : print('cannot open');
 
@@ -131,7 +153,6 @@ class AboutMe extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Container(
-      key: key,
       color: Colors.white,
       child: Column(
         children: <Widget>[

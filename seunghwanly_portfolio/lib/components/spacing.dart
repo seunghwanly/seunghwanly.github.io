@@ -21,4 +21,6 @@ const EdgeInsets paddingVertical20 = EdgeInsets.symmetric(horizontal: 20);
 const EdgeInsets paddingH20V20 = EdgeInsets.symmetric(horizontal: 20, vertical: 20);
 const EdgeInsets paddingH20V40 = EdgeInsets.symmetric(horizontal: 20, vertical: 40);
 const EdgeInsets paddingH20V10 = EdgeInsets.symmetric(horizontal: 20, vertical: 10);
-
+EdgeInsets paddingH2V2(double width) {
+  return EdgeInsets.symmetric(horizontal: width * 0.2, vertical: width * 0.2);
+}

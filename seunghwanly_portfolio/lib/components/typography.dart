@@ -47,6 +47,18 @@ TextStyle bodyTextStyle =
     TextStyle(fontFamily: 'NanumSquare', fontSize: 22, color: textPrimary, height: 1.5);
 TextStyle bodyWhiteTextStyle =
     TextStyle(fontFamily: 'NanumSquare', fontSize: 22, color: lightWhite);
+  
+
+TextStyle bottomSheetBodyTextStyle = TextStyle(
+  fontFamily: 'NanumSquare', fontSize: 18, color: lightBlack, height: 1.25
+);
+TextStyle bottomSheetH3TextStyle = TextStyle(
+  fontFamily: 'NanumSquare', fontSize: 22, color: lightBlack, height: 1.25
+);
+TextStyle bottomSheetH2TextStyle = TextStyle(
+  fontFamily: 'NanumSquare', fontSize: 22, color: lightBlack, height: 1.25, fontWeight: FontWeight.bold
+);
+
 
 TextStyle buttonTextStyle = TextStyle(
     fontFamily: 'NanumSquare',
@@ -56,7 +68,7 @@ TextStyle buttonTextStyle = TextStyle(
 
 TextStyle imageTitleWhiteTextStyle = TextStyle(
     fontFamily: 'NanumSquare',
-    fontSize: 44,
+    fontSize: 42,
     color: Colors.white,
     fontWeight: FontWeight.w800);
 
