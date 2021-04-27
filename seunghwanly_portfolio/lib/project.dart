@@ -40,8 +40,6 @@ class _ProjectPageState extends State<ProjectPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                // MENU BAR ----------------------------------------------------------
-                MenuBar(),
                 // // IMAGE BACKGROUND - NAME -------------------------------------------
                 // title(context, title: "PROJECTS"),
                 TechChart(),
@@ -51,6 +49,8 @@ class _ProjectPageState extends State<ProjectPage> {
               ],
             ),
           ),
+          // MENU BAR ----------------------------------------------------------
+          MenuBar(),
         ],
       ),
     );
@@ -534,7 +534,7 @@ class _ProjectListState extends State<ProjectList> {
                                                 fit: BoxFit.contain,
                                                 width: size.width * 0.8,
                                               ),
-                                              SizedBox(height:20),
+                                              SizedBox(height: 20),
                                               Image(
                                                 image:
                                                     new CachedNetworkImageProvider(
