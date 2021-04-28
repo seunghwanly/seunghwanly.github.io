@@ -78,8 +78,8 @@ List<ProjectData> projectData = [
       url: 'https://github.com/seunghwanly/DGTHRU',
       store: [],
       imageURL: [
-        'https://user-images.githubusercontent.com/22142225/99914356-32e5a600-2d40-11eb-8a7c-61bd54fb901d.PNG',
-        'https://user-images.githubusercontent.com/22142225/99960045-75a28f00-2dcf-11eb-8faa-861a188ade3a.jpeg',
+        'https://raw.githubusercontent.com/seunghwanly/DGTHRU/master/.github/images/dgthru1.png',
+        'https://raw.githubusercontent.com/seunghwanly/DGTHRU/master/.github/images/dgthru2.jpeg',
       ]),
   ProjectData(
       name: 'GAJUGA',
@@ -102,8 +102,8 @@ List<ProjectData> projectData = [
       url: 'https://github.com/seunghwanly/commitSyndrome',
       store: [],
       imageURL: [
-        'https://user-images.githubusercontent.com/33684401/100653225-6d2bf480-338b-11eb-91a9-fbaaa2d3a1a2.png',
-        'https://user-images.githubusercontent.com/33684401/100653759-39050380-338c-11eb-83cf-30b0c02907a9.png'
+        'https://raw.githubusercontent.com/seunghwanly/commitSyndrome/main/.github/images/gajuga1.png',
+        'https://raw.githubusercontent.com/seunghwanly/commitSyndrome/main/.github/images/gajuga2.png',
       ]),
   ProjectData(
       name: 'HOPE SHARING RELAY',
@@ -128,8 +128,8 @@ List<ProjectData> projectData = [
         'https://play.google.com/store/apps/details?id=com.hopeSharingRelay',
         'https://apps.apple.com/us/app/hope-sharing-relay/id1542745470'
       ], imageURL: [
-        'https://user-images.githubusercontent.com/22142225/101128699-8a8ae800-3643-11eb-9a17-8e5a07864b37.gif',
-        'https://user-images.githubusercontent.com/22142225/101128695-88c12480-3643-11eb-8019-921689c9fdcb.gif'
+        'https://raw.githubusercontent.com/seunghwanly/minimarathon/main/.github/images/hope1.gif',
+        'https://raw.githubusercontent.com/seunghwanly/minimarathon/main/.github/images/hope2.gif',
       ]),
   ProjectData(
       name: 'Mobius 레이더 연동',
@@ -153,8 +153,8 @@ List<ProjectData> projectData = [
       url: 'https://github.com/seunghwanly/mobius-docker',
       store: [],
       imageURL: [
-        'https://lh5.googleusercontent.com/FKlCCzdxKX39G95RiELabBGo-ymLAptM8ndfnf9nTPWsv56P6s5mp9kCNSmKFFfWs_Yco5IyJXHUSBfB2KiU6DkldQ0VEF0xdKUE5CeEDytU0uHUxUYzKGVELEGV2RzVzu3z-QzH',
-        'https://media.vlpt.us/images/seunghwanly/post/656e5c37-cef8-4505-82b3-ac49410a8b55/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-02-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%202.42.21.png'
+        'https://raw.githubusercontent.com/seunghwanly/mobius-docker/main/.github/images/mobius1.png',
+        'https://raw.githubusercontent.com/seunghwanly/mobius-docker/main/.github/images/mobius2.png',
       ]),
   // ProjectData(
   //   name: '이건뭐약'
