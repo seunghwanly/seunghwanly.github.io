@@ -182,19 +182,24 @@ export function LayerDiagram() {
 
   return (
     <figure className="layer-diagram">
-      <figcaption>앱과 웹에서 다룬 기술 범위</figcaption>
+      <div className="layer-diagram__header">
+        <figcaption>앱과 웹에서 다룬 기술 범위</figcaption>
+        <span aria-hidden="true">5 LAYERS</span>
+      </div>
       <div className="layer-stack">
         {layers.map(([label, value], index) => (
           <div className="layer-row" key={label}>
             <span className="layer-number">0{index + 1}</span>
-            <span className="layer-label">{label}</span>
-            <strong>{value}</strong>
+            <div>
+              <span className="layer-label">{label}</span>
+              <strong>{value}</strong>
+            </div>
           </div>
         ))}
       </div>
-      <p>
-        화면 구현부터 네이티브 연동, 배포와 운영 중 오류 확인까지 직접
-        다뤘습니다.
+      <p className="layer-diagram__note">
+        <span>END TO END</span>
+        화면 구현부터 네이티브 연동, 배포와 운영 중 오류 확인까지
       </p>
     </figure>
   );
@@ -215,36 +220,45 @@ export function IdentityArtifact() {
       <div className="identity-map">
         <div className="identity-sources" aria-label="연결 전 고객 정보">
           <div className="identity-source">
-            <span>01</span>
+            <span>INPUT 01</span>
             <strong>온라인 계정</strong>
             <small>앱 회원 정보</small>
           </div>
           <div className="identity-source">
-            <span>02</span>
+            <span>INPUT 02</span>
             <strong>매장 고객</strong>
             <small>매장 방문·거래 정보</small>
           </div>
         </div>
         <div className="identity-seam">
-          <span>연결 기준</span>
+          <span>TRUST RULE</span>
           <strong>본인인증 · 동의</strong>
+          <small>동일 고객임을 확인하는 연결 기준</small>
         </div>
-        <div className="identity-result">
-          <span>연결 결과</span>
-          <strong>31,124명</strong>
-          <p>통합 고객 식별</p>
+        <div className="identity-output">
+          <div className="identity-result">
+            <span>MATCHED CUSTOMER</span>
+            <strong>31,124명</strong>
+            <p>통합 고객으로 식별</p>
+          </div>
+          <div className="identity-output__features">
+            <span>연결 후 제공한 기능</span>
+            <ul className="identity-outcomes" aria-label="연결 후 제공한 기능">
+              <li>
+                <span>01</span>
+                <strong>고객 필터·알림</strong>
+              </li>
+              <li>
+                <span>02</span>
+                <strong>QR</strong>
+              </li>
+              <li>
+                <span>03</span>
+                <strong>주문 이력</strong>
+              </li>
+            </ul>
+          </div>
         </div>
-        <ul className="identity-outcomes" aria-label="연결 후 제공한 기능">
-          <li>
-            <strong>고객 필터·알림</strong>
-          </li>
-          <li>
-            <strong>QR</strong>
-          </li>
-          <li>
-            <strong>주문 이력</strong>
-          </li>
-        </ul>
       </div>
       <aside
         className="identity-artifact__note"
@@ -266,24 +280,33 @@ export const BoundaryFlow = IdentityArtifact;
 export function HumanAIContract() {
   return (
     <div className="human-ai-contract">
-      <div>
-        <p className="contract-label">AI로 한 일</p>
+      <div className="contract-card contract-card--assist">
+        <div className="contract-head">
+          <span>01</span>
+          <p className="contract-label">AI로 한 일</p>
+        </div>
         <ul>
           <li>SDK 코드 탐색</li>
           <li>첫 구현안 작성</li>
           <li>테스트·문서 초안</li>
         </ul>
       </div>
-      <div>
-        <p className="contract-label">직접 판단한 일</p>
+      <div className="contract-card contract-card--decision">
+        <div className="contract-head">
+          <span>02</span>
+          <p className="contract-label">직접 판단한 일</p>
+        </div>
         <ul>
           <li>문제 가설과 수정 범위</li>
           <li>코드 리뷰와 병합 여부</li>
           <li>정식 배포와 운영 확인</li>
         </ul>
       </div>
-      <div>
-        <p className="contract-label">검증한 항목</p>
+      <div className="contract-card contract-card--verify">
+        <div className="contract-head">
+          <span>03</span>
+          <p className="contract-label">검증한 항목</p>
+        </div>
         <ul>
           <li>쿼리 테스트 5개</li>
           <li>CI 검사 11개</li>
