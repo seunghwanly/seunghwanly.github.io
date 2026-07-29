@@ -16,7 +16,7 @@ export function SiteHeader() {
         <Link className="brand" href="/" aria-label="이승환 포트폴리오 홈">
           <span className="brand-name">이승환</span>
           <span className="brand-trace" aria-hidden="true">
-            TRACE / 01
+            ENGINEERING NOTES
           </span>
         </Link>
 
@@ -54,8 +54,8 @@ export function SiteFooter() {
         <div>
           <p className="footer-title">이승환 · Product Engineer</p>
           <p className="footer-copy">
-            제품의 경계를 잇고, 테스트·리뷰·운영 관측으로 신뢰를
-            만듭니다.
+            Flutter 앱과 React 웹을 만들고, 네이티브 연동부터 배포와
+            운영까지 맡아 왔습니다.
           </p>
         </div>
         <div className="footer-links" aria-label="외부 프로필">
@@ -79,4 +79,3 @@ export function SiteFooter() {
     </footer>
   );
 }
-

@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
-  BoundaryFlow,
   CaseRow,
   Eyebrow,
   HumanAIContract,
+  IdentityArtifact,
   LayerDiagram,
   ProofStrip,
 } from "@/components/content-ui";
@@ -13,7 +13,7 @@ import { caseStudies } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Product Engineer · Mobile & Frontend",
   description:
-    "오프라인과 온라인, Native와 Web, 제품과 플랫폼의 경계를 잇는 Product Engineer 이승환의 대표 작업과 공개 근거.",
+    "Flutter 앱과 React 웹을 만들고, Kotlin·Swift 연동부터 빌드·배포 자동화와 운영 중 오류 추적까지 맡아 온 Product Engineer 이승환의 대표 작업.",
 };
 
 export default function Home() {
@@ -53,22 +53,24 @@ export default function Home() {
         <div className="hero-copy">
           <div className="availability-line">
             <span className="status-dot" aria-hidden="true" />
-            <span>Open to the right client platform problem</span>
+            <span>2026년 12월부터 근무 가능</span>
           </div>
           <Eyebrow>PRODUCT ENGINEER · MOBILE &amp; FRONTEND</Eyebrow>
           <h1 id="hero-title">
-            제품의 경계를 잇고,
+            모바일과 웹을 오가며
             <br />
-            <span>지표로 신뢰를 만듭니다.</span>
+            <span>제품을 만들고 운영했습니다.</span>
           </h1>
           <p className="hero-lede">
-            오프라인과 온라인, Native와 Web, 제품과 플랫폼의 경계를 다뤄
-            왔습니다. AI로 탐색과 구현을 가속하되 테스트·리뷰·프로덕션
-            관측을 통과한 결과만 제 성과로 남깁니다.
+            Flutter로 앱을 만들고 React로 웹을 운영했습니다. 필요하면
+            Kotlin·Swift 코드까지 내려가 문제를 고쳤고, 배포 뒤에는 사용
+            흐름과 오류를 확인했습니다. AI는 코드 탐색과 초안 작성에
+            활용하며 최종 판단과 검증은 제가 맡습니다.
           </p>
           <div className="hero-stack" aria-label="핵심 기술">
             Flutter / Dart <span>·</span> React / TypeScript <span>·</span>{" "}
-            Kotlin / Swift Bridge <span>·</span> RUM <span>·</span> CI/CD
+            Kotlin / Swift 연동 <span>·</span> 사용 흐름 관측 <span>·</span>{" "}
+            빌드·배포 자동화
           </div>
           <div className="hero-actions">
             <Link className="button button-primary" href="/work">
@@ -89,45 +91,41 @@ export default function Home() {
         <div className="section-heading inline-heading">
           <div>
             <Eyebrow>PUBLIC PROOF · CLICK TO VERIFY</Eyebrow>
-            <h2 id="proof-title">숫자에서 원문까지 한 번에</h2>
+            <h2 id="proof-title">공개 기록과 결과물</h2>
           </div>
           <Link className="text-link" href="/proof">
             전체 공개 근거 <span aria-hidden="true">→</span>
           </Link>
         </div>
         <ProofStrip />
-        <p className="section-footnote">
-          큰 숫자보다 클릭해서 확인할 수 있는 기록을 먼저 배치했습니다.
-          활동량을 제품 성과로 해석하지 않습니다.
-        </p>
       </section>
 
       <section className="fit-section">
         <div className="site-shell fit-grid">
           <div className="section-heading">
-            <Eyebrow>TOSS PLACE · TRANSFERABLE FIT</Eyebrow>
-            <h2>토스플레이스와 만나는 세 개의 축</h2>
+            <Eyebrow>EXPERIENCE MAP</Eyebrow>
+            <h2>주로 맡아 온 일</h2>
             <p>
-              지원 직무를 기술 이름으로만 맞추지 않습니다. 고객·사장님
-              경험을 막는 경계, 플랫폼의 차이, 출시 뒤 신뢰를 만드는
-              방식으로 연결합니다.
+              고객 계정을 매장 경험과 연결하고, 같은 기능을
+              Android·iOS·Web에 맞춰 구현했습니다. 출시 뒤에는 사용 흐름과
+              오류를 확인해 문제를 고쳤습니다.
             </p>
           </div>
           <ol className="fit-list">
             <li>
               <span>01 / DOMAIN</span>
-              <strong>온라인 계정 ↔ 매장 고객</strong>
-              <p>본인인증·동의, 예약·주문 상태, 운영 예외</p>
+              <strong>온라인 계정과 매장 고객을 연결</strong>
+              <p>본인인증과 동의, 예약·주문 상태, 운영 예외를 설계</p>
             </li>
             <li>
               <span>02 / PLATFORM</span>
-              <strong>Android ↔ iOS ↔ Web</strong>
-              <p>Dart 계약, Kotlin·Swift adapter, 기능 매트릭스</p>
+              <strong>같은 기능을 Android·iOS·Web에 제공</strong>
+              <p>Dart API, Kotlin·Swift 어댑터, 기능 지원 범위를 관리</p>
             </li>
             <li>
               <span>03 / RELIABILITY</span>
-              <strong>운영 신호 ↔ upstream fix</strong>
-              <p>RUM 재현, 테스트, 외부 리뷰, 정식 배포</p>
+              <strong>운영 중 발견한 문제를 원인까지 추적</strong>
+              <p>사용 흐름 관측, 재현 테스트, 외부 리뷰와 정식 배포</p>
             </li>
           </ol>
         </div>
@@ -137,9 +135,9 @@ export default function Home() {
         <div className="section-heading inline-heading">
           <div>
             <Eyebrow>SELECTED WORK · TRACE THE DECISION</Eyebrow>
-            <h2 id="work-title">무엇을 소유했나</h2>
+            <h2 id="work-title">대표 작업</h2>
           </div>
-          <p>문제 → 결정 → 구현 → 검증 → 경계</p>
+          <p>문제 · 결정 · 구현 · 검증</p>
         </div>
         <div className="case-list">
           {caseStudies.map((item) => (
@@ -149,14 +147,15 @@ export default function Home() {
       </section>
 
       <section className="boundary-section site-shell">
-        <BoundaryFlow />
+        <IdentityArtifact />
         <div className="boundary-copy">
-          <Eyebrow>CASE 01 · THE HARD BOUNDARY</Eyebrow>
-          <h2>되돌릴 수 있는 상태와 없는 상태를 구분합니다.</h2>
+          <Eyebrow>CASE 01 · CONNECTED COMMERCE</Eyebrow>
+          <h2>온라인 계정과 매장 고객을 연결했습니다.</h2>
           <p>
-            O2O 제품에서 고객 식별과 거래 상태는 화면 하나의 문제가
-            아니었습니다. 신뢰 기준과 복구 비용을 먼저 정하고 앱·웹의
-            구현을 그 경계에 맞췄습니다.
+            본인인증과 동의를 연결 기준으로 삼았습니다. 연결을 마친
+            31,124명은 고객 필터·알림, QR, 주문 이력을 하나의 고객 정보로
+            사용할 수 있게 했습니다. 운영 중에는 연결에서 빠진 레거시 약
+            20만 계정을 찾아 조치했습니다.
           </p>
           <Link className="text-link" href="/work/connected-commerce">
             O2O 사례 읽기 <span aria-hidden="true">→</span>
@@ -168,28 +167,24 @@ export default function Home() {
         <div className="site-shell">
           <div className="section-heading inline-heading">
             <div>
-              <Eyebrow>AI PRACTICE · RESPONSIBILITY BEFORE SPEED</Eyebrow>
-              <h2>AI가 한 일과 제가 책임진 일을 분리합니다.</h2>
+              <Eyebrow>AI PRACTICE</Eyebrow>
+              <h2>AI를 개발 과정에 이렇게 사용했습니다.</h2>
             </div>
             <Link className="text-link" href="/ai-practice">
               AI Practice <span aria-hidden="true">→</span>
             </Link>
           </div>
           <HumanAIContract />
-          <p className="contract-limitation">
-            측정하지 않은 것 — AI 단독 기여도, 개발 속도 배수, 생산성
-            향상률.
-          </p>
         </div>
       </section>
 
       <section className="ask-preview site-shell" aria-labelledby="ask-title">
         <div>
-          <Eyebrow>ASK · STATIC DOCUMENT RETRIEVAL</Eyebrow>
-          <h2 id="ask-title">읽다가 생긴 질문으로 바로 들어오세요.</h2>
+          <Eyebrow>ASK THE PORTFOLIO</Eyebrow>
+          <h2 id="ask-title">궁금한 내용을 질문으로 찾아보세요.</h2>
           <p>
-            서버 AI나 실시간 RAG가 아닙니다. 이 사이트에 승인된 문장만
-            찾아 보여 주며, 없는 답은 만들지 않습니다.
+            경력, 기술, 프로젝트별로 사이트 안의 내용을 빠르게 찾을 수
+            있습니다.
           </p>
         </div>
         <div className="ask-preview-links">

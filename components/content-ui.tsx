@@ -175,14 +175,14 @@ export function LayerDiagram() {
   const layers = [
     ["Web", "React / TypeScript · Flutter Web"],
     ["Cross-platform", "Flutter · React Native"],
-    ["Bridge", "Platform Channel · WebView"],
+    ["Native integration", "Platform Channel · WebView"],
     ["Native", "Kotlin · Swift / SPM"],
-    ["Delivery", "CI/CD · RUM · Crash"],
+    ["Operation", "빌드·배포 자동화 · 사용 흐름 관측 · 오류 추적"],
   ];
 
   return (
     <figure className="layer-diagram">
-      <figcaption>제가 다뤄 온 클라이언트 경계</figcaption>
+      <figcaption>앱과 웹에서 다룬 기술 범위</figcaption>
       <div className="layer-stack">
         {layers.map(([label, value], index) => (
           <div className="layer-row" key={label}>
@@ -193,67 +193,104 @@ export function LayerDiagram() {
         ))}
       </div>
       <p>
-        한 스택을 깊게 파되, 장애와 배포가 넘어가는 다음 경계까지
-        추적합니다.
+        화면 구현부터 네이티브 연동, 배포와 운영 중 오류 확인까지 직접
+        다뤘습니다.
       </p>
     </figure>
   );
 }
 
-export function BoundaryFlow() {
+export function IdentityArtifact() {
   return (
-    <figure className="boundary-flow">
-      <figcaption>O2O identity → transaction boundary</figcaption>
-      <div className="flow-grid" aria-hidden="true">
-        <span className="flow-node">Online account</span>
-        <span className="flow-link">＋</span>
-        <span className="flow-node">Store customer</span>
-        <span className="flow-down">↓</span>
-        <span className="flow-node flow-node-accent">
-          Verification + consent
-        </span>
-        <span className="flow-down">↓</span>
-        <span className="flow-node">Cart</span>
-        <span className="flow-link">→</span>
-        <span className="flow-node flow-node-warning">Checkout / Order</span>
+    <figure
+      className="identity-artifact"
+      aria-labelledby="identity-artifact-title"
+    >
+      <div className="identity-artifact__header">
+        <figcaption id="identity-artifact-title">
+          통합 고객 식별 흐름
+        </figcaption>
+        <span>31,124명 연결</span>
       </div>
-      <p className="sr-only">
-        온라인 계정과 매장 고객을 본인인증과 동의로 연결한 뒤, 되돌릴 수
-        있는 장바구니와 되돌리기 어려운 결제·주문 경계를 분리했습니다.
-      </p>
+      <div className="identity-map">
+        <div className="identity-sources" aria-label="연결 전 고객 정보">
+          <div className="identity-source">
+            <span>01</span>
+            <strong>온라인 계정</strong>
+            <small>앱 회원 정보</small>
+          </div>
+          <div className="identity-source">
+            <span>02</span>
+            <strong>매장 고객</strong>
+            <small>매장 방문·거래 정보</small>
+          </div>
+        </div>
+        <div className="identity-seam">
+          <span>연결 기준</span>
+          <strong>본인인증 · 동의</strong>
+        </div>
+        <div className="identity-result">
+          <span>연결 결과</span>
+          <strong>31,124명</strong>
+          <p>통합 고객 식별</p>
+        </div>
+        <ul className="identity-outcomes" aria-label="연결 후 제공한 기능">
+          <li>
+            <strong>고객 필터·알림</strong>
+          </li>
+          <li>
+            <strong>QR</strong>
+          </li>
+          <li>
+            <strong>주문 이력</strong>
+          </li>
+        </ul>
+      </div>
+      <aside
+        className="identity-artifact__note"
+        aria-label="운영 중 확인한 공백"
+      >
+        <p>
+          <strong>운영 중 확인한 공백 · 레거시 약 20만 계정</strong>
+          <br />
+          통합 고객 식별에서 빠진 계정군을 발견해 조치했습니다.
+        </p>
+        <p>개념도이며 실제 고객 분포와 무관합니다.</p>
+      </aside>
     </figure>
   );
 }
+
+export const BoundaryFlow = IdentityArtifact;
 
 export function HumanAIContract() {
   return (
     <div className="human-ai-contract">
       <div>
-        <p className="contract-label">AI accelerated</p>
+        <p className="contract-label">AI로 한 일</p>
         <ul>
-          <li>SDK layer 탐색</li>
-          <li>최초 구현 초안</li>
+          <li>SDK 코드 탐색</li>
+          <li>첫 구현안 작성</li>
           <li>테스트·문서 초안</li>
         </ul>
       </div>
       <div>
-        <p className="contract-label">Human controlled</p>
+        <p className="contract-label">직접 판단한 일</p>
         <ul>
-          <li>문제 가설과 책임 경계</li>
-          <li>수정 범위와 리뷰 판단</li>
-          <li>정식 배포와 운영 검증</li>
+          <li>문제 가설과 수정 범위</li>
+          <li>코드 리뷰와 병합 여부</li>
+          <li>정식 배포와 운영 확인</li>
         </ul>
       </div>
       <div>
-        <p className="contract-label">Verification gates</p>
+        <p className="contract-label">검증한 항목</p>
         <ul>
-          <li>5 query tests</li>
-          <li>11 CI checks</li>
-          <li>Maintainer review</li>
-          <li>iOS · Android RUM</li>
+          <li>쿼리 테스트 5개</li>
+          <li>CI 검사 11개</li>
+          <li>메인테이너 리뷰</li>
+          <li>iOS·Android 사용 흐름 관측</li>
         </ul>
       </div>
     </div>
   );
 }
-

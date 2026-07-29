@@ -502,9 +502,16 @@ export type AskEntry = {
 export const askEntries: AskEntry[] = [
   {
     id: "fit",
-    question: "토스플레이스와 가장 맞는 경험은 무엇인가요?",
+    question: "제품 엔지니어 역할과 가장 가까운 경험은 무엇인가요?",
     shortLabel: "가장 맞는 경험",
-    keywords: ["토스", "토스플레이스", "적합", "경험", "강점", "fit"],
+    keywords: [
+      "제품 엔지니어",
+      "모바일",
+      "프론트엔드",
+      "경험",
+      "강점",
+      "fit",
+    ],
     answer:
       "오프라인 매장 고객과 온라인 계정을 연결한 O2O 제품 경험, Android·iOS·Web의 차이를 하나의 SDK 계약으로 다룬 경험, 그리고 제품에서 발견한 관측성 문제를 upstream까지 추적해 닫은 경험이 가장 가깝습니다.",
     known: [
@@ -717,4 +724,3 @@ export const askEntries: AskEntry[] = [
     sources: [{ label: "AI Practice", href: "/ai-practice" }],
   },
 ];
-

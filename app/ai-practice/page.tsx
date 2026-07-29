@@ -155,10 +155,11 @@ export default function AIPracticePage() {
       <section className="future-hypothesis site-shell" aria-labelledby="future">
         <div className="section-heading">
           <Eyebrow>04 · FUTURE HYPOTHESIS · NOT EXPERIENCE</Eyebrow>
-          <h2 id="future">토스플레이스에서의 첫 90일 AI 제품 가설</h2>
+          <h2 id="future">매장 운영에 AI를 적용한다면, 첫 90일</h2>
           <p>
-            자동 실행부터 시작하지 않습니다. 사장님이 반복해서 판단하는
-            한 문제를 고르고, 근거와 승인 경계를 먼저 설계합니다.
+            처음부터 자동 실행을 목표로 삼지 않습니다. 사장님이 반복해서
+            판단하는 문제 하나를 고르고, 어떤 근거가 필요한지와 사람이
+            승인할 시점을 먼저 정합니다.
           </p>
         </div>
         <ol className="ninety-day-grid">
@@ -206,4 +207,3 @@ export default function AIPracticePage() {
     </main>
   );
 }
-
