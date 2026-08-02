@@ -170,6 +170,12 @@ export function SmartLink({
 type ButtonVariant = "primary" | "secondary" | "tertiary";
 type ButtonTrailing = "arrow" | "external" | "none";
 
+function buttonClassName(variant: ButtonVariant, className?: string) {
+  return ["button", `button-${variant}`, className]
+    .filter(Boolean)
+    .join(" ");
+}
+
 export function ButtonLink({
   href,
   children,
@@ -183,9 +189,7 @@ export function ButtonLink({
   trailing?: ButtonTrailing;
   className?: string;
 }) {
-  const classes = ["button", `button-${variant}`, className]
-    .filter(Boolean)
-    .join(" ");
+  const classes = buttonClassName(variant, className);
   const marker = trailing === "arrow" ? "→" : trailing === "external" ? "↗" : null;
   const content = (
     <>
@@ -217,6 +221,27 @@ export function ButtonLink({
     >
       {content}
     </a>
+  );
+}
+
+export function DisclosureTrigger({
+  children,
+  variant = "secondary",
+  className,
+  ariaLabel,
+}: {
+  children: React.ReactNode;
+  variant?: ButtonVariant;
+  className?: string;
+  ariaLabel: string;
+}) {
+  return (
+    <summary
+      className={buttonClassName(variant, className)}
+      aria-label={ariaLabel}
+    >
+      <span>{children}</span>
+    </summary>
   );
 }
 

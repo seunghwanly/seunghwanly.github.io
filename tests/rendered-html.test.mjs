@@ -94,8 +94,8 @@ test("home is a complete Korean portfolio with public proof", async () => {
 
 test("renders every primary route and all four work cases", async () => {
   const expected = [
-    ["/work", "31,124명의 고객을 연결하고, 4개 브랜드의 예약 화면"],
-    ["/work/connected-commerce", "온라인 계정과 매장 고객을 연결"],
+    ["/work", "4개 브랜드의 예약 상세"],
+    ["/work/connected-commerce", "31,124명을 연결"],
     ["/work/multiplatform-sdk", "Android·iOS·Web을 하나의 Flutter 플러그인"],
     ["/work/observable-reliability", "Datadog의 모바일 url_query 누락 이슈"],
     ["/work/design-to-preview", "일관된 디자인으로 사용자 경험과 생산성"],
@@ -131,6 +131,8 @@ test("uses only primary, secondary, and tertiary button variants", async () => {
     /type ButtonVariant = "primary" \| "secondary" \| "tertiary"/,
   );
   assert.match(siteSource, /<ButtonLink[^>]+variant="primary"/);
+  assert.match(siteSource, /<DisclosureTrigger[^>]+variant="secondary"/);
+  assert.match(siteSource, /className="mobile-menu-trigger"/);
   assert.match(css, /\.button-primary\s*\{/);
   assert.match(css, /\.button-secondary\s*\{/);
   assert.match(css, /\.button-tertiary\s*\{/);
@@ -138,6 +140,27 @@ test("uses only primary, secondary, and tertiary button variants", async () => {
     `${componentSource}\n${siteSource}\n${css}`,
     /Action(?:Link|Group)|action-group|button-quiet|nav-resume/,
   );
+});
+
+test("about keeps career, projects, skills, and teaching readable on mobile", async () => {
+  const response = await render("/about");
+  const html = await response.text();
+  const css = await readFile(
+    new URL("../app/globals.css", import.meta.url),
+    "utf8",
+  );
+
+  assert.match(html, /온라인과 오프라인을 연결하고/);
+  assert.match(html, /31,124명/);
+  assert.match(html, /한일 교류 SNS/);
+  assert.match(html, /class="capability-list"/);
+  assert.match(html, /Goorm/);
+  assert.match(html, /Comento/);
+  assert.doesNotMatch(html, /프리랜스/);
+  assert.doesNotMatch(html, /capability-table/);
+  assert.match(css, /\.capability-list\s*>\s*div\s*\{/);
+  assert.match(css, /\.brand-name\s*\{[^}]*font-size:\s*1\.125rem/s);
+  assert.match(css, /\.desktop-nav\s*\{[^}]*font-size:\s*0\.86rem/s);
 });
 
 test("proof directory merges duplicate destinations and omits the disclaimer slide", async () => {

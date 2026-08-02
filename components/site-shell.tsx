@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ButtonLink } from "@/components/content-ui";
+import { ButtonLink, DisclosureTrigger } from "@/components/content-ui";
 import { profileLinks } from "@/lib/content";
 
 const navigation = [
@@ -31,7 +31,13 @@ export function SiteHeader() {
         </nav>
 
         <details className="mobile-nav">
-          <summary aria-label="메뉴 열기">메뉴</summary>
+          <DisclosureTrigger
+            variant="secondary"
+            className="mobile-menu-trigger"
+            ariaLabel="메뉴 열기"
+          >
+            메뉴
+          </DisclosureTrigger>
           <nav aria-label="모바일 주요 메뉴">
             {navigation.map((item) => (
               <Link key={item.href} href={item.href}>
