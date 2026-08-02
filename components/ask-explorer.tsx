@@ -57,6 +57,8 @@ export function AskExplorer() {
     ? ranked[0]?.entry
     : selected;
   const unknown = query.trim().length > 1 && ranked.length === 0;
+  const featuredIds = new Set(["fit", "platform", "design-system", "ai-practice"]);
+  const featuredEntries = askEntries.filter((entry) => featuredIds.has(entry.id));
 
   useEffect(() => {
     function focusSearch(event: KeyboardEvent) {
@@ -83,32 +85,24 @@ export function AskExplorer() {
     <section className="ask-console" aria-labelledby="ask-console-title">
       <div className="ask-console-head">
         <div>
-          <p className="eyebrow">STATIC DOCUMENT RETRIEVAL</p>
-          <h2 id="ask-console-title">Ask Seunghwan</h2>
+          <h2 id="ask-console-title">질문 찾기</h2>
         </div>
-        <p className="ask-mode">
-          정적 Q&amp;A · 서버 AI/RAG 아님
-        </p>
+        <p className="ask-mode">공개한 답변만 검색합니다.</p>
       </div>
-
-      <p className="ask-disclosure">
-        이 사이트에 공개된 문장만 검색합니다. 답을 찾지 못하면 만들지
-        않습니다.
-      </p>
 
       <form
         className="ask-search"
         role="search"
         onSubmit={(event) => event.preventDefault()}
       >
-        <label htmlFor="ask-query">경험과 결정 검색</label>
+        <label htmlFor="ask-query">질문 검색</label>
         <div>
           <input
             ref={inputRef}
             id="ask-query"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
-            placeholder="예: 결제·POS 경험은 어디까지인가요?"
+            placeholder="예: 결제 경험"
             autoComplete="off"
           />
           <span aria-hidden="true">/</span>
@@ -116,7 +110,7 @@ export function AskExplorer() {
       </form>
 
       <div className="suggestion-list" aria-label="추천 질문">
-        {askEntries.slice(0, 6).map((entry) => (
+        {featuredEntries.map((entry) => (
           <button
             className={selected.id === entry.id && !query ? "is-active" : ""}
             key={entry.id}
@@ -131,11 +125,10 @@ export function AskExplorer() {
       <div className="ask-answer" aria-live="polite">
         {unknown ? (
           <>
-            <p className="answer-label">NO MATCH</p>
-            <h3>확인 가능한 자료에는 이 답이 없습니다.</h3>
+            <p className="answer-label">검색 결과</p>
+            <h3>관련 내용을 찾지 못했습니다.</h3>
             <p>
-              다른 키워드로 다시 찾거나 이메일로 직접 질문해 주세요. 공개
-              자료에 없는 경험을 일반론으로 채우지 않습니다.
+              다른 단어로 검색하거나 이메일로 직접 물어보세요.
             </p>
             <a className="text-link" href="mailto:seunghwanly@gmail.com">
               직접 질문하기 <span aria-hidden="true">→</span>
@@ -143,13 +136,13 @@ export function AskExplorer() {
           </>
         ) : visibleAnswer ? (
           <>
-            <p className="answer-label">DIRECT ANSWER</p>
+            <p className="answer-label">답변</p>
             <h3>{visibleAnswer.question}</h3>
             <p className="answer-direct">{visibleAnswer.answer}</p>
 
             <div className="answer-grid">
               <div>
-                <h4>확인된 범위</h4>
+                <h4>관련 경험</h4>
                 <ul>
                   {visibleAnswer.known.map((item) => (
                     <li key={item}>{item}</li>
@@ -157,12 +150,12 @@ export function AskExplorer() {
                 </ul>
               </div>
               <div>
-                <h4>경계</h4>
+                <h4>경험 범위</h4>
                 <p>{visibleAnswer.boundary}</p>
               </div>
             </div>
 
-            <div className="answer-sources" aria-label="관련 페이지와 공개 원문">
+            <div className="answer-sources" aria-label="관련 페이지와 공개 기록">
               {visibleAnswer.sources.map((source) => (
                 <SmartLink href={source.href} key={source.href}>
                   {source.label} <span aria-hidden="true">↗</span>
@@ -175,4 +168,3 @@ export function AskExplorer() {
     </section>
   );
 }
-

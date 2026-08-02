@@ -61,14 +61,16 @@ test("home is a complete Korean portfolio with public proof", async () => {
   assert.match(html, /<html[^>]*lang="ko"/i);
   assert.match(
     html,
-    /<title>Product Engineer · Mobile &amp; Frontend · 이승환<\/title>/i,
+    /<title>Product Engineer · Mobile &amp; Web · 이승환<\/title>/i,
   );
   assert.match(html, /모바일과 웹을 오가며/);
   assert.match(html, /제품을 만들고 운영했습니다/);
-  assert.match(html, /12 days/);
-  assert.match(html, /15 releases/);
-  assert.match(html, /48 PRs/);
-  assert.match(html, /55 tests/);
+  assert.match(html, /Flutter로 모바일 개발을 시작했고/);
+  assert.match(html, /12일/);
+  assert.match(html, /15회/);
+  assert.match(html, /48개/);
+  assert.match(html, /55개/);
+  assert.match(html, /직접 확인할 수 있는 기록/);
   assert.match(html, /href="\/resume\.pdf"/);
   assert.match(html, /href="\/work"/);
   assert.match(html, /href="\/ai-practice"/);
@@ -77,17 +79,13 @@ test("home is a complete Korean portfolio with public proof", async () => {
   assert.match(html, /application\/ld\+json/);
   assert.match(html, /"@type":"Person"/);
   assert.match(html, /본문으로 건너뛰기/);
-  assert.match(html, /class="identity-artifact"/);
-  assert.match(html, /본인인증 · 동의/);
-  assert.match(html, /통합 고객 식별/);
   assert.match(html, /31,124명/);
-  assert.match(html, /레거시 약 20만 계정/);
-  assert.match(html, /4개 브랜드 앱·웹/);
-  assert.match(html, /공용 웹으로 통합/);
-  assert.match(html, /Winc 앱 업데이트까지 마쳤습니다/);
-  assert.match(html, /개념도이며 실제 고객 분포와 무관합니다/);
-  assert.match(html, /ENGINEERING NOTES/);
+  assert.match(html, /4개 브랜드의 예약 상세/);
+  assert.match(html, /공용 React 웹/);
+  assert.match(html, /제품 엔지니어/);
+  assert.doesNotMatch(html, /class="identity-artifact"/);
   assert.doesNotMatch(html, /flow-grid/);
+  assert.doesNotMatch(html, /class="identity-map"/);
   assert.doesNotMatch(html, directTargetCompanyPattern);
   assert.doesNotMatch(html, /RUM · Crash/);
   assert.doesNotMatch(html, /활동량을 제품 성과로 해석하지 않습니다/);
@@ -96,15 +94,15 @@ test("home is a complete Korean portfolio with public proof", async () => {
 
 test("renders every primary route and all four work cases", async () => {
   const expected = [
-    ["/work", "코드보다 먼저"],
-    ["/work/connected-commerce", "온라인 계정과 오프라인 매장 경험"],
-    ["/work/multiplatform-sdk", "하나의 Dart API"],
-    ["/work/observable-reliability", "보이지 않던 화면"],
-    ["/work/design-to-preview", "디자인 QA"],
-    ["/ai-practice", "매장 운영에 AI를 적용한다면"],
-    ["/proof", "클릭해서 확인할 수 있는 것"],
-    ["/about", "제품의 경계까지 책임지는"],
-    ["/ask", "문서 안의 답"],
+    ["/work", "제품 문제를 해결한 네 가지 작업"],
+    ["/work/connected-commerce", "온라인 계정과 매장 고객을 연결"],
+    ["/work/multiplatform-sdk", "Android·iOS·Web을 하나의 Flutter 플러그인"],
+    ["/work/observable-reliability", "Datadog의 모바일 url_query 누락 이슈"],
+    ["/work/design-to-preview", "일관된 디자인으로 사용자 경험과 생산성"],
+    ["/ai-practice", "Flutter SDK 수정에 AI를 사용"],
+    ["/proof", "직접 확인할 수 있는 작업 기록"],
+    ["/about", "앱과 웹을 함께 만드는 제품 엔지니어"],
+    ["/ask", "경력과 작업에서 궁금한 내용"],
   ];
 
   for (const [pathname, phrase] of expected) {
@@ -114,17 +112,39 @@ test("renders every primary route and all four work cases", async () => {
   }
 });
 
-test("Ask is explicitly static and has honest unknown handling", async () => {
+test("proof directory merges duplicate destinations and omits the disclaimer slide", async () => {
+  const response = await render("/proof");
+  const html = await response.text();
+
+  assert.match(html, /kakao_maps_flutter/);
+  assert.match(html, /pub\.dev/);
+  assert.match(html, /WDS 컴포넌트 미리보기/);
+  assert.match(html, /React 미리보기/);
+  assert.doesNotMatch(html, /숫자를 출판/);
+  assert.doesNotMatch(html, /성과 수치에는 기준과 범위를/);
+  assert.doesNotMatch(html, /경험으로 말하지 않는 것/);
+});
+
+test("Ask searches only prepared public answers", async () => {
   const response = await render("/ask");
   const html = await response.text();
 
-  assert.match(html, /정적 Q&amp;A · 서버 AI\/RAG 아님/);
-  assert.match(html, /이 사이트에 공개된 문장만 검색/);
-  assert.match(html, /확인 가능한 자료에는 이 답이 없습니다/);
+  assert.match(html, /공개한 답변만 검색합니다/);
+  assert.match(html, /검색어는 저장하거나 서버로 보내지 않습니다/);
   assert.match(html, /id="ask-query"/);
-  assert.match(html, /질문은 서버로 전송하거나 저장하지 않습니다/);
   assert.match(html, /제품 엔지니어 역할과 가장 가까운 경험/);
   assert.doesNotMatch(html, /api\/ask|chat\/completions|anthropic|openai/i);
+});
+
+test("public pages do not expose location or availability", async () => {
+  const forbidden =
+    /서울|Seoul|2026년 12월|2026\.12|Dec 2026|근무 가능|입사 가능|available|availability/i;
+  const routes = ["/", "/work", "/about", "/proof", "/ask", "/ai-practice"];
+
+  for (const pathname of routes) {
+    const response = await render(pathname);
+    assert.doesNotMatch(await response.text(), forbidden, pathname);
+  }
 });
 
 test("public source code excludes private raw links and editorial claim tags", async () => {

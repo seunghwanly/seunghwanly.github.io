@@ -2,6 +2,10 @@ export type SourceLink = {
   label: string;
   href: string;
   note?: string;
+  related?: Array<{
+    label: string;
+    href: string;
+  }>;
 };
 
 export type CaseSection = {
@@ -43,27 +47,27 @@ export const profileLinks: SourceLink[] = [
 
 export const proofMetrics = [
   {
-    value: "12 days",
-    label: "AI-assisted SDK contribution",
-    detail: "제안에서 upstream merge까지",
+    value: "12일",
+    label: "Flutter SDK 수정",
+    detail: "제안부터 공식 저장소 병합까지",
     href: "https://github.com/DataDog/dd-sdk-flutter/pull/1069",
   },
   {
-    value: "15 releases",
-    label: "Android · iOS · Web plugin",
-    detail: "13개월의 공개 배포 기록",
+    value: "15회",
+    label: "멀티플랫폼 플러그인 배포",
+    detail: "13개월간 Android·iOS·Web 지원",
     href: "https://pub.dev/packages/kakao_maps_flutter",
   },
   {
-    value: "48 PRs",
-    label: "Design system delivery",
-    detail: "작성한 공개 PR 모두 merge",
+    value: "48개",
+    label: "디자인 시스템 PR",
+    detail: "작성한 공개 PR 모두 병합",
     href: "https://github.com/ppbstudios/wds_flutter/pulls?q=is%3Apr+author%3Aseunghwanly",
   },
   {
-    value: "55 tests",
-    label: "Self-hosted mobile CI/CD",
-    detail: "독립 환경에서 재실행",
+    value: "55개",
+    label: "FastAPI 빌드 서버 테스트",
+    detail: "Webhook·빌드 큐·작업 공간 격리 확인",
     href: "https://github.com/seunghwanly/local-flutter-cicd-server",
   },
 ] as const;
@@ -72,12 +76,12 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: "connected-commerce",
     index: "01",
-    category: "Domain · O2O",
-    title: "온라인 계정과 오프라인 매장 경험을 하나의 흐름으로",
+    category: "고객 연결 · O2O",
+    title: "온라인 계정과 매장 고객을 연결했습니다.",
     summary:
-      "본인인증과 동의를 고객 연결 기준으로 두고 예약·주문 상태와 앱·웹 사이의 계약을 정리했습니다. 이후 4개 브랜드 앱·웹의 예약 상세를 공용 웹으로 통합했습니다. 통합 화면을 운영에 반영하고 Winc 앱 업데이트까지 마쳤습니다.",
-    role: "Client flow 설계 · 상태 계약 · 공용 예약 상세 · App/Web 연동 · 배포",
-    tags: ["O2O", "Identity", "Shared order detail", "App · Web bridge"],
+      "본인인증으로 온라인 계정과 매장 고객 31,124명을 연결했습니다. 예약 상태 API를 직접 설계·구현하고 4개 브랜드의 예약 상세를 공용 React 웹으로 통합했습니다.",
+    role: "고객 연결 조건 · 예약 상태 API · 공용 예약 상세 · 앱·웹 연동 · 배포",
+    tags: ["O2O", "본인인증", "공용 예약 상세", "App · Web 연동"],
     metrics: [
       {
         value: "31,124",
@@ -97,143 +101,91 @@ export const caseStudies: CaseStudy[] = [
     ],
     sections: [
       {
-        id: "problem",
-        label: "문제 / 제약",
-        title: "같은 고객과 같은 주문을 각 시스템이 다르게 보고 있었습니다.",
+        id: "situation",
+        label: "상황",
+        title: "온라인 계정과 매장 고객 정보가 따로 관리되고 있었습니다.",
         paragraphs: [
-          "브랜드별 온라인 계정과 오프라인 매장 고객이 분리되어 있었습니다. 이메일이나 단순 전화번호만으로 같은 사람인지 판단하기 어려웠고, 매장 직원은 본인인증된 고객 정보와 지난 주문을 한 흐름에서 확인할 수 없었습니다.",
-          "예약 정책과 화면은 QA 기간에도 바뀌었습니다. 장바구니처럼 되돌릴 수 있는 상태와 주문·결제처럼 복구 비용이 큰 상태를 하나로 묶으면 작은 정책 변경도 전체 흐름을 흔들 수 있었습니다.",
-          "예약 상세는 브랜드 앱과 웹에 나뉘어 있었고 고객 화면과 매장 운영 화면도 별도로 관리했습니다. 노쇼처럼 운영 정책이 바뀌면 화면별 상태와 동작을 다시 맞춰야 했습니다. WebView와 딥링크의 차이도 함께 다뤄야 했습니다.",
+          "브랜드별 온라인 계정과 매장 고객 정보가 분리돼 같은 사람인지 확인하기 어려웠습니다. 매장 직원도 본인인증을 마친 고객 정보와 지난 주문을 한 화면에서 볼 수 없었습니다.",
+          "예약 상세는 앱과 웹, 고객용과 매장용으로 나뉘어 있었습니다. 정책이 바뀔 때마다 여러 화면의 상태와 동작을 함께 고쳐야 했습니다.",
         ],
       },
       {
-        id: "decision",
-        label: "내가 내린 결정",
-        title: "식별과 거래의 경계를 각각 명시했습니다.",
+        id: "changes",
+        label: "바꾼 것",
+        title: "본인인증으로 고객을 연결하고 예약 화면을 하나로 모았습니다.",
         bullets: [
-          "온라인·오프라인 고객 연결은 본인인증과 명시적 동의를 통과해야만 성립하게 했습니다.",
-          "서버가 총 단계·현재 단계·종료 이유를 조합해 내려주고, 클라이언트는 그 계약으로 화면과 종료 상태를 결정하게 했습니다.",
-          "장바구니와 주문·결제를 하나의 거대한 상태로 만들지 않고 교체 가능한 단계로 나눴습니다.",
-          "예약 상세 본문은 공용 웹으로 모았습니다. 호스트 앱과 공용 웹이 데이터와 화면 동작을 주고받는 방식은 별도 계약으로 분리했습니다.",
-          "고객 화면과 매장 운영 화면은 같은 상세 구조를 쓰되 운영 화면에는 읽기 전용 모드를 뒀습니다.",
+          "본인인증과 동의를 온라인·오프라인 고객의 연결 조건으로 정했습니다.",
+          "총 단계·현재 단계·종료 이유를 내려주는 API 응답 구조를 직접 설계·구현해 앱과 웹이 같은 기준으로 화면을 결정하도록 했습니다.",
+          "4개 브랜드의 예약 상세를 공용 React 웹으로 옮기고 고객용과 매장용 화면을 함께 운영했습니다.",
+          "앱 연동, 딥링크, WebView와 주문 실패·레거시 계정 예외를 처리한 뒤 배포했습니다.",
         ],
       },
       {
-        id: "implementation",
-        label: "구현 범위",
-        title: "고객 연결부터 실패 상태까지 운영 가능한 흐름으로 묶었습니다.",
-        bullets: [
-          "알림·QR 기반 연결 요청과 본인인증 정보 표시",
-          "매장 고객 필터와 지난 주문이력 조회",
-          "앱·웹의 예약 단계와 종료 상태 표현",
-          "4개 브랜드 앱·웹의 예약 상세를 공용 웹으로 전환",
-          "호스트 앱 연동 계약과 매장 운영용 읽기 전용 모드",
-          "노쇼 상태와 처리 동작, 딥링크·Universal Link, WebView 확대·배경 처리",
-          "웹 기반 화면의 체감 속도와 마우스 드래그 영역 개선",
-          "예약 불가·재고 불일치·주문 실패 시나리오 QA",
-          "배포 직후 레거시 데이터와 링크·브라우저 예외 추적, 통합 화면 운영 적용과 앱 업데이트",
-        ],
-      },
-      {
-        id: "verification",
-        label: "검증",
-        title: "출시 숫자보다 먼저 실패 모드가 닫혔는지 확인했습니다.",
+        id: "result",
+        label: "확인한 결과",
+        title: "고객 31,124명을 연결하고 공용 예약 화면을 운영에 반영했습니다.",
         paragraphs: [
-          "출시 첫 달 앱 242,694 sessions에서 crash-free 99.84%, 장바구니 354,758 views에서 99.92%, 웹 4,014 sessions에서 100%를 관측했습니다. 같은 관측 범위에서 예약·주문·결제를 막는 incident와 flow revert는 없었습니다.",
-          "배포 당일에는 새 코드보다 기존 데이터의 공백이 더 큰 위험이라는 사실을 확인했습니다. 휴대폰 정보가 없을 수 있는 약 20만 레거시 계정을 식별하고 연결 흐름이 깨지지 않도록 우선 조치했습니다.",
-          "2026년 7월에는 고객 화면과 매장 운영 화면이 같은 예약 상세를 보는지 확인했습니다. 웹 전환 과정에서 드러난 딥링크·WebView 문제를 수정했고 체감 속도와 마우스 드래그 영역도 개선했습니다. 통합 화면을 운영에 반영하고 Winc 앱 업데이트까지 완료했습니다.",
-        ],
-      },
-      {
-        id: "learning",
-        label: "배운 것",
-        title: "새 화면보다 오래된 데이터와 실패 상태가 더 위험했습니다.",
-        paragraphs: [
-          "이후에는 기능 목록보다 식별 키가 없는 사용자의 규모, 되돌릴 수 있는 상태의 경계, 실패 시 고객과 매장 중 어디가 막히는지, 출시 후 안전을 판단할 지표를 먼저 확인합니다.",
-          "공용 화면으로 합쳤다고 통합이 끝나는 것은 아니었습니다. 호스트 앱과 웹이 주고받는 데이터와 동작, 권한에 따른 화면, 딥링크·WebView까지 같은 변경 단위로 다뤄야 했습니다.",
+          "출시 첫 달 앱 242,694 sessions의 crash-free는 99.84%, 장바구니 354,758 views는 99.92%, 웹 4,014 sessions는 100%였습니다. 이 기간에 예약·주문·결제를 막는 incident와 flow revert는 없었습니다.",
+          "배포 당일에는 연결에서 빠진 레거시 약 20만 계정을 찾아 우선 조치했습니다. 2026년 7월에는 공용 예약 화면을 운영에 반영하고 Winc 앱 업데이트까지 마쳤습니다.",
         ],
       },
     ],
     limitation:
-      "공용 예약 상세로 전환한 뒤의 로딩 시간, 작업 시간, 장애 감소율은 정량화하지 않았습니다. 이 사례는 결제 멱등성, 중복 결제 방지 로직, POS 단말·카드리더·영수증 프린터 연동, 완전한 offline-first sync를 구현했다는 증거도 아닙니다.",
+      "공용 예약 화면으로 바꾼 뒤 로딩 시간과 작업 시간 감소율은 측정하지 않았습니다. 결제 코어와 POS 주변기기는 이 작업의 범위가 아닙니다.",
     sources: [],
   },
   {
     slug: "multiplatform-sdk",
     index: "02",
-    category: "Platform · SDK",
-    title: "하나의 Dart API로 Android·iOS·Web의 차이를 연결",
+    category: "멀티플랫폼 · SDK",
+    title: "Android·iOS·Web을 하나의 Flutter 플러그인으로 연결했습니다.",
     summary:
-      "공통점을 과도하게 추상화하지 않고, 안정적인 Dart 계약과 플랫폼 adapter, 기능 매트릭스로 세 SDK의 차이를 관리했습니다.",
-    role: "API contract · Kotlin/Swift/JavaScript adapter · release · documentation",
+      "공통 Dart API와 플랫폼별 연동 코드를 설계해 세 플랫폼의 차이를 관리했습니다. 13개월 동안 15개 버전을 배포했습니다.",
+    role: "공통 API · Kotlin/Swift/JavaScript 연동 · 배포 · 문서",
     tags: ["Flutter", "Kotlin", "Swift/SPM", "JavaScript"],
     metrics: [
       {
-        value: "3 platforms",
-        label: "하나의 공개 API",
+        value: "3개",
+        label: "지원 플랫폼",
         context: "Android · iOS · Web",
       },
       {
         value: "15",
-        label: "공개 releases",
-        context: "2025-06-09부터 2026-07-01까지",
-      },
-      {
-        value: "13 months",
-        label: "유지보수 기간",
-        context: "beta부터 0.2.1까지",
+        label: "공개 배포",
+        context: "13개월 동안 beta부터 0.2.1까지",
       },
     ],
     sections: [
       {
-        id: "problem",
-        label: "문제 / 제약",
-        title: "공식 Flutter 지원이 없고 세 플랫폼의 생명주기도 달랐습니다.",
+        id: "situation",
+        label: "상황",
+        title: "세 플랫폼의 SDK 사용법과 지원 기능이 달랐습니다.",
         paragraphs: [
-          "Android, iOS, Web SDK는 초기화 방식과 이벤트 모델, 지원 기능이 달랐습니다. 제품 코드에 플랫폼 분기가 퍼질수록 기능 추가와 장애 재현 비용이 커지는 구조였습니다.",
+          "공식 Flutter 플러그인이 없었고 Android, iOS, Web SDK의 초기화 방식과 이벤트 모델도 달랐습니다. 제품 코드에 플랫폼 분기가 늘수록 기능을 추가하거나 오류를 재현하기 어려워졌습니다.",
         ],
       },
       {
-        id: "decision",
-        label: "내가 내린 결정",
-        title: "차이를 숨기지 않고 계약으로 만들었습니다.",
-        paragraphs: [
-          "공통 API는 안정적인 최소 교집합으로 두고, 플랫폼별 기능 차이는 adapter와 문서의 capability matrix에 남겼습니다. 완전한 동일성을 약속하는 대신 어디까지 같은지 명확하게 설명하는 쪽을 택했습니다.",
-        ],
-      },
-      {
-        id: "implementation",
-        label: "구현 범위",
-        title: "Dart에서 네이티브와 Web까지 전체 경계를 직접 다뤘습니다.",
+        id: "changes",
+        label: "바꾼 것",
+        title: "공통 Dart API와 플랫폼별 연동 코드를 나눴습니다.",
         bullets: [
-          "Dart 공통 API와 event stream",
-          "Android Kotlin adapter",
-          "iOS Swift/SPM adapter",
-          "Web JavaScript adapter",
-          "camera·marker·InfoWindow·clusterer",
-          "한·영 문서, example 앱, issue/PR template",
-          "버전 검증과 GitHub OIDC 기반 pub.dev 배포",
+          "공통 API에는 세 플랫폼에서 안정적으로 제공할 수 있는 기능만 넣었습니다.",
+          "Android는 Kotlin, iOS는 Swift와 SPM, Web은 JavaScript SDK로 연결했습니다.",
+          "플랫폼마다 다른 기능은 지원표와 문서에 명시했습니다.",
+          "예제 앱과 한·영 문서, 버전 확인과 pub.dev 배포 절차를 함께 관리했습니다.",
         ],
       },
       {
-        id: "verification",
-        label: "검증",
-        title: "Example과 공개 배포 이력이 계약의 일부가 됐습니다.",
+        id: "result",
+        label: "확인한 결과",
+        title: "13개월 동안 15개 버전을 공개 배포했습니다.",
         paragraphs: [
-          "Example 앱으로 플랫폼별 동작을 확인하고 CHANGELOG로 변경 계약을 남겼습니다. 저장소와 pub.dev의 15개 배포 버전은 외부에서 직접 확인할 수 있습니다.",
-        ],
-      },
-      {
-        id: "learning",
-        label: "배운 것 / 다음 변경",
-        title: "멀티플랫폼 SDK의 비용은 코드를 한 번 쓰는 데서 끝나지 않습니다.",
-        paragraphs: [
-          "플랫폼 차이를 계속 설명하고 호환성을 책임지는 일이 가장 비쌌습니다. 다음 공개 개선은 Android·iOS·Web 최소 smoke test와 PR 단위 analyze/test matrix입니다.",
+          "예제 앱으로 플랫폼별 동작을 확인하고 변경 기록을 남겼습니다. GitHub 저장소와 pub.dev에서 2025년 6월부터 2026년 7월까지 배포한 15개 버전을 확인할 수 있습니다.",
         ],
       },
     ],
     limitation:
-      "현재 integration test의 실효 범위와 PR 필수 gate는 충분하지 않습니다. Swift Concurrency·Combine·XCTest나 AOSP/HAL 경험으로 확대해 말하지 않습니다.",
+      "PR 필수 테스트와 통합 테스트 범위는 아직 충분하지 않습니다. 다음 개선은 Android·iOS·Web의 최소 동작을 자동으로 확인하는 것입니다.",
     sources: [
       {
         label: "GitHub repository",
@@ -248,77 +200,60 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: "observable-reliability",
     index: "03",
-    category: "Reliability · OSS",
-    title: "보이지 않던 화면을 관측하고 원인을 upstream에서 닫기",
+    category: "운영 안정성 · 오픈소스",
+    title: "Datadog의 모바일 url_query 누락 이슈를 수정했습니다.",
     summary:
-      "제품 대시보드의 우회가 아니라 Flutter SDK의 route parsing까지 내려가 재현·테스트하고, 외부 maintainer review와 정식 배포를 거쳐 운영에서 확인했습니다.",
-    role: "Root-cause analysis · implementation · tests · external review · production check",
-    tags: ["RUM", "Flutter SDK", "Open source", "AI-assisted"],
+      "문제를 재현해 SDK를 수정하고 테스트와 외부 리뷰를 거쳐 공식 버전에 반영했습니다. AI는 코드 탐색과 첫 구현안 작성에 활용했습니다.",
+    role: "원인 분석 · SDK 수정 · 테스트 · 외부 리뷰 · 제품 적용",
+    tags: ["RUM", "Flutter SDK", "오픈소스", "AI 활용"],
     metrics: [
       {
-        value: "12 days",
-        label: "제안에서 merge",
+        value: "12일",
+        label: "제안부터 병합까지",
         context: "2026-06-25 → 2026-07-07",
       },
       {
-        value: "5 tests",
-        label: "query scenarios",
-        context: "기존 route와 query-bearing route",
+        value: "5개",
+        label: "쿼리 테스트",
+        context: "기존 화면 경로와 쿼리가 포함된 경로",
       },
       {
-        value: "11 checks",
-        label: "최종 CI",
-        context: "외부 프로젝트의 merge gate",
+        value: "11개",
+        label: "CI 검사",
+        context: "외부 프로젝트의 병합 전 검사",
       },
     ],
     sections: [
       {
-        id: "problem",
-        label: "문제 / 제약",
-        title: "모바일 RUM에서 route query가 사라지고 있었습니다.",
+        id: "situation",
+        label: "상황",
+        title: "모바일 화면 URL에서 쿼리 정보가 빠지고 있었습니다.",
         paragraphs: [
-          "서로 다른 유입과 사용자 흐름이 같은 화면으로 뭉쳐 보여 제품 판단의 해상도가 낮아졌습니다. 사내 fork는 빠르지만 SDK를 올릴 때마다 패치를 유지해야 하는 선택이었습니다.",
+          "Datadog의 실제 사용자 모니터링(RUM)에서 서로 다른 유입이 같은 화면으로 집계됐습니다. 제품 코드에서 우회하면 빠르게 고칠 수 있지만 SDK를 올릴 때마다 같은 패치를 유지해야 했습니다.",
         ],
       },
       {
-        id: "decision",
-        label: "내가 내린 결정",
-        title: "급한 불은 제품에서 관측하고 반복 비용은 upstream에서 닫았습니다.",
-        paragraphs: [
-          "AI가 여러 SDK 레이어를 탐색하고 최초 구현·테스트·문서 초안을 만드는 일을 가속했습니다. 문제 가설, SDK가 책임질 범위, query 시나리오, maintainer 피드백의 수용 여부는 제가 통제했습니다.",
-        ],
-      },
-      {
-        id: "implementation",
-        label: "구현 범위",
-        title: "Flutter에서 네이티브 SDK까지 데이터가 이동하는 경로를 추적했습니다.",
+        id: "changes",
+        label: "바꾼 것",
+        title: "Flutter SDK에서 원인을 찾아 공식 저장소에 수정안을 보냈습니다.",
         bullets: [
-          "query가 유실되는 레이어 재현",
-          "view URL과 query attribute 전달 구현",
-          "기존 route 호환성과 query 시나리오 테스트",
-          "maintainer review를 반영한 변경 범위 축소",
-          "정식 SDK 버전 적용과 iOS·Android 운영 수집 확인",
+          "Flutter부터 네이티브 SDK까지 쿼리가 사라지는 위치를 재현했습니다.",
+          "화면 URL과 쿼리 속성을 전달하고 기존 경로가 깨지지 않는지 테스트했습니다.",
+          "외부 메인테이너 리뷰를 반영해 수정 범위를 줄였습니다.",
+          "AI로 관련 SDK를 탐색하고 첫 구현안과 테스트·문서 초안을 만들었습니다. 문제 범위와 수정안, 리뷰 대응은 직접 판단했습니다.",
         ],
       },
       {
-        id: "verification",
-        label: "검증",
-        title: "코드 생성이 아니라 외부 검증 gate를 통과한 결과만 남겼습니다.",
+        id: "result",
+        label: "확인한 결과",
+        title: "12일 만에 병합됐고 다음 날 공식 버전으로 배포됐습니다.",
         paragraphs: [
-          "3 commits, 2 files, 5개 query test와 11개 CI check를 거쳐 기능 PR이 upstream에 merge됐습니다. 다음 날 정식 SDK 버전으로 배포됐고, 제품에 적용한 뒤 운영 iOS·Android에서 수집을 확인했습니다.",
-        ],
-      },
-      {
-        id: "learning",
-        label: "배운 것",
-        title: "AI는 탐색 공간을 줄였고, 올바른 범위는 리뷰와 운영 데이터가 정했습니다.",
-        paragraphs: [
-          "관측 도구의 공백을 제품 우회로 남겨두면 업그레이드마다 같은 비용을 냅니다. 해결 가능한 층까지 내려가되 외부 생태계의 재현·호환성 기준을 받아들이는 편이 장기적으로 더 저렴했습니다.",
+          "코드 2개 파일과 쿼리 테스트 5개, CI 검사 11개를 거쳐 수정안이 공식 저장소에 병합됐습니다. 제품에 새 버전을 적용한 뒤 iOS와 Android에서 쿼리가 수집되는 것도 확인했습니다.",
         ],
       },
     ],
     limitation:
-      "Datadog SDK maintainer 또는 AI Platform Engineer라고 주장하지 않습니다. AI 단독 기여도, 개발 속도 배수, 장애 복구 시간 개선도 측정하지 않았습니다.",
+      "개발 속도 향상률과 장애 복구 시간은 측정하지 않았습니다. AI는 개발 보조 도구로 사용했으며 SDK 유지보수와 병합 결정은 외부 메인테이너가 맡았습니다.",
     sources: [
       {
         label: "Datadog Flutter SDK PR #1069",
@@ -333,81 +268,58 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: "design-to-preview",
     index: "04",
-    category: "System · Design QA",
-    title: "디자인 QA를 회의가 아니라 실행 가능한 preview로",
+    category: "디자인 시스템",
+    title: "일관된 디자인으로 사용자 경험과 생산성을 개선했습니다.",
     summary:
-      "토큰·foundation·component·Widgetbook을 하나의 monorepo로 운영하고, 작업에서 디자인 QA와 배포까지 같은 preview를 보게 했습니다.",
-    role: "Design system architecture · component implementation · preview workflow · release",
-    tags: ["Flutter", "Widgetbook", "Monorepo", "Design QA"],
+      "Flutter와 React에 맞춘 디자인 시스템을 만들었습니다. 구현과 QA 생산성을 높이고 사용자에게 일관된 경험을 제공했습니다.",
+    role: "디자인 시스템 구조 · 컴포넌트 구현 · 미리보기 · 배포",
+    tags: ["Flutter", "Widgetbook", "모노레포", "디자인 QA"],
     metrics: [
       {
-        value: "48 PRs",
-        label: "작성 PR merge",
+        value: "48개",
+        label: "병합된 공개 PR",
         context: "공개 저장소에서 외부 확인 가능",
       },
       {
-        value: "4 layers",
-        label: "monorepo 구조",
-        context: "tokens · foundation · components · preview",
-      },
-      {
-        value: "2 surfaces",
-        label: "공개 component catalog",
-        context: "Flutter preview와 공용 UI live preview",
+        value: "4단계",
+        label: "모노레포 구조",
+        context: "토큰 · 기반 요소 · 컴포넌트 · 미리보기",
       },
     ],
     sections: [
       {
-        id: "problem",
-        label: "문제 / 제약",
-        title: "스펙 일치 여부를 캡처와 반복 회의로 확인하고 있었습니다.",
+        id: "situation",
+        label: "상황",
+        title: "디자인과 실제 화면의 차이를 배포 직전에 발견하곤 했습니다.",
         paragraphs: [
-          "디자이너와 개발자가 서로 다른 화면을 보고 이야기하면 상태, 간격, 터치 동작의 작은 차이가 배포 직전까지 남습니다. 문서를 더 쓰는 것만으로는 실행 결과의 차이를 줄이기 어려웠습니다.",
+          "디자이너와 개발자가 서로 다른 화면을 보면 상태, 간격, 터치 동작의 차이가 배포 직전까지 남았습니다. 문서와 캡처만으로는 실제 동작을 함께 확인하기 어려웠습니다.",
         ],
       },
       {
-        id: "decision",
-        label: "내가 내린 결정",
-        title: "합의의 단위를 문서에서 실행 가능한 컴포넌트로 바꿨습니다.",
-        paragraphs: [
-          "작업 중인 컴포넌트가 preview URL로 나오고, 디자이너가 같은 화면에서 확인한 뒤 배포되는 흐름을 만들었습니다. 구현 상태를 숨기지 않고 preview를 대화의 공통 객체로 사용했습니다.",
-        ],
-      },
-      {
-        id: "implementation",
-        label: "구현 범위",
-        title: "토큰부터 preview와 생성 도구까지 분리했습니다.",
+        id: "changes",
+        label: "바꾼 것",
+        title: "PR마다 실행 가능한 컴포넌트 미리보기를 공유했습니다.",
         bullets: [
-          "Melos 기반 package 경계",
-          "token·foundation·component layer",
-          "Widgetbook use case와 responsive 상태",
-          "PR별 preview 배포",
-          "디자인 확인 상태와 릴리즈 흐름",
-          "React Native용 Storybook prototype과 공용 UI catalog 기여",
+          "Melos 모노레포를 토큰, 기반 요소, 컴포넌트, 미리보기로 나눴습니다.",
+          "Flutter는 Widgetbook, React는 Storybook으로 같은 디자인 시스템을 확인하게 했습니다.",
+          "반응형 상태와 주요 사용 예시를 만들고 PR마다 미리보기를 배포했습니다.",
+          "디자인 확인이 끝난 컴포넌트만 배포 절차로 넘겼습니다.",
         ],
       },
       {
-        id: "verification",
-        label: "검증",
-        title: "구조보다 반복되는 협업 기록으로 확인했습니다.",
+        id: "result",
+        label: "확인한 결과",
+        title: "작성한 공개 PR 48개가 모두 병합됐습니다.",
         paragraphs: [
-          "공개 Flutter WDS 저장소에서 제가 작성한 PR 48개가 모두 merge됐습니다. component catalog는 지금도 외부에서 열 수 있고, 화면별 적용은 preview를 기준으로 수동 디자인 QA를 거쳤습니다.",
-        ],
-      },
-      {
-        id: "learning",
-        label: "배운 것 / 다음 변경",
-        title: "사람의 검수는 강해졌지만 자동 회귀 검증은 남았습니다.",
-        paragraphs: [
-          "Widgetbook과 Storybook은 빠른 합의에 유효했지만 자동 visual regression이나 golden test를 대체하지 않습니다. 다음 단계는 필수 analyze·widget test와 제한된 golden diff gate입니다.",
+          "Flutter WDS 공개 저장소에서 작성한 PR 48개를 확인할 수 있습니다. Flutter Widgetbook과 React Storybook도 공개 링크로 열어 볼 수 있습니다.",
         ],
       },
     ],
     limitation:
-      "화면 개발 시간이나 코드 감소율은 재현 가능한 산식이 없어 사용하지 않습니다. 공개 PR 수는 활동의 증거이지 생산성 자체가 아닙니다.",
+      "개발 시간 단축률과 코드 감소율은 측정하지 않았습니다. 자동 화면 회귀 테스트는 다음에 보완할 과제입니다.",
     sources: [
       {
-        label: "Flutter WDS repository",
+        label: "Flutter WDS 저장소",
         href: "https://github.com/ppbstudios/wds_flutter",
       },
       {
@@ -415,12 +327,14 @@ export const caseStudies: CaseStudy[] = [
         href: "https://github.com/ppbstudios/wds_flutter/pulls?q=is%3Apr+author%3Aseunghwanly",
       },
       {
-        label: "Flutter component preview",
+        label: "Flutter 컴포넌트 미리보기",
         href: "https://design.winc.app",
-      },
-      {
-        label: "기여한 공용 UI 시스템 · Live preview",
-        href: "https://wds.winc.app",
+        related: [
+          {
+            label: "React 컴포넌트 미리보기",
+            href: "https://wds.winc.app",
+          },
+        ],
       },
     ],
   },
@@ -431,37 +345,38 @@ export const publicProof: {
   items: SourceLink[];
 }[] = [
   {
-    group: "Open source",
+    group: "오픈소스",
     items: [
       {
-        label: "Datadog Flutter SDK · route query contribution",
+        label: "Datadog Flutter SDK · 화면 URL 쿼리 수정",
         href: "https://github.com/DataDog/dd-sdk-flutter/pull/1069",
-        note: "기능 구현, 테스트, maintainer review와 merge",
+        note: "코드 수정, 테스트, 메인테이너 리뷰와 병합",
       },
       {
         label: "kakao_maps_flutter",
         href: "https://github.com/seunghwanly/kakao_maps_flutter",
-        note: "Android · iOS · Web plugin과 문서",
+        note: "Android · iOS · Web 플러그인 · 13개월간 15회 배포",
+        related: [
+          {
+            label: "pub.dev",
+            href: "https://pub.dev/packages/kakao_maps_flutter",
+          },
+        ],
       },
       {
-        label: "kakao_maps_flutter · pub.dev",
-        href: "https://pub.dev/packages/kakao_maps_flutter",
-        note: "13개월간 15개 release",
-      },
-      {
-        label: "Flutter WDS",
+        label: "Flutter 디자인 시스템",
         href: "https://github.com/ppbstudios/wds_flutter",
-        note: "tokens · foundation · components · Widgetbook",
+        note: "토큰 · 기반 요소 · 컴포넌트 · Widgetbook",
       },
       {
-        label: "Self-hosted mobile CI/CD",
+        label: "자체 모바일 CI/CD",
         href: "https://github.com/seunghwanly/local-flutter-cicd-server",
         note: "FastAPI · Fastlane · build queue · 55 tests",
       },
     ],
   },
   {
-    group: "Writing",
+    group: "기술 글",
     items: [
       {
         label: "AI와 함께 Datadog SDK에 기여하기",
@@ -474,24 +389,25 @@ export const publicProof: {
         note: "모바일 제품의 Web 확장과 플랫폼별 결정",
       },
       {
-        label: "Medium archive",
+        label: "기술 글 모음",
         href: "https://medium.com/@seunghwanly",
         note: "Flutter · Web · 관측성에 대한 기록",
       },
     ],
   },
   {
-    group: "Live systems",
+    group: "공개 미리보기",
     items: [
       {
-        label: "Flutter component preview",
+        label: "WDS 컴포넌트 미리보기",
         href: "https://design.winc.app",
-        note: "공개 Widgetbook",
-      },
-      {
-        label: "기여한 공용 UI 시스템 · Live preview",
-        href: "https://wds.winc.app",
-        note: "공개 catalog만 연결하며 내부 저장소는 공개하지 않음",
+        note: "같은 디자인 시스템을 Widgetbook과 Storybook으로 공개했습니다.",
+        related: [
+          {
+            label: "React 미리보기",
+            href: "https://wds.winc.app",
+          },
+        ],
       },
     ],
   },
@@ -522,20 +438,20 @@ export const askEntries: AskEntry[] = [
       "fit",
     ],
     answer:
-      "제품 엔지니어 역할과 가장 가까운 경험은 오프라인 매장 고객과 온라인 계정을 연결하고 4개 브랜드 앱·웹의 예약 상세를 공용 웹으로 통합한 일입니다. Android·iOS·Web의 차이를 하나의 SDK 계약으로 다룬 경험과 제품에서 발견한 관측 문제를 upstream까지 추적한 경험도 이어집니다.",
+      "가장 가까운 경험은 온라인 계정과 매장 고객을 연결하고, 4개 브랜드의 예약 상세를 공용 React 웹으로 옮긴 일입니다. Android·iOS·Web을 지원하는 Flutter 플러그인을 만든 경험과 제품에서 발견한 문제를 공식 SDK까지 추적한 경험도 있습니다.",
     known: [
-      "본인인증과 동의를 기준으로 고객 식별과 예약·주문 상태를 설계했습니다.",
-      "고객·매장용 예약 상세를 공용 웹으로 모으고 앱 연동 계약·딥링크·WebView를 정리했습니다. 통합 화면을 운영에 반영하고 앱 업데이트까지 마쳤습니다.",
-      "Kotlin·Swift/SPM·JavaScript adapter를 하나의 Dart API로 연결했습니다.",
-      "운영에서 발견한 RUM 공백을 테스트와 외부 리뷰를 거쳐 정식 SDK 배포로 연결했습니다.",
+      "본인인증과 동의를 고객 연결 조건으로 정하고 예약·주문 상태를 설계했습니다.",
+      "고객용과 매장용 예약 상세를 공용 웹으로 모았습니다. 앱 연동과 딥링크, WebView를 정리한 뒤 앱 업데이트까지 마쳤습니다.",
+      "Kotlin·Swift/SPM·JavaScript 구현을 하나의 Dart API로 연결했습니다.",
+      "제품에서 발견한 RUM 문제를 테스트와 외부 리뷰를 거쳐 공식 SDK에 반영했습니다.",
     ],
     boundary:
-      "결제 멱등성이나 POS 주변기기, AOSP/HAL을 직접 구현한 경험으로 확대하지 않습니다.",
+      "결제 코어의 멱등성, POS 주변기기와 AOSP/HAL은 직접 구현한 경험이 없습니다.",
     sources: [
-      { label: "O2O case", href: "/work/connected-commerce" },
-      { label: "SDK case", href: "/work/multiplatform-sdk" },
+      { label: "고객 연결 작업", href: "/work/connected-commerce" },
+      { label: "멀티플랫폼 SDK 작업", href: "/work/multiplatform-sdk" },
       {
-        label: "Reliability case",
+        label: "Flutter SDK 수정 작업",
         href: "/work/observable-reliability",
       },
     ],
@@ -555,14 +471,14 @@ export const askEntries: AskEntry[] = [
       "payment",
     ],
     answer:
-      "예약·주문·결제의 client flow와 상태 계약, 결제 실패 뒤 예약 상태를 조사하는 운영 경험은 있습니다. 다만 결제 코어의 멱등성이나 중복 결제 방지 로직, POS 단말·카드리더·영수증 프린터 연동은 확인 가능한 제 경험이 아닙니다.",
+      "예약·주문·결제 화면의 흐름과 상태를 설계하고, 결제 실패 뒤 예약 상태를 조사한 경험은 있습니다. 결제 코어의 멱등성이나 중복 결제 방지 로직, POS 단말·카드리더·영수증 프린터 연동은 직접 맡지 않았습니다.",
     known: [
-      "총 단계·현재 단계·종료 이유를 조합한 주문 상태 계약을 설계했습니다.",
-      "장바구니와 주문·결제를 복구 성질이 다른 단계로 분리했습니다.",
+      "서버가 총 단계·현재 단계·종료 이유를 내려주도록 주문 상태를 설계했습니다.",
+      "장바구니와 주문·결제를 복구 방식이 다른 단계로 나눴습니다.",
     ],
     boundary:
-      "offline coupon 연동 경험을 production offline-first sync로 표현하지 않습니다.",
-    sources: [{ label: "O2O case", href: "/work/connected-commerce" }],
+      "오프라인 쿠폰 연동 경험은 있지만 제품 전체를 오프라인 우선 구조로 만든 경험은 아닙니다.",
+    sources: [{ label: "고객 연결 작업", href: "/work/connected-commerce" }],
   },
   {
     id: "ai-practice",
@@ -578,16 +494,16 @@ export const askEntries: AskEntry[] = [
       "자동화",
     ],
     answer:
-      "AI는 여러 SDK 레이어의 탐색과 최초 구현·테스트·문서 초안을 가속했습니다. 문제 가설, 수정 범위, 리뷰 판단과 운영 검증은 제가 통제했고, 5개 query test와 11개 CI check, 외부 maintainer review를 통과한 결과만 성과로 남겼습니다.",
+      "AI로 여러 SDK를 탐색하고 첫 구현안과 테스트·문서 초안을 만들었습니다. 문제 범위와 수정안, 리뷰 대응은 직접 판단했습니다. 쿼리 테스트 5개와 CI 검사 11개, 외부 메인테이너 리뷰를 통과한 결과만 반영했습니다.",
     known: [
-      "Datadog Flutter SDK 기능 PR이 12일 만에 upstream merge됐습니다.",
-      "AI 공동작업은 공개 commit metadata에도 남겼습니다.",
+      "Datadog Flutter SDK 수정안이 12일 만에 공식 저장소에 병합됐습니다.",
+      "AI와 함께 작성한 공개 커밋에는 공동 작성 정보를 남겼습니다.",
     ],
     boundary:
-      "AI 단독 기여도나 생산성 배수를 계산하지 않았고, AI 플랫폼·RAG·모델 서빙 경험으로 말하지 않습니다.",
+      "AI가 개발 시간을 얼마나 줄였는지는 측정하지 않았습니다. AI 플랫폼과 RAG, 모델 서빙을 운영한 경험도 없습니다.",
     sources: [
       {
-        label: "AI Practice",
+        label: "AI 활용 사례",
         href: "/ai-practice",
       },
       {
@@ -610,19 +526,19 @@ export const askEntries: AskEntry[] = [
       "리뷰",
     ],
     answer:
-      "작업 뒤 화면 evidence를 자동으로 남기는 실험은 수행 시간을 늘렸고, 인증 session이 필요한 화면에서 원하는 상태를 재현하기 어려웠습니다. 그래서 모든 작업에 capture를 강제하지 않고 대상별 opt-in gate와 안전한 test session이 먼저 필요하다고 판단했습니다.",
+      "작업이 끝난 뒤 화면을 자동 캡처하는 실험은 전체 실행 시간을 늘렸습니다. 로그인 상태가 필요한 화면은 원하는 장면을 재현하기도 어려웠습니다. 지금은 리뷰에 화면이 꼭 필요한 작업에서만 선택해 사용합니다.",
     known: [
-      "작업 완료와 사람이 결과를 검증할 수 있는 상태는 다른 문제였습니다.",
-      "자동화의 존재보다 review coverage와 실패 비용을 먼저 봐야 했습니다.",
+      "에이전트가 작업을 끝낸 것과 사람이 결과를 확인할 수 있는 것은 다른 문제였습니다.",
+      "자동화 여부보다 리뷰할 수 있는 화면의 범위와 실패 비용을 먼저 확인했습니다.",
     ],
     boundary:
-      "리뷰 시간 단축이나 생산성 향상 수치는 없으며, 내부 시스템의 이름과 URL은 공개하지 않습니다.",
-    sources: [{ label: "AI Practice", href: "/ai-practice" }],
+      "리뷰 시간과 생산성 개선 수치는 측정하지 않았습니다. 내부 시스템 이름과 URL은 공개하지 않습니다.",
+    sources: [{ label: "AI 활용 사례", href: "/ai-practice" }],
   },
   {
     id: "platform",
     question: "Native와 Web의 차이를 어떻게 다뤘나요?",
-    shortLabel: "Native · Web 경계",
+    shortLabel: "Native · Web 연동",
     keywords: [
       "native",
       "네이티브",
@@ -640,16 +556,16 @@ export const askEntries: AskEntry[] = [
       "공용",
     ],
     answer:
-      "공통 Dart 계약은 안정적인 최소 교집합으로 두고 Kotlin·Swift/SPM·JavaScript adapter의 차이를 기능 매트릭스에 명시했습니다. 제품에서는 4개 브랜드 앱·웹의 예약 상세를 공용 웹으로 모았습니다. 호스트 앱과 웹이 데이터를 주고받는 계약과 딥링크·WebView 동작은 따로 정리했습니다.",
+      "공통 Dart API에는 세 플랫폼에서 안정적으로 제공할 수 있는 기능만 넣었습니다. 나머지는 Kotlin·Swift/SPM·JavaScript 구현과 지원표에 따로 적었습니다. 제품에서는 4개 브랜드의 예약 상세를 공용 웹으로 옮기고 앱 연동과 딥링크, WebView 동작을 정리했습니다.",
     known: [
       "Android·iOS·Web을 지원하는 공개 Flutter plugin을 13개월간 운영했습니다.",
       "15개 버전을 pub.dev에 배포했습니다.",
       "고객 화면과 매장 운영 화면이 같은 상세 내용을 보도록 맞췄습니다. 통합 화면을 운영에 반영하고 Winc 앱 업데이트까지 완료했습니다.",
     ],
     boundary:
-      "Swift Concurrency·Combine·XCTest 또는 Android Framework/HAL 경험으로 확대하지 않습니다.",
+      "Swift Concurrency·Combine·XCTest와 Android Framework/HAL 경험은 많지 않거나 없습니다.",
     sources: [
-      { label: "SDK case", href: "/work/multiplatform-sdk" },
+      { label: "멀티플랫폼 SDK 작업", href: "/work/multiplatform-sdk" },
       {
         label: "kakao_maps_flutter",
         href: "https://github.com/seunghwanly/kakao_maps_flutter",
@@ -671,15 +587,15 @@ export const askEntries: AskEntry[] = [
       "component",
     ],
     answer:
-      "Flutter WDS의 token·foundation·component·Widgetbook 구조와 컴포넌트를 개발하고, PR별 preview를 디자인 QA의 공통 화면으로 사용했습니다. 공개 저장소에서 작성한 PR 48개가 모두 merge됐습니다.",
+      "Flutter WDS를 토큰, 기반 요소, 컴포넌트, Widgetbook으로 나누고 컴포넌트를 개발했습니다. PR마다 실행 가능한 미리보기를 공유해 디자인 검수에 사용했습니다. 공개 저장소에 작성한 PR 48개는 모두 병합됐습니다.",
     known: [
-      "작업→preview→디자인 확인→배포의 협업 흐름을 운영했습니다.",
-      "Flutter preview와 기여한 공용 UI 시스템의 live catalog를 공개하고 있습니다.",
+      "작업, 미리보기, 디자인 확인, 배포가 이어지는 협업 방식을 운영했습니다.",
+      "Flutter Widgetbook과 React Storybook을 공개하고 있습니다.",
     ],
     boundary:
-      "개발 시간 단축률이나 코드 감소율은 산식이 없어 사용하지 않으며, 자동 visual regression은 아직 공백입니다.",
+      "개발 시간 단축률과 코드 감소율은 측정하지 않았습니다. 자동 화면 회귀 테스트는 아직 보완할 과제입니다.",
     sources: [
-      { label: "Design QA case", href: "/work/design-to-preview" },
+      { label: "디자인 시스템 작업", href: "/work/design-to-preview" },
       {
         label: "Flutter WDS",
         href: "https://github.com/ppbstudios/wds_flutter",
@@ -701,22 +617,22 @@ export const askEntries: AskEntry[] = [
       "근거",
     ],
     answer:
-      "숫자는 기간·분모·환경을 같은 문장에 둡니다. 예를 들어 crash-free는 출시 첫 달의 앱 sessions, 장바구니 views, 웹 sessions를 분리해 기록했고, 해당 관측 범위 밖의 무장애를 주장하지 않습니다.",
+      "성과 수치에는 기간과 분모, 측정 환경을 함께 적습니다. 예를 들어 crash-free는 출시 첫 달의 앱 sessions, 장바구니 views, 웹 sessions를 나눠 기록했습니다.",
     known: [
-      "공개 숫자는 원본 PR·release·repository로 연결합니다.",
-      "서로 충돌하거나 인과를 설명할 수 없는 수치는 공개 문장에서 제외했습니다.",
+      "공개한 숫자는 확인할 수 있는 PR과 배포 기록, 저장소로 연결합니다.",
+      "서로 충돌하거나 원인을 설명할 수 없는 수치는 사용하지 않았습니다.",
     ],
     boundary:
-      "PR·commit·dashboard 개수만으로 제품 성과나 개인 생산성을 주장하지 않습니다.",
+      "PR과 커밋, 대시보드 개수만으로 제품 성과나 개인 생산성을 설명하지 않습니다.",
     sources: [
-      { label: "Public proof", href: "/proof" },
-      { label: "O2O case", href: "/work/connected-commerce" },
+      { label: "공개 기록", href: "/proof" },
+      { label: "고객 연결 작업", href: "/work/connected-commerce" },
     ],
   },
   {
     id: "ai-gap",
     question: "RAG·MCP Gateway·모델 서빙 경험이 있나요?",
-    shortLabel: "AI 경험의 경계",
+    shortLabel: "AI 플랫폼 경험",
     keywords: [
       "rag",
       "mcp",
@@ -729,13 +645,13 @@ export const askEntries: AskEntry[] = [
       "평가",
     ],
     answer:
-      "프로덕션 RAG, MCP Gateway, Model Router, vLLM/Triton 모델 서빙을 직접 운영한 경험은 없습니다. 현재 강점은 AI-assisted delivery의 검증 방식과 coding-agent 결과를 사람이 리뷰할 수 있게 만드는 실행 경계입니다.",
+      "프로덕션 RAG, MCP Gateway, Model Router와 vLLM/Triton 모델 서빙을 직접 운영한 경험은 없습니다. AI는 소프트웨어 개발 과정에서 코드를 탐색하고 초안을 만드는 도구로 사용했습니다.",
     known: [
-      "공개 SDK 사례에서 AI와 사람의 책임을 분리하고 테스트·리뷰·배포로 검증했습니다.",
-      "agent 실험에서는 capture coverage와 인증 상태의 한계를 확인했습니다.",
+      "공개 SDK 작업에서 AI가 맡은 일과 직접 판단한 일을 나누고 테스트와 리뷰를 거쳤습니다.",
+      "코딩 에이전트 실험에서는 화면 캡처 범위와 로그인 상태의 한계를 확인했습니다.",
     ],
     boundary:
-      "관심 영역이나 입사 후 가설을 과거 경력처럼 표현하지 않습니다.",
-    sources: [{ label: "AI Practice", href: "/ai-practice" }],
+      "관심 있는 기술을 이미 해본 일처럼 소개하지 않습니다.",
+    sources: [{ label: "AI 활용 사례", href: "/ai-practice" }],
   },
 ];

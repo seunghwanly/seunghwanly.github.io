@@ -25,7 +25,7 @@ export async function generateMetadata({
   const item = caseStudies.find((entry) => entry.slug === slug);
 
   if (!item) {
-    return { title: "Work case" };
+    return { title: "대표 작업" };
   }
 
   return {
@@ -42,8 +42,8 @@ function CaseDiagram({ slug }: { slug: string }) {
   if (slug === "multiplatform-sdk") {
     return (
       <figure className="sdk-diagram">
-        <figcaption>Stable contract, explicit differences</figcaption>
-        <div className="sdk-contract">Dart contract</div>
+        <figcaption>공통 API와 플랫폼별 구현</figcaption>
+        <div className="sdk-contract">공통 Dart API</div>
         <div className="sdk-branches" aria-hidden="true">
           <span>↓</span>
           <span>↓</span>
@@ -64,8 +64,8 @@ function CaseDiagram({ slug }: { slug: string }) {
           </div>
         </div>
         <p className="sr-only">
-          하나의 안정적인 Dart 계약 아래 Android Kotlin, iOS Swift와
-          SPM, Web JavaScript adapter를 둔 구조입니다.
+          하나의 공통 Dart API 아래 Android Kotlin, iOS Swift와 SPM,
+          Web JavaScript 구현을 둔 구조입니다.
         </p>
       </figure>
     );
@@ -81,27 +81,27 @@ function CaseDiagram({ slug }: { slug: string }) {
 
   return (
     <figure className="preview-diagram">
-      <figcaption>Design → implementation → review</figcaption>
+      <figcaption>디자인 → 구현 → 검수</figcaption>
       <ol>
         <li>
           <span>01</span>
-          <strong>Component</strong>
+          <strong>컴포넌트</strong>
           <small>tokens · state · interaction</small>
         </li>
         <li>
           <span>02</span>
-          <strong>Live preview</strong>
+          <strong>실행 화면</strong>
           <small>Widgetbook · Storybook</small>
         </li>
         <li>
           <span>03</span>
-          <strong>Design QA</strong>
-          <small>same executable surface</small>
+          <strong>디자인 검수</strong>
+          <small>같은 화면에서 확인</small>
         </li>
         <li>
           <span>04</span>
-          <strong>Release</strong>
-          <small>versioned package</small>
+          <strong>배포</strong>
+          <small>버전이 붙은 패키지</small>
         </li>
       </ol>
     </figure>
@@ -129,15 +129,15 @@ export default async function WorkCasePage({ params }: CasePageProps) {
       <article className="case-page">
         <header className="case-hero site-shell">
           <Link className="back-link" href="/work">
-            ← Work index
+            ← 대표 작업
           </Link>
           <p className="eyebrow">
-            CASE {item.index} · {item.category}
+            작업 {item.index} · {item.category}
           </p>
           <h1>{item.title}</h1>
           <p className="case-summary">{item.summary}</p>
           <div className="case-role">
-            <span>MY SCOPE</span>
+            <span>직접 맡은 일</span>
             <p>{item.role}</p>
           </div>
           <ul className="tag-list" aria-label="관련 기술과 주제">
@@ -150,7 +150,7 @@ export default async function WorkCasePage({ params }: CasePageProps) {
         <div className="case-body site-shell">
           <aside className="trace-rail">
             <nav aria-label="사례 구조">
-              <p>CASE TRACE</p>
+              <p>내용</p>
               <ol>
                 {item.sections.map((section, index) => (
                   <li key={section.id}>
@@ -165,15 +165,11 @@ export default async function WorkCasePage({ params }: CasePageProps) {
                     <span aria-hidden="true">
                       0{item.sections.length + 1}
                     </span>
-                    경험의 경계
+                    남은 과제
                   </a>
                 </li>
               </ol>
             </nav>
-            <div className="trace-meta">
-              <span>{item.metrics.length} scoped metrics</span>
-              <span>{item.sources.length} public links</span>
-            </div>
           </aside>
 
           <div className="case-content">
@@ -211,8 +207,8 @@ export default async function WorkCasePage({ params }: CasePageProps) {
                 0{item.sections.length + 1}
               </div>
               <div>
-                <p className="trace-label">경험의 경계</p>
-                <h2>이 사례가 증명하지 못하는 것</h2>
+                <p className="trace-label">마지막으로</p>
+                <h2>남은 과제와 범위</h2>
                 <BoundaryNote>{item.limitation}</BoundaryNote>
                 <SourceList sources={item.sources} />
               </div>
@@ -223,12 +219,12 @@ export default async function WorkCasePage({ params }: CasePageProps) {
         <nav className="case-pagination site-shell" aria-label="다른 사례">
           {previous ? (
             <Link href={`/work/${previous.slug}`}>
-              <span>PREVIOUS</span>
+              <span>이전 작업</span>
               {previous.title}
             </Link>
           ) : null}
           <Link href={`/work/${next.slug}`}>
-            <span>NEXT</span>
+            <span>다음 작업</span>
             {next.title}
           </Link>
         </nav>
@@ -236,4 +232,3 @@ export default async function WorkCasePage({ params }: CasePageProps) {
     </main>
   );
 }
-

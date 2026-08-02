@@ -2,11 +2,9 @@ import Link from "next/link";
 import { profileLinks } from "@/lib/content";
 
 const navigation = [
-  { label: "Work", href: "/work" },
-  { label: "AI Practice", href: "/ai-practice" },
-  { label: "Public Proof", href: "/proof" },
-  { label: "About / Resume", href: "/about" },
-  { label: "Ask", href: "/ask" },
+  { label: "작업", href: "/work" },
+  { label: "소개", href: "/about" },
+  { label: "공개 기록", href: "/proof" },
 ];
 
 export function SiteHeader() {
@@ -16,7 +14,7 @@ export function SiteHeader() {
         <Link className="brand" href="/" aria-label="이승환 포트폴리오 홈">
           <span className="brand-name">이승환</span>
           <span className="brand-trace" aria-hidden="true">
-            ENGINEERING NOTES
+            제품 엔지니어
           </span>
         </Link>
 
@@ -27,19 +25,19 @@ export function SiteHeader() {
             </Link>
           ))}
           <a className="nav-resume" href="/resume.pdf">
-            Resume PDF <span aria-hidden="true">↗</span>
+            이력서 <span aria-hidden="true">↗</span>
           </a>
         </nav>
 
         <details className="mobile-nav">
-          <summary aria-label="메뉴 열기">Menu</summary>
+          <summary aria-label="메뉴 열기">메뉴</summary>
           <nav aria-label="모바일 주요 메뉴">
             {navigation.map((item) => (
               <Link key={item.href} href={item.href}>
                 {item.label}
               </Link>
             ))}
-            <a href="/resume.pdf">Resume PDF ↗</a>
+            <a href="/resume.pdf">이력서 ↗</a>
           </nav>
         </details>
       </div>
@@ -54,8 +52,8 @@ export function SiteFooter() {
         <div>
           <p className="footer-title">이승환 · Product Engineer</p>
           <p className="footer-copy">
-            Flutter 앱과 React 웹을 만들고, 네이티브 연동부터 배포와
-            운영까지 맡아 왔습니다.
+            Flutter로 모바일 개발을 시작해 React 웹까지 함께 만들고
+            운영하고 있습니다.
           </p>
         </div>
         <div className="footer-links" aria-label="외부 프로필">
@@ -69,11 +67,9 @@ export function SiteFooter() {
               {link.label} <span aria-hidden="true">↗</span>
             </a>
           ))}
+          <Link href="/ask">질문 찾기</Link>
+          <Link href="/ai-practice">AI 활용</Link>
           <a href="mailto:seunghwanly@gmail.com">Email ↗</a>
-        </div>
-        <div className="footer-meta">
-          <span>Seoul · available Dec 2026</span>
-          <span>Last curated · 2026-07-29</span>
         </div>
       </div>
     </footer>
