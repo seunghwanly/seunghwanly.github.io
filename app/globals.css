@@ -419,14 +419,14 @@ table {
 
 .button-primary {
   background: rgb(91 92 226 / 92%);
-  border-color: rgb(255 255 255 / 68%);
+  border-color: transparent;
   color: #ffffff;
-  box-shadow: var(--shadow-base);
+  box-shadow: 0 1px 2px rgb(28 39 64 / 9%);
 }
 
 .button-primary:hover {
   background: #5253d4;
-  border-color: rgb(255 255 255 / 84%);
+  border-color: transparent;
   color: #ffffff;
 }
 
@@ -747,7 +747,7 @@ table {
   text-underline-offset: 0.24em;
 }
 
-.proof-cell:first-child:focus-visible {
+.proof-cell:focus-visible {
   background:
     linear-gradient(
       118deg,
@@ -896,7 +896,7 @@ table {
     transform: translateY(-2px);
   }
 
-  .proof-cell:first-child:hover {
+  .proof-cell:hover {
     background:
       linear-gradient(
         118deg,
@@ -2889,7 +2889,7 @@ table {
   color: #494ac2;
 }
 
-.proof-cell:first-child:focus-visible {
+.proof-cell:focus-visible {
   background:
     linear-gradient(
       118deg,
@@ -3715,7 +3715,7 @@ table {
   margin-bottom: 4px;
 }
 
-.proof-cell:first-child:focus-visible {
+.proof-cell:focus-visible {
   background:
     linear-gradient(
       118deg,
@@ -3728,12 +3728,12 @@ table {
   border-color: rgb(91 92 226 / 38%);
 }
 
-.proof-cell:first-child:focus-visible::before {
+.proof-cell:focus-visible::before {
   background: var(--cyan);
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .proof-cell:first-child:hover {
+  .proof-cell:hover {
     background:
       linear-gradient(
         118deg,
@@ -3746,7 +3746,7 @@ table {
     border-color: rgb(91 92 226 / 38%);
   }
 
-  .proof-cell:first-child:hover::before {
+  .proof-cell:hover::before {
     background: var(--cyan);
   }
 }
@@ -4434,8 +4434,8 @@ table {
     background: #f8faff;
   }
 
-  .proof-cell:first-child:hover,
-  .proof-cell:first-child:focus-visible {
+  .proof-cell:hover,
+  .proof-cell:focus-visible {
     background: #e8e9ff;
   }
 
@@ -4483,8 +4483,8 @@ table {
     -webkit-backdrop-filter: none;
   }
 
-  .proof-cell:first-child:hover,
-  .proof-cell:first-child:focus-visible {
+  .proof-cell:hover,
+  .proof-cell:focus-visible {
     background: #e8e9ff;
   }
 
@@ -4539,8 +4539,8 @@ table {
     -webkit-backdrop-filter: none;
   }
 
-  .proof-cell:first-child:hover,
-  .proof-cell:first-child:focus-visible {
+  .proof-cell:hover,
+  .proof-cell:focus-visible {
     background: #e5e7ff;
     border-color: #4546bd;
   }

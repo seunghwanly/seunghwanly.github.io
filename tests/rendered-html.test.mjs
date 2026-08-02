@@ -82,7 +82,7 @@ test("home is a complete Korean portfolio with public proof", async () => {
   assert.match(html, /31,124명/);
   assert.match(html, /4개 브랜드의 예약 상세/);
   assert.match(html, /공용 React 웹/);
-  assert.match(html, /제품 엔지니어/);
+  assert.match(html, /Product Engineer/);
   assert.doesNotMatch(html, /class="identity-artifact"/);
   assert.doesNotMatch(html, /flow-grid/);
   assert.doesNotMatch(html, /class="identity-map"/);
