@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import {
-  ActionGroup,
-  ActionLink,
+  ButtonGroup,
+  ButtonLink,
   Eyebrow,
   PageIntro,
 } from "@/components/content-ui";
@@ -57,24 +57,24 @@ export default function AboutPage() {
         description="Flutter로 Android·iOS·Web 제품을 만들고 필요하면 React로 웹을 다시 설계합니다. 제품 흐름에 필요한 API와 자동화 서버도 구현하며, Kotlin·Swift 연동부터 배포 후 오류 추적까지 직접 맡아 왔습니다."
       />
 
-      <ActionGroup className="resume-actions site-shell" ariaLabel="이력서와 연락">
-        <ActionLink href="/resume.pdf" variant="primary" trailing="external">
+      <ButtonGroup className="resume-actions site-shell" ariaLabel="이력서와 연락">
+        <ButtonLink href="/resume.pdf" variant="primary" trailing="external">
           이력서 PDF 열기
-        </ActionLink>
-        <ActionLink href="mailto:seunghwanly@gmail.com" variant="secondary">
+        </ButtonLink>
+        <ButtonLink href="mailto:seunghwanly@gmail.com" variant="secondary">
           이메일 보내기
-        </ActionLink>
+        </ButtonLink>
         {profileLinks.map((link) => (
-          <ActionLink
+          <ButtonLink
             href={link.href}
             key={link.href}
-            variant="quiet"
+            variant="tertiary"
             trailing="external"
           >
             {link.label}
-          </ActionLink>
+          </ButtonLink>
         ))}
-      </ActionGroup>
+      </ButtonGroup>
 
       <section className="career-section site-shell" aria-labelledby="career">
         <div className="section-heading">

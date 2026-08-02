@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ButtonLink } from "@/components/content-ui";
 import { profileLinks } from "@/lib/content";
 
 const navigation = [
@@ -24,9 +25,9 @@ export function SiteHeader() {
               {item.label}
             </Link>
           ))}
-          <a className="nav-resume" href="/resume.pdf">
-            이력서 <span aria-hidden="true">↗</span>
-          </a>
+          <ButtonLink href="/resume.pdf" variant="primary" trailing="external">
+            이력서
+          </ButtonLink>
         </nav>
 
         <details className="mobile-nav">
@@ -37,7 +38,9 @@ export function SiteHeader() {
                 {item.label}
               </Link>
             ))}
-            <a href="/resume.pdf">이력서 ↗</a>
+            <ButtonLink href="/resume.pdf" variant="primary" trailing="external">
+              이력서
+            </ButtonLink>
           </nav>
         </details>
       </div>

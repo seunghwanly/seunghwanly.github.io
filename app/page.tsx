@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
-  ActionGroup,
-  ActionLink,
+  ButtonGroup,
+  ButtonLink,
   CaseRow,
   Eyebrow,
   LayerDiagram,
@@ -66,14 +66,14 @@ export default function Home() {
             Kotlin·Swift 연동과 배포 자동화까지 다룹니다. AI는 탐색과 초안에
             활용하고 결과는 테스트와 리뷰로 확인합니다.
           </p>
-          <ActionGroup className="hero-actions" stackOnMobile>
-            <ActionLink href="/work" variant="primary" trailing="arrow">
+          <ButtonGroup className="hero-actions" stackOnMobile>
+            <ButtonLink href="/work" variant="primary" trailing="arrow">
               대표 작업 보기
-            </ActionLink>
-            <ActionLink href="/resume.pdf" variant="secondary" trailing="external">
+            </ButtonLink>
+            <ButtonLink href="/resume.pdf" variant="secondary" trailing="external">
               이력서 보기
-            </ActionLink>
-          </ActionGroup>
+            </ButtonLink>
+          </ButtonGroup>
         </div>
         <LayerDiagram />
       </section>
@@ -110,14 +110,14 @@ export default function Home() {
           <Eyebrow>이력서와 연락처</Eyebrow>
           <h2 id="home-cta-title">더 자세한 경력은 이력서에서 확인할 수 있습니다.</h2>
         </div>
-        <ActionGroup>
-          <ActionLink href="/resume.pdf" variant="primary" trailing="external">
+        <ButtonGroup>
+          <ButtonLink href="/resume.pdf" variant="primary" trailing="external">
             이력서 보기
-          </ActionLink>
-          <ActionLink href="mailto:seunghwanly@gmail.com" variant="secondary">
+          </ButtonLink>
+          <ButtonLink href="mailto:seunghwanly@gmail.com" variant="secondary">
             이메일 보내기
-          </ActionLink>
-        </ActionGroup>
+          </ButtonLink>
+        </ButtonGroup>
       </section>
     </main>
   );

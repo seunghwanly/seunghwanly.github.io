@@ -94,7 +94,7 @@ test("home is a complete Korean portfolio with public proof", async () => {
 
 test("renders every primary route and all four work cases", async () => {
   const expected = [
-    ["/work", "제품 문제를 해결한 네 가지 작업"],
+    ["/work", "31,124명의 고객을 연결하고, 4개 브랜드의 예약 화면"],
     ["/work/connected-commerce", "온라인 계정과 매장 고객을 연결"],
     ["/work/multiplatform-sdk", "Android·iOS·Web을 하나의 Flutter 플러그인"],
     ["/work/observable-reliability", "Datadog의 모바일 url_query 누락 이슈"],
@@ -110,6 +110,34 @@ test("renders every primary route and all four work cases", async () => {
     assert.equal(response.status, 200, `${pathname} should render`);
     assert.match(await response.text(), new RegExp(phrase));
   }
+});
+
+test("uses only primary, secondary, and tertiary button variants", async () => {
+  const componentSource = await readFile(
+    new URL("../components/content-ui.tsx", import.meta.url),
+    "utf8",
+  );
+  const siteSource = await readFile(
+    new URL("../components/site-shell.tsx", import.meta.url),
+    "utf8",
+  );
+  const css = await readFile(
+    new URL("../app/globals.css", import.meta.url),
+    "utf8",
+  );
+
+  assert.match(
+    componentSource,
+    /type ButtonVariant = "primary" \| "secondary" \| "tertiary"/,
+  );
+  assert.match(siteSource, /<ButtonLink[^>]+variant="primary"/);
+  assert.match(css, /\.button-primary\s*\{/);
+  assert.match(css, /\.button-secondary\s*\{/);
+  assert.match(css, /\.button-tertiary\s*\{/);
+  assert.doesNotMatch(
+    `${componentSource}\n${siteSource}\n${css}`,
+    /Action(?:Link|Group)|action-group|button-quiet|nav-resume/,
+  );
 });
 
 test("proof directory merges duplicate destinations and omits the disclaimer slide", async () => {

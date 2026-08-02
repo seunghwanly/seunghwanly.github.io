@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import {
-  ActionGroup,
-  ActionLink,
+  ButtonGroup,
+  ButtonLink,
   BoundaryNote,
   Eyebrow,
   HumanAIContract,
@@ -108,18 +108,18 @@ export default function AIPracticePage() {
         <div>
           <h2>SDK 수정 과정과 공개 기록을 더 볼 수 있습니다.</h2>
         </div>
-        <ActionGroup>
-          <ActionLink
+        <ButtonGroup>
+          <ButtonLink
             href="/work/observable-reliability"
             variant="primary"
             trailing="arrow"
           >
             관측 문제 해결 사례
-          </ActionLink>
-          <ActionLink href="/ask" variant="secondary" trailing="arrow">
+          </ButtonLink>
+          <ButtonLink href="/ask" variant="secondary" trailing="arrow">
             AI 경험 질문하기
-          </ActionLink>
-        </ActionGroup>
+          </ButtonLink>
+        </ButtonGroup>
       </section>
     </main>
   );

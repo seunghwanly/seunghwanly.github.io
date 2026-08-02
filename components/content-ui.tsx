@@ -167,10 +167,10 @@ export function SmartLink({
   );
 }
 
-type ActionVariant = "primary" | "secondary" | "quiet";
-type ActionTrailing = "arrow" | "external" | "none";
+type ButtonVariant = "primary" | "secondary" | "tertiary";
+type ButtonTrailing = "arrow" | "external" | "none";
 
-export function ActionLink({
+export function ButtonLink({
   href,
   children,
   variant = "secondary",
@@ -179,8 +179,8 @@ export function ActionLink({
 }: {
   href: string;
   children: React.ReactNode;
-  variant?: ActionVariant;
-  trailing?: ActionTrailing;
+  variant?: ButtonVariant;
+  trailing?: ButtonTrailing;
   className?: string;
 }) {
   const classes = ["button", `button-${variant}`, className]
@@ -220,7 +220,7 @@ export function ActionLink({
   );
 }
 
-export function ActionGroup({
+export function ButtonGroup({
   children,
   className,
   stackOnMobile = false,
@@ -232,8 +232,8 @@ export function ActionGroup({
   ariaLabel?: string;
 }) {
   const classes = [
-    "action-group",
-    stackOnMobile ? "action-group--stack-mobile" : null,
+    "button-group",
+    stackOnMobile ? "button-group--stack-mobile" : null,
     className,
   ]
     .filter(Boolean)
