@@ -353,7 +353,7 @@ export function IdentityArtifact() {
 
         <div className="identity-flow__result">
           <span className="identity-flow__step">03 · 연결 결과</span>
-          <data value="31124">31,124명</data>
+          <data value="188886">188,886명</data>
           <small>통합 고객으로 식별</small>
         </div>
 

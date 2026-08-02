@@ -79,7 +79,7 @@ test("home is a complete Korean portfolio with public proof", async () => {
   assert.match(html, /application\/ld\+json/);
   assert.match(html, /"@type":"Person"/);
   assert.match(html, /본문으로 건너뛰기/);
-  assert.match(html, /31,124명/);
+  assert.match(html, /188,886명/);
   assert.match(html, /4개 브랜드의 예약 상세/);
   assert.match(html, /공용 React 웹/);
   assert.match(html, /Product Engineer/);
@@ -95,7 +95,7 @@ test("home is a complete Korean portfolio with public proof", async () => {
 test("renders every primary route and all four work cases", async () => {
   const expected = [
     ["/work", "4개 브랜드의 예약 상세"],
-    ["/work/connected-commerce", "31,124명을 연결"],
+    ["/work/connected-commerce", "188,886명을 연결"],
     ["/work/multiplatform-sdk", "Android·iOS·Web을 하나의 Flutter 플러그인"],
     ["/work/observable-reliability", "Datadog의 모바일 url_query 누락 이슈"],
     ["/work/design-to-preview", "일관된 디자인으로 사용자 경험과 생산성"],
@@ -151,7 +151,7 @@ test("about keeps career, projects, skills, and teaching readable on mobile", as
   );
 
   assert.match(html, /온라인과 오프라인을 연결하고/);
-  assert.match(html, /31,124명/);
+  assert.match(html, /188,886명/);
   assert.match(html, /한일 교류 SNS/);
   assert.match(html, /class="capability-list"/);
   assert.match(html, /Goorm/);

@@ -25,11 +25,11 @@ const timeline = [
         id: "membership",
         title: (
           <>
-            통합 멤버십으로 고객 <span>31,124명</span> 연결
+            통합 멤버십으로 고객 <span>188,886명</span> 연결
           </>
         ),
         detail:
-          "Flutter Web으로 시작한 통합 멤버십을 React Native Web을 거쳐 React로 옮겼습니다. 신청과 완료 화면을 나눠 가입 과정에서 이탈하는 지점을 확인할 수 있게 했고, 2026년 5월 10일까지 온라인 계정과 매장 고객 31,124명을 연결했습니다. 최종 이관 뒤에는 Datadog으로 가입 전환, 오류 세션, Web Vitals를 함께 살폈습니다.",
+          "Flutter Web으로 시작한 통합 멤버십을 React Native Web을 거쳐 React로 옮겼습니다. 신청과 완료 화면을 나눠 가입 과정에서 이탈하는 지점을 확인할 수 있게 했고, 2026년 8월 2일까지 온라인 계정과 매장 고객 188,886명을 연결했습니다. 최종 이관 뒤에는 Datadog으로 가입 전환, 오류 세션, Web Vitals를 함께 살폈습니다.",
       },
       {
         id: "reservation",
