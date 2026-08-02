@@ -82,6 +82,9 @@ test("home is a complete Korean portfolio with public proof", async () => {
   assert.match(html, /통합 고객 식별/);
   assert.match(html, /31,124명/);
   assert.match(html, /레거시 약 20만 계정/);
+  assert.match(html, /4개 브랜드 앱·웹/);
+  assert.match(html, /공용 웹으로 통합/);
+  assert.match(html, /Winc 앱 업데이트까지 마쳤습니다/);
   assert.match(html, /개념도이며 실제 고객 분포와 무관합니다/);
   assert.match(html, /ENGINEERING NOTES/);
   assert.doesNotMatch(html, /flow-grid/);
@@ -142,6 +145,10 @@ test("public source code excludes private raw links and editorial claim tags", a
   assert.doesNotMatch(
     source,
     /github\.com\/ppbstudios\/(?!wds_flutter\b)/i,
+  );
+  assert.doesNotMatch(
+    source,
+    /inner-order-web|ppb-clients|#(?:3483|3489|719|724|727|710)\b/i,
   );
   assert.doesNotMatch(
     source,
