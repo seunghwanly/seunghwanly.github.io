@@ -2939,18 +2939,7 @@ table {
 }
 
 .agent-learning {
-  background:
-    radial-gradient(
-      ellipse 64% 170% at 20% 54%,
-      rgb(var(--wash-lemon) / 18%) 0%,
-      transparent 72%
-    ),
-    linear-gradient(
-      122deg,
-      rgb(var(--wash-ice) / 84%) 0%,
-      rgb(var(--wash-cyan) / 13%) 52%,
-      rgb(var(--wash-blue) / 12%) 100%
-    );
+  background: transparent;
 }
 
 @media (max-width: 1060px) {
@@ -4170,8 +4159,7 @@ table {
   }
 
   .fit-section,
-  .ai-preview,
-  .agent-learning {
+  .ai-preview {
     background: #e8edf4;
   }
 
@@ -4223,8 +4211,7 @@ table {
   }
 
   .fit-section,
-  .ai-preview,
-  .agent-learning {
+  .ai-preview {
     background: #eef1f6;
   }
 
