@@ -5,7 +5,7 @@ import { profileLinks } from "@/lib/content";
 const navigation = [
   { label: "작업", href: "/work" },
   { label: "소개", href: "/about" },
-  { label: "공개 기록", href: "/proof" },
+  { label: "모아보기", href: "/proof" },
 ];
 
 export function SiteHeader() {
@@ -15,7 +15,7 @@ export function SiteHeader() {
         <Link className="brand" href="/" aria-label="이승환 포트폴리오 홈">
           <span className="brand-name">이승환</span>
           <span className="brand-trace" aria-hidden="true">
-            제품 엔지니어
+            Product Engineer
           </span>
         </Link>
 
@@ -61,8 +61,7 @@ export function SiteFooter() {
         <div>
           <p className="footer-title">이승환 · Product Engineer</p>
           <p className="footer-copy">
-            Flutter로 모바일 개발을 시작해 React 웹까지 함께 만들고
-            운영하고 있습니다.
+            Flutter로 모바일 개발을 시작해 React 까지 확장해 운영하고 있습니다.
           </p>
         </div>
         <div className="footer-links" aria-label="외부 프로필">

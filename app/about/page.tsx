@@ -94,8 +94,8 @@ export default function AboutPage() {
   return (
     <main id="main-content">
       <PageIntro
-        title="앱과 웹을 함께 만드는 제품 엔지니어 이승환입니다."
-        description="Flutter로 모바일 개발을 시작했고, 비즈니스에 맞춰 React 웹까지 범위를 넓혔습니다. 예약 API와 빌드 서버도 직접 구현해 왔으며, Kotlin·Swift 연동부터 배포 뒤 오류 추적까지 맡습니다."
+        title="모바일에서 시작해 웹과 서버까지 역할을 넓혀 왔습니다."
+        description="Flutter로 모바일 개발을 시작했고, 비즈니스에 맞춰 React 웹까지 범위를 넓혔습니다. 앱과 웹이 같은 흐름을 쓰도록 예약 API를 설계하고 빌드 서버도 만들었습니다. 플랫폼 연동 문제가 생기면 Kotlin·Swift 코드를 고치고, 출시 뒤에는 사용자 흐름과 오류를 살폈습니다."
       />
 
       <ButtonGroup className="resume-actions site-shell" ariaLabel="이력서와 연락">

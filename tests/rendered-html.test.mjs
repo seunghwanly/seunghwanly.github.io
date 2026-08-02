@@ -96,12 +96,12 @@ test("renders every primary route and all four work cases", async () => {
   const expected = [
     ["/work", "4개 브랜드의 예약 상세"],
     ["/work/connected-commerce", "188,886명을 연결"],
-    ["/work/multiplatform-sdk", "Android·iOS·Web을 하나의 Flutter 플러그인"],
-    ["/work/observable-reliability", "Datadog의 모바일 url_query 누락 이슈"],
+    ["/work/multiplatform-sdk", "캣티튜드 출시 전에 캠페인 유입"],
+    ["/work/observable-reliability", "Datadog RUM 이슈 발견 및 오픈소스 기여"],
     ["/work/design-to-preview", "일관된 디자인으로 사용자 경험과 생산성"],
     ["/ai-practice", "Flutter SDK 수정에 AI를 사용"],
-    ["/proof", "직접 확인할 수 있는 작업 기록"],
-    ["/about", "앱과 웹을 함께 만드는 제품 엔지니어"],
+    ["/proof", "기여한 모든 것"],
+    ["/about", "모바일에서 시작해 웹과 서버까지"],
     ["/ask", "경력과 작업에서 궁금한 내용"],
   ];
 
@@ -171,6 +171,9 @@ test("proof directory merges duplicate destinations and omits the disclaimer sli
   assert.match(html, /pub\.dev/);
   assert.match(html, /WDS 컴포넌트 미리보기/);
   assert.match(html, /React 미리보기/);
+  assert.match(html, /블로그/);
+  assert.match(html, /Flutter · React · Widgetbook · Storybook/);
+  assert.doesNotMatch(html, /기술 글 모음/);
   assert.doesNotMatch(html, /숫자를 출판/);
   assert.doesNotMatch(html, /성과 수치에는 기준과 범위를/);
   assert.doesNotMatch(html, /경험으로 말하지 않는 것/);

@@ -23,10 +23,10 @@ export function PageIntro({
 }) {
   return (
     <header className="page-intro site-shell">
-      {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
+      {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
       <h1>{title}</h1>
       <p className="page-lede">{description}</p>
-      {meta ? <p className="page-meta">{meta}</p> : null}
+      {meta && <p className="page-meta">{meta}</p>}
     </header>
   );
 }

@@ -1,24 +1,13 @@
 import type { Metadata } from "next";
 import type { Viewport } from "next";
-import { headers } from "next/headers";
 import { SiteFooter, SiteHeader } from "@/components/site-shell";
 import "./globals.css";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const requestHeaders = await headers();
-  const forwardedHost = requestHeaders.get("x-forwarded-host")?.split(",")[0]?.trim();
-  const host = forwardedHost ?? requestHeaders.get("host") ?? "localhost";
-  const forwardedProtocol = requestHeaders
-    .get("x-forwarded-proto")
-    ?.split(",")[0]
-    ?.trim();
-  const protocol =
-    forwardedProtocol ?? (host.startsWith("localhost") ? "http" : "https");
-  const origin = `${protocol}://${host}`;
-  const ogImage = new URL("/og.png", origin).toString();
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost";
+const ogImage = new URL("/og.png", siteUrl).toString();
 
-  return {
-    metadataBase: new URL(origin),
+export const metadata: Metadata = {
+    metadataBase: new URL(siteUrl),
     title: {
       default: "이승환 — Product Engineer · Mobile & Web",
       template: "%s · 이승환",
@@ -47,7 +36,7 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       type: "website",
       locale: "ko_KR",
-      url: origin,
+      url: siteUrl,
       title: "이승환 — Product Engineer · Mobile & Web",
       description:
         "모바일과 웹을 오가며 제품을 만들고 운영한 이승환의 대표 작업.",
@@ -67,8 +56,7 @@ export async function generateMetadata(): Promise<Metadata> {
         "모바일과 웹을 오가며 제품을 만들고 운영한 이승환의 대표 작업.",
       images: [ogImage],
     },
-  };
-}
+};
 
 export const viewport: Viewport = {
   colorScheme: "light",

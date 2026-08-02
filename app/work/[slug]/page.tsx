@@ -42,8 +42,8 @@ function CaseDiagram({ slug }: { slug: string }) {
   if (slug === "multiplatform-sdk") {
     return (
       <figure className="sdk-diagram">
-        <figcaption>공통 API와 플랫폼별 구현</figcaption>
-        <div className="sdk-contract">공통 Dart API</div>
+        <figcaption>하나의 코드베이스로 세 플랫폼 운영</figcaption>
+        <div className="sdk-contract">상품 · 예약 · 결제 로직</div>
         <div className="sdk-branches" aria-hidden="true">
           <span>↓</span>
           <span>↓</span>
@@ -52,20 +52,20 @@ function CaseDiagram({ slug }: { slug: string }) {
         <div className="sdk-platforms">
           <div>
             <strong>Android</strong>
-            <span>Kotlin · SDK v2</span>
+            <span>기존 Flutter 앱</span>
           </div>
           <div>
             <strong>iOS</strong>
-            <span>Swift · SPM</span>
+            <span>기존 Flutter 앱</span>
           </div>
           <div>
             <strong>Web</strong>
-            <span>JavaScript SDK</span>
+            <span>11월 26일 배포</span>
           </div>
         </div>
         <p className="sr-only">
-          하나의 공통 Dart API 아래 Android Kotlin, iOS Swift와 SPM,
-          Web JavaScript 구현을 둔 구조입니다.
+          상품, 예약, 결제의 비즈니스 로직을 Android와 iOS 앱에서 공유하고
+          같은 Flutter 코드베이스를 Web까지 확장한 구조입니다.
         </p>
       </figure>
     );

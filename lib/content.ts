@@ -76,10 +76,10 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: "connected-commerce",
     index: "01",
-    category: "고객 연결 · O2O",
-    title: "온라인 계정과 매장 고객을 연결했습니다.",
+    category: "통합멤버십 · O2O",
+    title: "온라인과 오프라인 매장 고객을 하나로",
     summary:
-      "본인인증으로 온라인 계정과 매장 고객 188,886명을 연결했습니다. 예약 상태 API를 직접 설계·구현하고 4개 브랜드의 예약 상세를 공용 React 웹으로 통합했습니다.",
+      "본인인증 기반으로 온라인 고객과 오프라인 매장 고객 188,886명을 연결했습니다. 예약 상태 API를 직접 설계·구현하고 4개 브랜드의 예약 상세를 공용 React 웹으로 통합했습니다.",
     role: "고객 연결 조건 · 예약 상태 API · 공용 예약 상세 · 앱·웹 연동 · 배포",
     tags: ["O2O", "본인인증", "공용 예약 상세", "App · Web 연동"],
     metrics: [
@@ -137,63 +137,70 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: "multiplatform-sdk",
     index: "02",
-    category: "멀티플랫폼 · SDK",
-    title: "Android·iOS·Web을 하나의 Flutter 플러그인으로 연결했습니다.",
+    category: "제품 출시 · Flutter Web",
+    title: "캠페인 직전, 윙크 웹을 Flutter Web으로 다시 열었습니다.",
     summary:
-      "공통 Dart API와 플랫폼별 연동 코드를 설계해 세 플랫폼의 차이를 관리했습니다. 13개월 동안 15개 버전을 배포했습니다.",
-    role: "공통 API · Kotlin/Swift/JavaScript 연동 · 배포 · 문서",
-    tags: ["Flutter", "Kotlin", "Swift/SPM", "JavaScript"],
+      "앱과 다르게 동작하던 기존 웹 대신 Flutter 앱 코드베이스를 Web까지 확장했습니다. 2025년 11월 26일 운영에 배포했고, 이틀 뒤 블랙프라이데이부터 12월 캣티튜드 출시까지 웹 예약·구매 경로로 사용했습니다.",
+    role: "웹 확장 설계 · 공통 라우팅 · 플랫폼별 초기화 · 웹 사용성 · 배포",
+    tags: ["Flutter Web", "go_router", "Web API", "제품 출시"],
     metrics: [
       {
         value: "3개",
-        label: "지원 플랫폼",
-        context: "Android · iOS · Web",
+        label: "함께 운영한 플랫폼",
+        context: "Android · iOS · Web이 비즈니스 로직 공유",
       },
       {
-        value: "15",
-        label: "공개 배포",
-        context: "13개월 동안 beta부터 0.2.1까지",
+        value: "11월 26일",
+        label: "운영 배포",
+        context: "2025년 · 블랙프라이데이 이틀 전 출시",
+      },
+      {
+        value: "1.4초",
+        label: "첫 화면 표시",
+        context: "당시 프로덕션 웹 FCP 기준",
       },
     ],
     sections: [
       {
         id: "situation",
         label: "상황",
-        title: "세 플랫폼의 SDK 사용법과 지원 기능이 달랐습니다.",
+        title: "기존 웹에서는 캠페인 유입을 예약과 구매로 잇기 어려웠습니다.",
         paragraphs: [
-          "공식 Flutter 플러그인이 없었고 Android, iOS, Web SDK의 초기화 방식과 이벤트 모델도 달랐습니다. 제품 코드에 플랫폼 분기가 늘수록 기능을 추가하거나 오류를 재현하기 어려워졌습니다.",
+          "기존 웹은 앱과 별도로 운영돼 예약 기능이 빠져 있었고, 매장 변경 뒤 장바구니 검증과 결제수단 표시도 앱과 다르게 동작했습니다. 프로모션으로 들어온 고객을 앱 설치로 돌려보내면 신규 고객이 이탈할 수 있는 상황이었습니다.",
+          "블랙프라이데이와 캣티튜드 출시가 이어지는 시점이라, 새 웹을 오래 만드는 것보다 이미 검증된 Flutter 앱의 상품·예약·결제 흐름을 웹까지 확장하는 편이 빠르다고 판단했습니다.",
         ],
       },
       {
         id: "changes",
         label: "바꾼 것",
-        title: "공통 Dart API와 플랫폼별 연동 코드를 나눴습니다.",
+        title: "기존 Flutter 앱에 Web을 더하고, 웹에서 필요한 동작은 따로 풀었습니다.",
         bullets: [
-          "공통 API에는 세 플랫폼에서 안정적으로 제공할 수 있는 기능만 넣었습니다.",
-          "Android는 Kotlin, iOS는 Swift와 SPM, Web은 JavaScript SDK로 연결했습니다.",
-          "플랫폼마다 다른 기능은 지원표와 문서에 명시했습니다.",
-          "예제 앱과 한·영 문서, 버전 확인과 pub.dev 배포 절차를 함께 관리했습니다.",
+          "Android·iOS 앱에 Web 진입점을 추가하고 상품·예약·결제의 비즈니스 로직을 함께 쓰도록 정리했습니다.",
+          "앱과 웹의 이동 규칙을 공통 라우터와 하나의 target_url로 합치고, 기존 딥링크와 광고 URL도 계속 열리게 했습니다.",
+          "모바일 전용 패키지가 웹 실행을 막지 않도록 초기화 순서와 조건부 import를 플랫폼별로 분리했습니다.",
+          "반응형 화면과 마우스 스크롤, 중첩 스크롤, 예약·결제 뒤의 브라우저 뒤로 가기를 웹 환경에 맞게 다듬었습니다.",
         ],
       },
       {
         id: "result",
         label: "확인한 결과",
-        title: "13개월 동안 15개 버전을 공개 배포했습니다.",
+        title: "캣티튜드 출시 전에 캠페인 유입을 받을 웹 경로를 열었습니다.",
         paragraphs: [
-          "예제 앱으로 플랫폼별 동작을 확인하고 변경 기록을 남겼습니다. GitHub 저장소와 pub.dev에서 2025년 6월부터 2026년 7월까지 배포한 15개 버전을 확인할 수 있습니다.",
+          "11월 26일 shop.winc.app에 배포하고 이틀 뒤 블랙프라이데이 화면까지 반영했습니다. 12월에는 캣티튜드 출시 페이지와 품절 뒤 재입고 알림 페이지를 같은 웹에서 운영했습니다.",
+          "캣티튜드 캠페인은 앱 푸시와 카카오 메시지에서 이 페이지로 고객을 보냈습니다. 주력 컬러와 디즈니 마리 굿즈는 출시 직후 품절됐고 재입고 문의가 이어졌습니다. 앱을 설치하지 않은 고객도 상품을 보고 예약·구매로 넘어갈 수 있는 경로를 출시 전에 마련했습니다.",
         ],
       },
     ],
     limitation:
-      "PR 필수 테스트와 통합 테스트 범위는 아직 충분하지 않습니다. 다음 개선은 Android·iOS·Web의 최소 동작을 자동으로 확인하는 것입니다.",
+      "캣티튜드의 성과에는 제품 자체와 프로모션, 오프라인 수요가 함께 작용했습니다. Flutter Web이 만든 매출만 따로 측정하지는 않았습니다. 빠른 출시에 효과적이었지만 DOM 기반 관측에는 한계가 있어 이후 React Native Web을 거쳐 React로 옮겼습니다.",
     sources: [
       {
-        label: "GitHub repository",
-        href: "https://github.com/seunghwanly/kakao_maps_flutter",
+        label: "Flutter Web 배포기",
+        href: "https://medium.com/@seunghwanly/flutter-web-%EB%B0%B0%ED%8F%AC%EA%B8%B0-a2ba8b0212de",
       },
       {
-        label: "pub.dev package",
-        href: "https://pub.dev/packages/kakao_maps_flutter",
+        label: "Winc 웹",
+        href: "https://shop.winc.app",
       },
     ],
   },
@@ -201,11 +208,11 @@ export const caseStudies: CaseStudy[] = [
     slug: "observable-reliability",
     index: "03",
     category: "운영 안정성 · 오픈소스",
-    title: "Datadog의 모바일 url_query 누락 이슈를 수정했습니다.",
+    title: "Datadog RUM 이슈 발견 및 오픈소스 기여",
     summary:
       "문제를 재현해 SDK를 수정하고 테스트와 외부 리뷰를 거쳐 공식 버전에 반영했습니다. AI는 코드 탐색과 첫 구현안 작성에 활용했습니다.",
     role: "원인 분석 · SDK 수정 · 테스트 · 외부 리뷰 · 제품 적용",
-    tags: ["RUM", "Flutter SDK", "오픈소스", "AI 활용"],
+    tags: ["RUM", "Flutter SDK", "오픈소스", "AI"],
     metrics: [
       {
         value: "12일",
@@ -269,11 +276,11 @@ export const caseStudies: CaseStudy[] = [
     slug: "design-to-preview",
     index: "04",
     category: "디자인 시스템",
-    title: "일관된 디자인으로 사용자 경험과 생산성을 개선했습니다.",
+    title: "일관된 디자인으로 사용자 경험과 생산성을 개선",
     summary:
       "Flutter와 React에 맞춘 디자인 시스템을 만들었습니다. 구현과 QA 생산성을 높이고 사용자에게 일관된 경험을 제공했습니다.",
     role: "디자인 시스템 구조 · 컴포넌트 구현 · 미리보기 · 배포",
-    tags: ["Flutter", "Widgetbook", "모노레포", "디자인 QA"],
+    tags: ["디자인 시스템", "Flutter", "Widgetbook", "React", "Storybook"],
     metrics: [
       {
         value: "48개",
@@ -348,7 +355,7 @@ export const publicProof: {
     group: "오픈소스",
     items: [
       {
-        label: "Datadog Flutter SDK · 화면 URL 쿼리 수정",
+        label: "Datadog Flutter SDK · @view.url_query 수정",
         href: "https://github.com/DataDog/dd-sdk-flutter/pull/1069",
         note: "코드 수정, 테스트, 메인테이너 리뷰와 병합",
       },
@@ -376,7 +383,7 @@ export const publicProof: {
     ],
   },
   {
-    group: "기술 글",
+    group: "블로그",
     items: [
       {
         label: "AI와 함께 Datadog SDK에 기여하기",
@@ -388,11 +395,6 @@ export const publicProof: {
         href: "https://medium.com/@seunghwanly/flutter-web-%EB%B0%B0%ED%8F%AC%EA%B8%B0-a2ba8b0212de",
         note: "모바일 제품의 Web 확장과 플랫폼별 결정",
       },
-      {
-        label: "기술 글 모음",
-        href: "https://medium.com/@seunghwanly",
-        note: "Flutter · Web · 관측성에 대한 기록",
-      },
     ],
   },
   {
@@ -401,7 +403,7 @@ export const publicProof: {
       {
         label: "WDS 컴포넌트 미리보기",
         href: "https://design.winc.app",
-        note: "같은 디자인 시스템을 Widgetbook과 Storybook으로 공개했습니다.",
+        note: "Flutter · React · Widgetbook · Storybook",
         related: [
           {
             label: "React 미리보기",
@@ -449,7 +451,7 @@ export const askEntries: AskEntry[] = [
       "결제 코어의 멱등성, POS 주변기기와 AOSP/HAL은 직접 구현한 경험이 없습니다.",
     sources: [
       { label: "고객 연결 작업", href: "/work/connected-commerce" },
-      { label: "멀티플랫폼 SDK 작업", href: "/work/multiplatform-sdk" },
+      { label: "Winc Flutter Web 출시", href: "/work/multiplatform-sdk" },
       {
         label: "Flutter SDK 수정 작업",
         href: "/work/observable-reliability",
@@ -556,8 +558,9 @@ export const askEntries: AskEntry[] = [
       "공용",
     ],
     answer:
-      "공통 Dart API에는 세 플랫폼에서 안정적으로 제공할 수 있는 기능만 넣었습니다. 나머지는 Kotlin·Swift/SPM·JavaScript 구현과 지원표에 따로 적었습니다. 제품에서는 4개 브랜드의 예약 상세를 공용 웹으로 옮기고 앱 연동과 딥링크, WebView 동작을 정리했습니다.",
+      "Winc 앱의 상품·예약·결제 로직을 Flutter Web까지 확장하고 앱과 웹의 이동 규칙을 공통 라우터와 target_url로 합쳤습니다. 공개 작업에서는 kakao_maps_flutter의 Dart API 아래 Kotlin·Swift/SPM·JavaScript 구현을 나누어 Android·iOS·Web의 차이를 관리했습니다.",
     known: [
+      "Flutter 앱 코드베이스를 Web까지 확장해 블랙프라이데이와 캣티튜드 출시 전에 운영에 배포했습니다.",
       "Android·iOS·Web을 지원하는 공개 Flutter plugin을 13개월간 운영했습니다.",
       "15개 버전을 pub.dev에 배포했습니다.",
       "고객 화면과 매장 운영 화면이 같은 상세 내용을 보도록 맞췄습니다. 통합 화면을 운영에 반영하고 Winc 앱 업데이트까지 완료했습니다.",
@@ -565,7 +568,7 @@ export const askEntries: AskEntry[] = [
     boundary:
       "Swift Concurrency·Combine·XCTest와 Android Framework/HAL 경험은 많지 않거나 없습니다.",
     sources: [
-      { label: "멀티플랫폼 SDK 작업", href: "/work/multiplatform-sdk" },
+      { label: "Winc Flutter Web 출시", href: "/work/multiplatform-sdk" },
       {
         label: "kakao_maps_flutter",
         href: "https://github.com/seunghwanly/kakao_maps_flutter",
