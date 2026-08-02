@@ -240,6 +240,7 @@ table {
 }
 
 .site-header {
+  --site-header-filter: var(--glass-filter);
   position: sticky;
   z-index: 100;
   top: 0;
@@ -249,8 +250,13 @@ table {
   box-shadow:
     0 1px 0 rgb(57 70 99 / 10%),
     var(--glass-highlight);
-  backdrop-filter: var(--glass-filter);
-  -webkit-backdrop-filter: var(--glass-filter);
+  backdrop-filter: var(--site-header-filter);
+}
+
+@supports (-webkit-backdrop-filter: blur(1px)) {
+  .site-header {
+    -webkit-backdrop-filter: var(--site-header-filter);
+  }
 }
 
 .header-inner {
@@ -3080,7 +3086,10 @@ table {
     padding-block: 64px 80px;
   }
 
-  .site-header,
+  .site-header {
+    --site-header-filter: blur(14px) saturate(125%);
+  }
+
   .button,
   .ask-search > div {
     backdrop-filter: blur(14px) saturate(125%);
@@ -3394,7 +3403,10 @@ table {
     display: none;
   }
 
-  .site-header,
+  .site-header {
+    --site-header-filter: blur(10px) saturate(118%);
+  }
+
   .button,
   .ask-search > div {
     backdrop-filter: blur(10px) saturate(118%);
@@ -4549,6 +4561,10 @@ table {
     background: #e8edf4;
   }
 
+  .site-header {
+    --site-header-filter: none;
+  }
+
   .site-header,
   .mobile-nav nav,
   .button,
@@ -4606,6 +4622,10 @@ table {
 
   :focus-visible {
     outline-width: 3px;
+  }
+
+  .site-header {
+    --site-header-filter: none;
   }
 
   .site-header,
