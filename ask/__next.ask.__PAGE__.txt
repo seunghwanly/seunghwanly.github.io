@@ -1,0 +1,6 @@
+1:"$Sreact.fragment"
+2:I[97486,["/_next/static/chunks/3rdqn8rx95pw7.js","/_next/static/chunks/14mrh2-p_w84d.js","/_next/static/chunks/1z09cm11kh_l7.js"],"AskExplorer"]
+3:I[97367,["/_next/static/chunks/3rdqn8rx95pw7.js","/_next/static/chunks/14mrh2-p_w84d.js"],"OutletBoundary"]
+4:"$Sreact.suspense"
+0:{"rsc":["$","$1","c",{"children":[["$","main",null,{"id":"main-content","children":[["$","header",null,{"className":"page-intro site-shell","children":["$undefined",["$","h1",null,{"children":"경력과 작업에서 궁금한 내용을 찾아보세요."}],["$","p",null,{"className":"page-lede","children":"미리 정리한 질문에서 답을 찾습니다. 검색어는 저장하거나 서버로 보내지 않습니다."}],"$undefined"]}],["$","div",null,{"className":"ask-page-shell site-shell","children":["$","$L2",null,{}]}]]}],[["$","script","script-0",{"src":"/_next/static/chunks/1z09cm11kh_l7.js","async":true}]],["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"aGBTtVYmGOahDut6ptsgT"}
+5:null

@@ -1,0 +1,6 @@
+1:"$Sreact.fragment"
+2:I[22016,["/_next/static/chunks/3rdqn8rx95pw7.js","/_next/static/chunks/14mrh2-p_w84d.js"],""]
+3:I[97367,["/_next/static/chunks/3rdqn8rx95pw7.js","/_next/static/chunks/14mrh2-p_w84d.js"],"OutletBoundary"]
+4:"$Sreact.suspense"
+0:{"rsc":["$","$1","c",{"children":[["$","main",null,{"className":"not-found site-shell","id":"main-content","children":[["$","p",null,{"className":"eyebrow","children":"404"}],["$","h1",null,{"children":"페이지를 찾을 수 없습니다."}],["$","p",null,{"children":"주소를 확인하거나 대표 작업으로 돌아가세요."}],["$","div",null,{"className":"button-group","children":[["$","$L2",null,{"className":"button button-primary","href":"/work","children":[["$","span",null,{"children":"대표 작업 보기"}],["$","span",null,{"className":"button__trailing","aria-hidden":"true","children":"→"}]]}],["$","$L2",null,{"className":"button button-secondary","href":"/","children":[["$","span",null,{"children":"홈으로"}],["$","span",null,{"className":"button__trailing","aria-hidden":"true","children":"→"}]]}]]}]]}],null,["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"aGBTtVYmGOahDut6ptsgT"}
+5:null
