@@ -1,47 +1,33 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import {
   ButtonGroup,
   ButtonLink,
   CaseRow,
   Eyebrow,
   LayerDiagram,
+  PageCta,
   ProofStrip,
+  Section,
+  SectionHeading,
+  TextLink,
 } from "@/components/content-ui";
-import { caseStudies } from "@/lib/content";
+import { caseStudies, home, site } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Product Engineer · Mobile & Web",
-  description:
-    "Flutter 앱과 React 웹을 만들고, 제품 API와 Kotlin·Swift 연동부터 빌드·배포 자동화와 운영 중 오류 추적까지 맡아 온 Product Engineer 이승환의 대표 작업.",
+  title: home.meta.title,
+  description: home.meta.description,
 };
 
 export default function Home() {
   const personJsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: "이승환",
-    alternateName: "Seunghwan Lee",
-    jobTitle: "Product Engineer — Mobile & Web",
-    email: "mailto:seunghwanly@gmail.com",
-    sameAs: [
-      "https://github.com/seunghwanly",
-      "https://medium.com/@seunghwanly",
-      "https://www.linkedin.com/in/seunghwanly",
-    ],
-    knowsAbout: [
-      "Flutter",
-      "React",
-      "TypeScript",
-      "Kotlin",
-      "Swift",
-      "REST API design",
-      "FastAPI",
-      "Client SDK",
-      "Mobile observability",
-      "Design systems",
-      "AI-assisted software delivery",
-    ],
+    name: site.person.name,
+    alternateName: site.person.alternateName,
+    jobTitle: site.person.jobTitle,
+    email: `mailto:${site.email}`,
+    sameAs: site.person.sameAs,
+    knowsAbout: site.person.knowsAbout,
   };
 
   return (
@@ -51,74 +37,89 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
       />
 
-      <section className="hero site-shell" aria-labelledby="hero-title">
-        <div className="hero-copy">
-          <Eyebrow>Product Engineer ⋅ Mobile &amp; Web</Eyebrow>
-          <h1 id="hero-title">
-            모바일과 웹을 오가며
+      <section
+        aria-labelledby="hero-title"
+        className="site-shell grid items-center gap-12 py-16 pb-20 lg:min-h-[min(860px,calc(100vh-var(--header-height)))] lg:grid-cols-[minmax(0,1.38fr)_minmax(330px,0.62fr)] lg:gap-[clamp(3rem,6vw,5.5rem)] lg:py-[clamp(5.5rem,10vw,8.25rem)]"
+      >
+        <div className="lg:max-w-[820px]">
+          <Eyebrow>{home.hero.eyebrow}</Eyebrow>
+          <h1 className="mb-8 max-w-[900px] text-display" id="hero-title">
+            {home.hero.titleLead}
             <br />
-            <span>제품을 만들고 운영했습니다.</span>
+            <span className="text-accent">{home.hero.titleAccent}</span>
           </h1>
-          <p className="hero-lede">
-            Flutter로 모바일 개발을 시작했고, 비즈니스 요구에 맞춰 React
-            웹까지 영역을 넓혔습니다. 여러 브랜드의 예약 화면을 공용 웹으로
-            합치면서 예약 상태 API도 직접 설계·구현했습니다. 필요하면
-            Kotlin·Swift 연동과 배포 자동화까지 다룹니다. AI는 탐색과 초안에
-            활용하고 결과는 테스트와 리뷰로 확인합니다.
+          <p className="mb-6 max-w-[60ch] text-lede text-ink-soft">
+            {home.hero.lede}
           </p>
-          <ButtonGroup className="hero-actions" stackOnMobile>
-            <ButtonLink href="/work" variant="primary" trailing="arrow">
-              대표 작업 보기
+          <ButtonGroup className="mt-9 print:hidden" stackOnMobile>
+            <ButtonLink
+              href={home.hero.actions[0].href}
+              variant="primary"
+              trailing="arrow"
+            >
+              {home.hero.actions[0].label}
             </ButtonLink>
-            <ButtonLink href="/resume.pdf" variant="secondary" trailing="external">
-              이력서 보기
+            <ButtonLink
+              href={home.hero.actions[1].href}
+              variant="secondary"
+              trailing="external"
+            >
+              {home.hero.actions[1].label}
             </ButtonLink>
           </ButtonGroup>
         </div>
         <LayerDiagram />
       </section>
 
-      <section className="proof-section site-shell" aria-labelledby="proof-title">
-        <div className="section-heading inline-heading">
-          <div>
-            <Eyebrow>작업 기록</Eyebrow>
-            <h2 id="proof-title">직접 확인할 수 있는 기록</h2>
-          </div>
-          <Link className="text-link" href="/proof">
-            확인하기 <span aria-hidden="true">→</span>
-          </Link>
-        </div>
+      <Section divider labelledBy="proof-title">
+        <SectionHeading
+          aside={
+            <TextLink href={home.proof.link.href}>
+              {home.proof.link.label} <span aria-hidden="true">→</span>
+            </TextLink>
+          }
+          eyebrow={home.proof.eyebrow}
+          id="proof-title"
+          title={home.proof.title}
+        />
         <ProofStrip />
-      </section>
+      </Section>
 
-      <section className="work-preview site-shell" aria-labelledby="work-title">
-        <div className="section-heading inline-heading">
-          <div>
-            <h2 id="work-title">대표 작업</h2>
-          </div>
-          <p>맡은 일 · 선택한 방법 · 결과</p>
-        </div>
-        <div className="case-list">
+      <Section divider labelledBy="work-title">
+        <SectionHeading
+          aside={
+            <p className="font-mono text-label tabular-nums text-muted-dark">
+              {home.work.aside}
+            </p>
+          }
+          id="work-title"
+          title={home.work.title}
+        />
+        <div className="border-t border-line-strong">
           {caseStudies.map((item) => (
-            <CaseRow item={item} key={item.slug} />
+            <CaseRow item={item} key={item.id} />
           ))}
         </div>
-      </section>
+      </Section>
 
-      <section className="page-cta site-shell" aria-labelledby="home-cta-title">
-        <div>
-          <Eyebrow>이력서와 연락처</Eyebrow>
-          <h2 id="home-cta-title">더 자세한 경력은 이력서에서 확인할 수 있습니다.</h2>
-        </div>
-        <ButtonGroup>
-          <ButtonLink href="/resume.pdf" variant="primary" trailing="external">
-            이력서 보기
+      <PageCta
+        eyebrow={home.cta.eyebrow}
+        id="home-cta-title"
+        title={home.cta.title}
+      >
+        <ButtonGroup className="md:justify-end">
+          <ButtonLink
+            href={home.cta.actions[0].href}
+            trailing="external"
+            variant="primary"
+          >
+            {home.cta.actions[0].label}
           </ButtonLink>
-          <ButtonLink href="mailto:seunghwanly@gmail.com" variant="secondary">
-            이메일 보내기
+          <ButtonLink href={home.cta.actions[1].href} variant="secondary">
+            {home.cta.actions[1].label}
           </ButtonLink>
         </ButtonGroup>
-      </section>
+      </PageCta>
     </main>
   );
 }

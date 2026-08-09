@@ -1,21 +1,21 @@
 import type { Metadata } from "next";
 import { AskExplorer } from "@/components/ask-explorer";
 import { PageIntro } from "@/components/content-ui";
+import { ask } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "질문 찾기",
-  description:
-    "이승환의 경력과 대표 작업에서 자주 묻는 질문을 찾아볼 수 있습니다.",
+  title: ask.meta.title,
+  description: ask.meta.description,
 };
 
 export default function AskPage() {
   return (
     <main id="main-content">
       <PageIntro
-        title="경력과 작업에서 궁금한 내용을 찾아보세요."
-        description="미리 정리한 질문에서 답을 찾습니다. 검색어는 저장하거나 서버로 보내지 않습니다."
+        title={ask.intro.title}
+        description={ask.intro.description}
       />
-      <div className="ask-page-shell site-shell">
+      <div className="site-shell grid grid-cols-[minmax(0,900px)] items-start pt-16 pb-[clamp(4.5rem,8vw,6.5rem)]">
         <AskExplorer />
       </div>
     </main>

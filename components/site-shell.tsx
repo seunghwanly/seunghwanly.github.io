@@ -1,83 +1,91 @@
 import Link from "next/link";
-import { ButtonLink, DisclosureTrigger } from "@/components/content-ui";
-import { profileLinks } from "@/lib/content";
+import { ButtonLink } from "@/components/content-ui";
+import { MobileNav } from "@/components/mobile-nav";
+import { profileLinks, site } from "@/lib/content";
 
-const navigation = [
-  { label: "작업", href: "/work" },
-  { label: "소개", href: "/about" },
-  { label: "모아보기", href: "/proof" },
-];
+const navLink =
+  "inline-flex min-h-11 items-center font-mono text-caption tabular-nums text-muted no-underline transition-colors duration-200 ease-soft hover:text-ink";
 
 export function SiteHeader() {
   return (
-    <header className="site-header">
-      <div className="site-shell header-inner">
-        <Link className="brand" href="/" aria-label="이승환 포트폴리오 홈">
-          <span className="brand-name">이승환</span>
-          <span className="brand-trace" aria-hidden="true">
-            Product Engineer
+    <header className="glass sticky top-0 z-100 h-(--header-height) border-b border-glass-border bg-white/52 shadow-[0_1px_0_rgb(57_70_99/10%),inset_0_1px_0_rgb(255_255_255/78%)] print:hidden">
+      <div className="site-shell flex h-full items-center justify-between">
+        <Link
+          aria-label={site.header.homeAriaLabel}
+          className="flex h-12 items-center gap-3 no-underline"
+          href="/"
+        >
+          <span className="text-subtitle text-ink">
+            {site.header.brandName}
+          </span>
+          <span
+            aria-hidden="true"
+            className="hidden font-mono text-caption tracking-[0.06em] tabular-nums text-muted-dark md:inline"
+          >
+            {site.header.brandTrace}
           </span>
         </Link>
 
-        <nav className="desktop-nav" aria-label="주요 메뉴">
-          {navigation.map((item) => (
-            <Link key={item.href} href={item.href}>
+        <nav
+          aria-label={site.header.navAriaLabel}
+          className="hidden items-center gap-4 md:flex lg:gap-6"
+        >
+          {site.nav.map((item) => (
+            <Link className={navLink} href={item.href} key={item.href}>
               {item.label}
             </Link>
           ))}
-          <ButtonLink href="/resume.pdf" variant="primary" trailing="external">
-            이력서
+          <ButtonLink
+            href={site.resumeHref}
+            trailing="arrow"
+            variant="primary"
+          >
+            {site.header.resumeLabel}
           </ButtonLink>
         </nav>
 
-        <details className="mobile-nav">
-          <DisclosureTrigger
-            variant="secondary"
-            className="mobile-menu-trigger"
-            ariaLabel="메뉴 열기"
-          >
-            메뉴
-          </DisclosureTrigger>
-          <nav aria-label="모바일 주요 메뉴">
-            {navigation.map((item) => (
-              <Link key={item.href} href={item.href}>
-                {item.label}
-              </Link>
-            ))}
-            <ButtonLink href="/resume.pdf" variant="primary" trailing="external">
-              이력서
-            </ButtonLink>
-          </nav>
-        </details>
+        <MobileNav />
       </div>
     </header>
   );
 }
 
 export function SiteFooter() {
+  const footerLink =
+    "min-h-9.5 font-mono text-caption tabular-nums text-ink-soft no-underline transition-colors duration-200 ease-soft hover:text-accent";
+
   return (
-    <footer className="site-footer">
-      <div className="site-shell footer-grid">
+    <footer className="border-t border-line print:hidden">
+      <div className="site-shell grid gap-10 py-[70px] md:grid-cols-[minmax(0,1.2fr)_minmax(280px,0.8fr)] md:gap-15">
         <div>
-          <p className="footer-title">이승환 · Product Engineer</p>
-          <p className="footer-copy">
-            Flutter로 모바일 개발을 시작해 React 까지 확장해 운영하고 있습니다.
+          <p className="mb-2.5 text-subtitle text-ink">{site.footer.title}</p>
+          <p className="max-w-[480px] text-body text-muted">
+            {site.footer.description}
           </p>
         </div>
-        <div className="footer-links" aria-label="외부 프로필">
+        <div
+          aria-label={site.footer.linksAriaLabel}
+          className="grid content-start gap-x-6 gap-y-2 sm:grid-cols-2"
+        >
           {profileLinks.map((link) => (
             <a
-              key={link.href}
+              className={footerLink}
               href={link.href}
-              target="_blank"
+              key={link.href}
               rel="noreferrer"
+              target="_blank"
             >
               {link.label} <span aria-hidden="true">↗</span>
             </a>
           ))}
-          <Link href="/ask">질문 찾기</Link>
-          <Link href="/ai-practice">AI 활용</Link>
-          <a href="mailto:seunghwanly@gmail.com">Email ↗</a>
+          {site.footer.extraLinks.map((link) => (
+            <Link className={footerLink} href={link.href} key={link.href}>
+              {link.label}
+            </Link>
+          ))}
+          <a className={footerLink} href={`mailto:${site.email}`}>
+            {site.footer.emailLabel} ↗
+          </a>
         </div>
       </div>
     </footer>

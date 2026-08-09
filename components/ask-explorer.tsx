@@ -1,8 +1,11 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { askEntries, type AskEntry } from "@/lib/content";
-import { SmartLink } from "./content-ui";
+import { ask, askEntries, site } from "@/lib/content";
+import type { AskEntry } from "@/lib/schema.dto";
+import { SmartLink, TextLink, cx } from "./content-ui";
+
+const panelPadding = "px-5 py-7 md:px-7";
 
 function normalize(value: string) {
   return value.toLocaleLowerCase("ko-KR").replace(/\s+/g, " ").trim();
@@ -57,7 +60,7 @@ export function AskExplorer() {
     ? ranked[0]?.entry
     : selected;
   const unknown = query.trim().length > 1 && ranked.length === 0;
-  const featuredIds = new Set(["fit", "platform", "design-system", "ai-practice"]);
+  const featuredIds = new Set(ask.console.featuredIds);
   const featuredEntries = askEntries.filter((entry) => featuredIds.has(entry.id));
 
   useEffect(() => {
@@ -82,82 +85,131 @@ export function AskExplorer() {
   }
 
   return (
-    <section className="ask-console" aria-labelledby="ask-console-title">
-      <div className="ask-console-head">
-        <div>
-          <h2 id="ask-console-title">질문 찾기</h2>
-        </div>
-        <p className="ask-mode">공개한 답변만 검색합니다.</p>
+    <section
+      aria-labelledby="ask-console-title"
+      className="surface surface-lift min-w-0 overflow-hidden rounded-lg"
+    >
+      <div
+        className={cx(
+          panelPadding,
+          "flex flex-col justify-between gap-3 border-b border-line sm:flex-row sm:gap-6",
+        )}
+      >
+        <h2 className="text-heading" id="ask-console-title">
+          {ask.console.title}
+        </h2>
+        <p className="self-start rounded-sm border border-line-strong px-2.5 py-1.5 font-mono text-label tabular-nums text-accent">
+          {ask.console.mode}
+        </p>
       </div>
 
       <form
-        className="ask-search"
-        role="search"
+        className={cx(panelPadding, "border-b border-line")}
         onSubmit={(event) => event.preventDefault()}
+        role="search"
       >
-        <label htmlFor="ask-query">질문 검색</label>
-        <div>
+        <label
+          className="mb-2.5 block text-caption font-semibold text-ink-soft"
+          htmlFor="ask-query"
+        >
+          {ask.console.searchLabel}
+        </label>
+        <div className="glass grid grid-cols-[minmax(0,1fr)_34px] items-center rounded-sm border border-glass-border bg-white/70 focus-within:border-accent focus-within:shadow-[inset_0_0_0_1px_var(--color-accent)]">
           <input
-            ref={inputRef}
-            id="ask-query"
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="예: 결제 경험"
             autoComplete="off"
+            className="min-h-13 w-full border-0 bg-transparent px-4 text-body text-ink outline-0 placeholder:text-muted-dark"
+            id="ask-query"
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder={ask.console.searchPlaceholder}
+            ref={inputRef}
+            value={query}
           />
-          <span aria-hidden="true">/</span>
+          <span
+            aria-hidden="true"
+            className="text-center font-mono text-body tabular-nums text-muted-dark"
+          >
+            /
+          </span>
         </div>
       </form>
 
-      <div className="suggestion-list" aria-label="추천 질문">
+      <div
+        aria-label={ask.console.suggestionsAriaLabel}
+        className="flex flex-wrap gap-2 border-b border-line px-5 py-5 md:px-7"
+      >
         {featuredEntries.map((entry) => (
           <button
-            className={selected.id === entry.id && !query ? "is-active" : ""}
+            className={cx(
+              "min-h-10 cursor-pointer rounded-sm border px-3 py-1.5 text-caption transition-colors duration-200 ease-soft",
+              selected.id === entry.id && !query
+                ? "border-ink bg-ink text-canvas"
+                : "border-line bg-transparent text-muted hover:border-ink hover:bg-ink hover:text-canvas",
+            )}
             key={entry.id}
-            type="button"
             onClick={() => selectEntry(entry)}
+            type="button"
           >
             {entry.shortLabel}
           </button>
         ))}
       </div>
 
-      <div className="ask-answer" aria-live="polite">
+      <div aria-live="polite" className={cx(panelPadding, "min-h-[430px]")}>
         {unknown ? (
           <>
-            <p className="answer-label">검색 결과</p>
-            <h3>관련 내용을 찾지 못했습니다.</h3>
-            <p>
-              다른 단어로 검색하거나 이메일로 직접 물어보세요.
+            <p className="mb-3 font-mono text-label tabular-nums text-accent">
+              {ask.console.empty.label}
             </p>
-            <a className="text-link" href="mailto:seunghwanly@gmail.com">
-              직접 질문하기 <span aria-hidden="true">→</span>
-            </a>
+            <h3 className="mb-5 text-title">{ask.console.empty.title}</h3>
+            <p className="text-body text-muted">
+              {ask.console.empty.body}
+            </p>
+            <TextLink href={`mailto:${site.email}`}>
+              {ask.console.empty.linkLabel} <span aria-hidden="true">→</span>
+            </TextLink>
           </>
         ) : visibleAnswer ? (
           <>
-            <p className="answer-label">답변</p>
-            <h3>{visibleAnswer.question}</h3>
-            <p className="answer-direct">{visibleAnswer.answer}</p>
+            <p className="mb-3 font-mono text-label tabular-nums text-accent">
+              {ask.console.answerLabel}
+            </p>
+            <h3 className="mb-5 max-w-[720px] text-title">
+              {visibleAnswer.question}
+            </h3>
+            <p className="max-w-[760px] text-lede text-ink-soft">
+              {visibleAnswer.answer}
+            </p>
 
-            <div className="answer-grid">
-              <div>
-                <h4>관련 경험</h4>
-                <ul>
-                  {visibleAnswer.known.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <h4>경험 범위</h4>
-                <p>{visibleAnswer.boundary}</p>
-              </div>
+            <div className="mt-9 grid gap-7 md:grid-cols-2">
+              {[
+                [ask.console.knownLabel, visibleAnswer.known] as const,
+                [ask.console.boundaryLabel, [visibleAnswer.boundary]] as const,
+              ].map(([label, items]) => (
+                <div className="border-t border-line pt-4.5" key={label}>
+                  <h4 className="mb-3 font-mono text-label tabular-nums text-accent-soft">
+                    {label}
+                  </h4>
+                  <ul className="list-disc pl-4.5">
+                    {items.map((entry) => (
+                      <li className="text-caption text-muted" key={entry}>
+                        {entry}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </div>
 
-            <div className="answer-sources" aria-label="관련 페이지와 공개 기록">
+            <div
+              aria-label={ask.console.sourcesAriaLabel}
+              className="mt-8 flex flex-wrap gap-2.5"
+            >
               {visibleAnswer.sources.map((source) => (
-                <SmartLink href={source.href} key={source.href}>
+                <SmartLink
+                  className="inline-flex min-h-10 items-center rounded-sm border border-line-strong px-2.5 font-mono text-caption tabular-nums text-ink-soft no-underline transition-colors duration-200 ease-soft hover:border-ink"
+                  href={source.href}
+                  key={source.href}
+                >
                   {source.label} <span aria-hidden="true">↗</span>
                 </SmartLink>
               ))}
