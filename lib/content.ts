@@ -68,7 +68,7 @@ export const caseStudies: CaseStudy[] = [
       {
         value: "199,000+",
         label: "통합멤버십 연동한 브랜드 유저수",
-        context: "2026-03-11 출시 후 2026-08-09까지 누적",
+        context: "2026-03-11 출시 후 2026-08-10까지 누적",
       },
       {
         value: "4개",
@@ -1119,7 +1119,7 @@ export const resume: ResumeCopy = {
       "Product Engineer 이승환의 이력서. 경력과 정량 성과, 공개 기록, 학력과 강의를 한 장에 정리했습니다.",
   },
   headline: "Product Engineer · Mobile & Web",
-  updatedAt: "2026년 8월 기준",
+  updatedAt: "2026년 8월 10일 기준",
   contactAriaLabel: "연락처와 외부 프로필",
   download: { label: "PDF 다운로드", href: "/resume.pdf" },
   profile: [
@@ -1151,7 +1151,7 @@ export const proof: ProofCopy = {
     title: "기여한 모든 것",
     description:
       "GitHub PR, 라이브러리, public repository와 컴포넌트 미리보기를 한 곳에 모았습니다.",
-    meta: "2026년 8월 2일 기준",
+    meta: "2026년 8월 10일 기준",
   },
   listAriaLabel: "작업 기록 목록",
 };
