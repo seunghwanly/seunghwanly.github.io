@@ -1,19 +1,16 @@
 import type { Metadata } from "next";
 import {
-  ButtonLink,
-  SmartLink,
-  cx,
-  rowGrid,
-  rowLabel,
-  withEmphasis,
+  BackLink,
+  Field,
+  GlassCard,
+  Paragraphs,
+  Screen,
+  SectionCard,
+  SourceList,
+  column,
+  stack,
 } from "@/components/content-ui";
-import {
-  about,
-  profileLinks,
-  publicProof,
-  resume,
-  site,
-} from "@/lib/content";
+import { about, profileLinks, proofMetrics, resume, site, ui } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: resume.meta.title,
@@ -21,221 +18,145 @@ export const metadata: Metadata = {
 };
 
 /**
- * Section heading. The trailing period is the signature the résumé has always
- * used, so it is drawn here rather than typed into every label in content.ts.
+ * Resume. There is no Figma frame for this screen, so it is assembled from
+ * the same parts as the others: one 640px column of cards, the coloured
+ * section markers running in order, and the PDF within reach at the top.
  */
-function ResumeSection({
-  label,
-  children,
-}: {
-  label: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <section className="pt-9">
-      <h2 className="mb-5 break-after-avoid border-b border-line-strong pb-2.5 text-title">
-        {label}
-        <span aria-hidden="true" className="text-accent-soft">
-          .
-        </span>
-      </h2>
-      {children}
-    </section>
-  );
-}
-
-/** One period-and-content row, the same shape /about uses. */
-function ResumeRow({
-  period,
-  children,
-}: {
-  period: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className={cx(rowGrid, "border-b border-line py-6")}>
-      <time className={rowLabel}>{period}</time>
-      <div className="min-w-0">{children}</div>
-    </div>
-  );
-}
-
 export default function ResumePage() {
   return (
-    <main id="main-content">
-      <header className="site-shell flex flex-col justify-between gap-6 border-b border-line-strong pt-[clamp(4rem,8vw,6rem)] pb-9 md:flex-row md:items-end print:pt-0">
-        <div>
-          <h1 className="text-heading">{site.name}</h1>
-          <p className="mt-2 text-lede text-accent-soft">{resume.headline}</p>
-          <div
+    <Screen>
+      <div className="print:hidden">
+        <BackLink href="/" label={ui.backToTop} />
+      </div>
+
+      <div className={`mx-auto mt-10 md:mt-14 ${column} ${stack} pb-6`}>
+        <GlassCard>
+          <h1 className="text-card text-ink">{site.name}</h1>
+          <p className="mt-1 text-section text-ink-mid">{resume.headline}</p>
+          <p className="mt-1 text-body text-muted">{resume.updatedAt}</p>
+
+          <ul
             aria-label={resume.contactAriaLabel}
-            className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-1.5 font-mono text-caption tabular-nums text-muted"
+            className="mt-5 flex list-none flex-wrap gap-x-5 gap-y-2"
           >
-            <a href={`mailto:${site.email}`}>{site.email}</a>
+            <li>
+              <a
+                className="text-body text-ink-soft transition-opacity duration-200 ease-soft hover:opacity-70"
+                href={`mailto:${site.email}`}
+              >
+                {site.email}
+              </a>
+            </li>
             {profileLinks.map((link) => (
-              <span className="flex items-center gap-4" key={link.href}>
-                <span aria-hidden="true" className="text-line-strong">
-                  ·
-                </span>
-                <SmartLink href={link.href}>{link.label}</SmartLink>
-              </span>
+              <li key={link.href}>
+                <a
+                  className="text-body text-ink-soft transition-opacity duration-200 ease-soft hover:opacity-70"
+                  href={link.href}
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  {link.label} <span aria-hidden="true">↗</span>
+                </a>
+              </li>
             ))}
-          </div>
-        </div>
-        <div className="flex shrink-0 flex-col items-start gap-2.5 md:items-end">
-          <ButtonLink
-            className="print:hidden"
+          </ul>
+
+          <a
+            className="mt-6 inline-flex items-center gap-2 rounded-full border border-glass-line bg-white/55 px-5 py-2.5 text-body text-ink no-underline transition-opacity duration-200 ease-soft hover:opacity-75 print:hidden"
             href={resume.download.href}
-            trailing="external"
-            variant="primary"
           >
             {resume.download.label}
-          </ButtonLink>
-          <p className="font-mono text-label tabular-nums text-muted-dark">
-            {resume.updatedAt}
-          </p>
-        </div>
-      </header>
+            <span aria-hidden="true">↓</span>
+          </a>
+        </GlassCard>
 
-      <div className="site-shell pb-[clamp(4.5rem,8vw,6.5rem)]">
-        <ResumeSection label={resume.sections.profile}>
-          {resume.profile.map((paragraph) => (
-            <p
-              className="mb-3 max-w-[70ch] text-body text-ink-soft last:mb-0"
-              key={paragraph}
-            >
-              {paragraph}
-            </p>
-          ))}
-        </ResumeSection>
+        <SectionCard index={0} label={resume.sections.profile}>
+          <Paragraphs items={resume.profile} />
+        </SectionCard>
 
-        <ResumeSection label={resume.sections.career}>
-          <div>
+        <SectionCard index={1} label={resume.sections.career}>
+          <div className="flex flex-col gap-6">
             {about.career.entries.map((entry) => (
-              <ResumeRow key={entry.company} period={entry.period}>
-                <h3 className="text-subtitle text-ink">{entry.company}</h3>
-                <p className="mt-0.5 text-caption text-accent-soft">
-                  {entry.role}
+              <div key={entry.company}>
+                <p className="text-lede text-ink">
+                  {entry.company} · {entry.role}
                 </p>
-                <p className="mt-2.5 max-w-[70ch] text-body text-muted">
-                  {entry.summary}
-                </p>
-                <ul className="mt-4 max-w-[70ch]">
+                <p className="mb-3 text-body text-muted">{entry.period}</p>
+                <div className="flex flex-col gap-3">
                   {entry.highlights.map((highlight) => (
-                    <li
-                      className="relative break-inside-avoid border-t border-line py-3 pl-6"
-                      key={highlight.id}
-                    >
-                      <span
-                        aria-hidden="true"
-                        className="absolute top-3 left-0 text-accent-soft"
-                      >
-                        ↳
-                      </span>
-                      <h4 className="text-subtitle text-ink [&_span]:font-extrabold [&_span]:text-accent-soft">
-                        {withEmphasis(highlight.title, highlight.emphasis)}
-                      </h4>
-                      <p className="mt-1 text-body text-muted">
-                        {highlight.detail}
-                      </p>
-                    </li>
+                    <Field key={highlight.id} label={highlight.title}>
+                      <p className="text-body text-ink">{highlight.detail}</p>
+                    </Field>
                   ))}
-                </ul>
-              </ResumeRow>
+                </div>
+              </div>
             ))}
           </div>
-        </ResumeSection>
+        </SectionCard>
 
-        <ResumeSection label={resume.sections.projects}>
-          <div>
+        <SectionCard index={2} label={resume.sections.projects}>
+          <div className="flex flex-col gap-5">
             {about.projects.entries.map((entry) => (
-              <ResumeRow key={entry.title} period={entry.period}>
-                <h3 className="text-subtitle text-ink">{entry.title}</h3>
-                <p className="mt-1 max-w-[70ch] text-body text-muted">
-                  {entry.description}
+              <div key={entry.title}>
+                <p className="text-lede text-ink">{entry.title}</p>
+                <p className="mb-2 text-body text-muted">
+                  {entry.period} · {entry.role}
                 </p>
-              </ResumeRow>
-            ))}
-          </div>
-        </ResumeSection>
-
-        <ResumeSection label={resume.sections.skills}>
-          <dl aria-label={about.skills.listAriaLabel}>
-            {about.skills.items.map((item) => (
-              <div
-                className={cx(rowGrid, "border-b border-line py-3.5")}
-                key={item.label}
-              >
-                <dt className="text-subtitle text-ink">{item.label}</dt>
-                <dd className="min-w-0 text-body text-ink-soft">
-                  {item.detail}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </ResumeSection>
-
-        <ResumeSection label={resume.sections.records}>
-          <div>
-            {publicProof.map((group) => (
-              <div
-                className={cx(rowGrid, "border-b border-line py-5")}
-                key={group.group}
-              >
-                <p className={rowLabel}>{group.group}</p>
-                <ul className="min-w-0">
-                  {group.items.map((item) => (
-                    <li
-                      className="flex flex-wrap items-baseline gap-x-3 gap-y-1 py-1.5"
-                      key={item.href}
-                    >
-                      <SmartLink
-                        className="text-subtitle text-ink no-underline hover:text-accent"
-                        href={item.href}
-                      >
-                        {item.label}{" "}
-                        <span aria-hidden="true" className="text-accent-soft">
-                          ↗
-                        </span>
-                      </SmartLink>
-                      {item.note ? (
-                        <span className="text-caption text-muted">
-                          {item.note}
-                        </span>
-                      ) : null}
-                    </li>
-                  ))}
-                </ul>
+                <p className="text-body text-ink">{entry.description}</p>
+                {entry.sources.length > 0 ? (
+                  <div className="mt-3">
+                    <SourceList sources={entry.sources} />
+                  </div>
+                ) : null}
               </div>
             ))}
           </div>
-        </ResumeSection>
+        </SectionCard>
 
-        <div className="grid items-start gap-x-16 md:grid-cols-2">
-          <ResumeSection label={resume.sections.education}>
-            <p className="text-subtitle text-ink">{about.education.title}</p>
-            <p className="mt-1 text-body text-muted">
-              {about.education.detail}
-            </p>
-          </ResumeSection>
+        <SectionCard index={3} label={resume.sections.skills}>
+          <div className="flex flex-col gap-3">
+            {resume.skills.map((skill) => (
+              <Field key={skill.label} label={skill.label}>
+                <p className="text-body text-ink">{skill.detail}</p>
+              </Field>
+            ))}
+          </div>
+        </SectionCard>
 
-          <ResumeSection label={resume.sections.teaching}>
-            <ul>
-              {about.teaching.items.map((item) => (
-                <li
-                  className="grid gap-1 border-b border-line py-2.5 last:border-b-0 sm:grid-cols-[96px_minmax(0,1fr)] sm:gap-4"
-                  key={item.label}
+        <SectionCard index={0} label={resume.sections.records}>
+          <ul className="flex list-none flex-col gap-4">
+            {proofMetrics.map((record) => (
+              <li key={record.href}>
+                <a
+                  className="text-lede text-ink no-underline transition-opacity duration-200 ease-soft hover:opacity-70"
+                  href={record.href}
+                  rel="noreferrer"
+                  target="_blank"
                 >
-                  <strong className="text-subtitle text-ink">
-                    {item.label}
-                  </strong>
-                  <span className="text-body text-muted">{item.detail}</span>
-                </li>
-              ))}
-            </ul>
-          </ResumeSection>
-        </div>
+                  {record.value} <span aria-hidden="true">↗</span>
+                </a>
+                <p className="text-body text-ink-soft">{record.label}</p>
+                <p className="text-body text-muted">{record.detail}</p>
+              </li>
+            ))}
+          </ul>
+        </SectionCard>
+
+        <SectionCard index={1} label={resume.sections.education}>
+          <p className="text-lede text-ink">{resume.education.title}</p>
+          <p className="text-body text-muted">{resume.education.detail}</p>
+        </SectionCard>
+
+        <SectionCard index={2} label={resume.sections.teaching}>
+          <div className="flex flex-col gap-3">
+            {resume.teaching.map((entry) => (
+              <Field key={entry.label} label={entry.label}>
+                <p className="text-body text-ink">{entry.detail}</p>
+              </Field>
+            ))}
+          </div>
+        </SectionCard>
       </div>
-    </main>
+    </Screen>
   );
 }

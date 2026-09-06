@@ -14,10 +14,11 @@
 /*
  * Design tokens
  * -------------
- * Everything the pages are allowed to use lives here. The default Tailwind
- * palette and type scale are cleared on purpose: `--color-*: initial` and
- * `--text-*: initial` remove `text-red-500`, `text-sm` and friends so a page
- * can only reach for the roles defined below.
+ * Every value below is read off the Figma file (Portfolio → Web Portfolio,
+ * node 2301:152). The default Tailwind palette and type scale are cleared
+ * on purpose — `--color-*: initial` and `--text-*: initial` remove
+ * `text-red-500`, `text-sm` and friends so a page can only reach for the
+ * roles defined here.
  */
 @theme {
   --color-*: initial;
@@ -25,198 +26,193 @@
   --color-current: currentColor;
   --color-white: #ffffff;
 
-  /* Page surfaces */
-  --color-canvas: #eef1f6;
-  --color-canvas-raised: #e8edf4;
-  --color-surface: #f8faff;
+  /* Text — four roles, darkest to lightest. */
+  --color-ink: #121212;
+  --color-ink-mid: #3e3e3e;
+  --color-ink-soft: #3d3d3d;
+  --color-muted: #7d7d7d;
 
-  /* Text */
-  --color-ink: #101827;
-  --color-ink-soft: #28344a;
-  --color-muted: #4b5870;
-  --color-muted-dark: #526078;
+  /* Glass surfaces and their hairlines. */
+  --color-glass: rgb(239 239 239 / 50%);
+  --color-glass-nav: rgb(239 239 239 / 25%);
+  --color-glass-line: #dedede;
+  --color-glass-line-soft: #efefef;
+  --color-sign-ring: #ededed;
 
-  /* Accents */
-  --color-accent: #494ac2;
-  --color-accent-soft: #5557a9;
-  --color-accent-strong: #363887;
-  --color-brand: #5b5ce2;
-  --color-warn: #934624;
+  /* Section markers, in the order sections appear. */
+  --color-sign-1: #9fdad8;
+  --color-sign-2: #88dd93;
+  --color-sign-3: #ddc385;
+  --color-sign-4: #c7b6e6;
 
-  /* Hairlines and glass edges */
-  --color-line: rgb(91 105 133 / 20%);
-  --color-line-strong: rgb(65 78 108 / 34%);
-  --color-glass-edge: rgb(67 82 113 / 20%);
-  --color-glass-border: rgb(255 255 255 / 78%);
+  /* The green bloom behind the active nav item. */
+  --color-glow: rgb(118 226 106 / 80%);
 
   /*
-   * Typography — eight roles, one numeric role.
-   * Each carries its own size, line height, tracking and weight, so a page
-   * never sets those by hand. Pick the role, then add colour if needed.
+   * Typography — seven roles.
+   * Figma sizes are the upper bound of each clamp; the lower bound keeps the
+   * same proportions on a 375px screen. Pretendard's intrinsic line height is
+   * 119.3%, which is why most roles land on 1.193.
    *
-   *   text-display   page title (h1)
-   *   text-heading   section title (h2)
-   *   text-title     block or card title (h3, small h2)
-   *   text-subtitle  item title (h4, strong)
-   *   text-lede      opening paragraph
-   *   text-body      body copy
-   *   text-caption   supporting note, footnote
-   *   text-label     mono label (eyebrow, category, meta)
-   *   text-metric    emphasised number (pair with font-mono tabular-nums)
+   *   text-name     the Intro name (120px)
+   *   text-headline page headline (40px)
+   *   text-card     card title (36px)
+   *   text-section  section title, back button (24px)
+   *   text-lede     card description (20px)
+   *   text-body     body copy inside a section (16px)
+   *   text-nav      bottom navigation label (20px)
    */
   --text-*: initial;
 
-  --text-display: clamp(2.5rem, 5.3vw, 4.55rem);
-  --text-display--line-height: 1.08;
-  --text-display--letter-spacing: -0.045em;
-  --text-display--font-weight: 680;
+  --text-name: clamp(3.75rem, 11.5vw, 7.5rem);
+  --text-name--line-height: 1.193;
+  --text-name--letter-spacing: -0.003em;
+  --text-name--font-weight: 800;
 
-  --text-heading: clamp(1.85rem, 3.5vw, 2.85rem);
-  --text-heading--line-height: 1.16;
-  --text-heading--letter-spacing: -0.04em;
-  --text-heading--font-weight: 680;
+  --text-headline: clamp(1.625rem, 4vw, 2.5rem);
+  --text-headline--line-height: 1.193;
+  --text-headline--letter-spacing: -0.003em;
+  --text-headline--font-weight: 500;
 
-  --text-title: clamp(1.35rem, 2.5vw, 1.85rem);
-  --text-title--line-height: 1.3;
-  --text-title--letter-spacing: -0.03em;
-  --text-title--font-weight: 680;
+  --text-card: clamp(1.375rem, 3.2vw, 2.25rem);
+  --text-card--line-height: 1.193;
+  --text-card--letter-spacing: -0.003em;
+  --text-card--font-weight: 600;
 
-  --text-subtitle: 1rem;
-  --text-subtitle--line-height: 1.5;
-  --text-subtitle--letter-spacing: -0.02em;
-  --text-subtitle--font-weight: 700;
+  --text-section: clamp(1.125rem, 2.2vw, 1.5rem);
+  --text-section--line-height: 1.193;
+  --text-section--letter-spacing: -0.003em;
+  --text-section--font-weight: 500;
 
-  --text-lede: clamp(1.05rem, 1.8vw, 1.25rem);
-  --text-lede--line-height: 1.75;
-  --text-lede--letter-spacing: -0.014em;
-  --text-lede--font-weight: 450;
+  --text-lede: clamp(0.9375rem, 1.7vw, 1.25rem);
+  --text-lede--line-height: 1.55;
+  --text-lede--letter-spacing: -0.003em;
+  --text-lede--font-weight: 400;
 
-  --text-body: 1rem;
-  --text-body--line-height: 1.7;
-  --text-body--font-weight: 450;
+  --text-body: clamp(0.875rem, 1.3vw, 1rem);
+  --text-body--line-height: 1.6;
+  --text-body--letter-spacing: -0.003em;
+  --text-body--font-weight: 400;
 
-  --text-caption: 0.82rem;
-  --text-caption--line-height: 1.55;
-  --text-caption--font-weight: 500;
-
-  --text-label: 0.7rem;
-  --text-label--line-height: 1.45;
-  --text-label--letter-spacing: 0.08em;
-  --text-label--font-weight: 700;
-
-  --text-metric: clamp(1.75rem, 3.2vw, 2.6rem);
-  --text-metric--line-height: 1;
-  --text-metric--letter-spacing: -0.055em;
-  --text-metric--font-weight: 760;
+  --text-nav: clamp(1rem, 1.6vw, 1.25rem);
+  --text-nav--line-height: 1.5;
+  --text-nav--letter-spacing: -0.003em;
+  --text-nav--font-weight: 600;
 
   --font-sans: "Pretendard", sans-serif;
-  --font-mono: "Pretendard", sans-serif;
 
-  --radius-sm: 6px;
-  --radius-md: 8px;
-  --radius-lg: 10px;
-
-  --shadow-base: 0 1px 2px rgb(28 39 64 / 9%), inset 0 1px 0 rgb(255 255 255 / 78%);
-  --shadow-lift: 0 14px 32px rgb(36 48 76 / 13%), inset 0 1px 0 rgb(255 255 255 / 78%);
+  --radius-card: 24px;
+  --radius-sign: 12px;
 
   --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
 
-  /* Mirrors the breakpoints the hand-written CSS used. */
-  --breakpoint-xs: 481px;
   --breakpoint-sm: 641px;
   --breakpoint-md: 861px;
   --breakpoint-lg: 1061px;
 
+  /* Figma draws its cards at 640px on a 1440px frame. */
+  --container-card: 640px;
   --container-shell: 1180px;
 }
 
 @layer base {
   :root {
-    --header-height: 64px;
-
-    /* Background wash channels, kept as raw RGB so alpha can vary per stop. */
-    --wash-blue: 105 159 255;
-    --wash-periwinkle: 105 125 248;
-    --wash-cyan: 121 221 225;
-    --wash-lemon: 255 235 112;
+    /*
+     * The bottom navigation floats over the page, so every screen reserves
+     * this much room underneath its content. 64px pill + 24px inset + air.
+     */
+    --gnb-height: 64px;
+    --gnb-inset: 20px;
+    --gnb-clearance: calc(
+      var(--gnb-height) + var(--gnb-inset) * 2 + env(safe-area-inset-bottom, 0px)
+    );
   }
 
+  /* Figma leaves 48px under the pill on the 1024px-tall desktop frame. */
   @media (width >= 861px) {
     :root {
-      --header-height: 68px;
+      --gnb-inset: 48px;
     }
   }
 
   html {
-    background: var(--color-canvas);
+    background: #f4f8f2;
     color-scheme: light;
     scroll-behavior: smooth;
-    scroll-padding-top: calc(var(--header-height) + 24px);
   }
 
   body {
     position: relative;
     isolation: isolate;
     min-width: 320px;
+    min-height: 100dvh;
     color: var(--color-ink);
     font-family: var(--font-sans);
-    font-size: 15px;
-    font-weight: 450;
-    line-height: 1.7;
-    letter-spacing: -0.012em;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: -0.003em;
     word-break: keep-all;
     overflow-wrap: anywhere;
     text-rendering: optimizeLegibility;
   }
 
-  @media (width >= 641px) {
-    body {
-      font-size: 16px;
-    }
-  }
-
-  /* Ambient page wash. Fixed so it never scrolls with content. */
+  /*
+   * Page wash. Two stacked gradients copied from the Figma frame fill, plus
+   * the soft blue blob that sits on the right of every frame. Fixed so it
+   * never scrolls away on a long case study.
+   */
   body::before {
     content: "";
     position: fixed;
     z-index: -1;
-    inset: -18vmax -12vmax;
+    inset: 0;
     pointer-events: none;
-    opacity: 0.72;
+    /*
+     * Three layers, matching the Figma frame. Figma paints its `fills` array
+     * bottom-first and CSS paints top-first, so the order here is reversed:
+     * the decorative disc sits above the linear wash, which sits above the
+     * radial. Every number is derived from the gradient handle positions in
+     * *pixel* space on the 1440×1024 frame — reading the handles as plain
+     * 0–1 coordinates loses the aspect ratio and drains the blue out of the
+     * left-hand side.
+     */
     background:
-      linear-gradient(
-        112deg,
-        rgb(var(--wash-lemon) / 17%) 2%,
-        transparent 27% 77%,
-        rgb(var(--wash-lemon) / 11%) 100%
-      ),
+      /* Child ellipse: an 800px disc centred at 79.9%/50%. */
       radial-gradient(
-        ellipse 31% 106% at 65% 38%,
-        rgb(var(--wash-periwinkle) / 20%) 0%,
-        rgb(var(--wash-blue) / 16%) 44%,
-        transparent 78%
+        27.8% 39.1% at 79.9% 50%,
+        rgb(189 226 255 / 40%) 0%,
+        rgb(217 217 217 / 0%) 100%
       ),
+      /*
+       * Handles run (1440,0) → (517,1024): 222deg, and the far stop lands at
+       * 79.9% of the CSS gradient line rather than at its end.
+       */
       linear-gradient(
-        137deg,
-        transparent 11%,
-        rgb(var(--wash-cyan) / 16%) 38%,
-        transparent 68%
+        222deg,
+        #cfdb7d 0%,
+        rgb(189 226 255 / 50%) 79.9%
+      ),
+      /*
+       * Handles describe an ellipse with semi-axes 893px and 652px rotated
+       * 50.9°, centred at 23.6%/32.3%. CSS cannot rotate a gradient, so this
+       * is its axis-aligned bounding box.
+       */
+      radial-gradient(
+        52.6% 78.7% at 23.6% 32.3%,
+        rgb(191 251 184 / 80%) 0%,
+        rgb(225 252 222 / 80%) 50%,
+        #ffffff 100%
       );
   }
 
-  @media (width >= 641px) {
-    body::before {
-      opacity: 0.86;
-    }
-  }
-
   ::selection {
-    background: rgb(91 92 226 / 22%);
+    background: rgb(118 226 106 / 32%);
     color: var(--color-ink);
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-accent);
+    outline: 2px solid var(--color-ink-soft);
     outline-offset: 3px;
   }
 
@@ -236,19 +232,14 @@
   a {
     -webkit-tap-highlight-color: transparent;
   }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
 }
 
 /*
  * Components
  * ----------
- * Only patterns that cannot be expressed as utilities in the markup live here:
- * the page gutter, the two glass recipes, and the button. Everything else —
- * grids, rows, spacing, colour — is written inline in the JSX.
+ * Only the two glass recipes and the page gutter live here — they carry
+ * vendor-prefixed and layered values that would be unreadable inline.
+ * Grids, spacing and colour are written in the JSX.
  */
 @layer components {
   .site-shell {
@@ -262,282 +253,129 @@
     }
   }
 
-  /* Flat evidence card. */
-  .surface {
-    background: linear-gradient(
-      145deg,
-      rgb(255 255 255 / 68%),
-      rgb(255 255 255 / 62%)
-    );
-    border: 1px solid var(--color-glass-edge);
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-base);
+  /*
+   * The card surface used by every block on every screen: a translucent
+   * grey plate, a hairline, and a white inner glow along the bottom edge
+   * that reads as light catching a bevel.
+   */
+  .glass {
+    background: var(--color-glass);
+    border: 1px solid var(--color-glass-line);
+    border-radius: var(--radius-card);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    box-shadow: inset 0 -4px 8px 8px rgb(255 255 255 / 40%);
   }
 
-  .surface-lift {
-    border-color: var(--color-glass-border);
-    box-shadow: var(--shadow-lift);
+  /* Same recipe, thinner and more transparent, for the floating nav. */
+  .glass-nav {
+    background: var(--color-glass-nav);
+    border: 0.5px solid var(--color-glass-line-soft);
+    border-radius: var(--radius-card);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    box-shadow: inset 0 -4px 8px 8px rgb(255 255 255 / 40%);
   }
 
-  .button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    height: 48px;
-    padding-inline: 20px;
-    border: 1px solid var(--color-glass-border);
-    border-radius: var(--radius-md);
-    background: rgb(255 255 255 / 58%);
-    box-shadow: var(--shadow-base);
-    font-size: 0.9rem;
-    font-weight: 700;
-    line-height: 1;
-    text-decoration: none;
-    transition:
-      color 180ms var(--ease-soft),
-      background-color 180ms var(--ease-soft),
-      border-color 180ms var(--ease-soft),
-      transform 180ms var(--ease-soft);
-  }
+  /*
+   * Safari and older WebKit drop `backdrop-filter` when the element is
+   * inside a transformed ancestor. Raising the plate's own opacity keeps
+   * the text contrast even when the blur is missing.
+   */
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .glass {
+      background: rgb(244 244 244 / 82%);
+    }
 
-  .button:hover {
-    transform: translateY(-1px);
-  }
-
-  .button__trailing {
-    display: inline-grid;
-    place-items: center;
-    width: 1em;
-    transition: transform 180ms var(--ease-soft);
-  }
-
-  .button:hover .button__trailing {
-    transform: translateX(2px);
-  }
-
-  .button-primary {
-    background: rgb(91 92 226 / 92%);
-    border-color: transparent;
-    color: var(--color-white);
-    box-shadow: 0 1px 2px rgb(28 39 64 / 9%);
-  }
-
-  .button-primary:hover {
-    background: #5253d4;
-    color: var(--color-white);
-  }
-
-  .button-secondary {
-    background: rgb(255 255 255 / 70%);
-    color: var(--color-ink);
-  }
-
-  .button-secondary:hover {
-    border-color: var(--color-ink);
-  }
-
-  .button-tertiary {
-    background: transparent;
-    border-color: transparent;
-    box-shadow: none;
-    color: var(--color-muted);
-  }
-
-  .button-tertiary:hover {
-    background: rgb(255 255 255 / 34%);
-    color: var(--color-ink);
+    .glass-nav {
+      background: rgb(244 244 244 / 74%);
+    }
   }
 }
 
 /*
- * Utilities
- * ---------
- * `glass` is a utility rather than a component class so variants work:
- * `hover:glass` and `focus-within:glass` turn the blur on for a row.
- * The blur strength lives in a custom property, because writing
- * `backdrop-filter` and `-webkit-backdrop-filter` into one rule makes the
- * minifier drop the standard property — the prefixed form needs its own
- * @supports block.
+ * Print
+ * -----
+ * `npm run resume:pdf` prints /resume with headless Chrome, so the PDF is
+ * derived from the same page rather than authored separately. Here the page
+ * drops to A4, the floating navigation and the download button go away
+ * (`print:hidden` in the markup), and the glass plates flatten — a
+ * backdrop-filter prints as a muddy grey box, and the fixed page wash would
+ * repeat on every sheet.
  */
-@utility glass {
-  --glass-filter: blur(14px) saturate(125%);
-  backdrop-filter: var(--glass-filter);
-
-  @supports (-webkit-backdrop-filter: blur(1px)) {
-    -webkit-backdrop-filter: var(--glass-filter);
-  }
-
-  @media (width >= 861px) {
-    --glass-filter: blur(22px) saturate(145%);
-  }
-}
-
-/* Decorative highlight wash for hovered evidence rows and cards. */
-@utility surface-wash {
-  background:
-    radial-gradient(
-      120% 150% at 10% -10%,
-      rgb(255 255 255 / 76%) 0%,
-      rgb(255 255 255 / 0%) 52%
-    ),
-    linear-gradient(
-      118deg,
-      rgb(var(--wash-periwinkle) / 18%) 0%,
-      rgb(var(--wash-cyan) / 17%) 40%,
-      rgb(var(--wash-blue) / 20%) 72%,
-      rgb(255 255 255 / 48%) 100%
-    );
-}
-
-/*
- * Environment fallbacks
- * ---------------------
- * Every translucent element is a `.surface`, a `.button`, or carries the
- * `glass` utility, and all blur strength flows through `--glass-filter`.
- * Opting out of transparency is therefore three short blocks instead of the
- * forty-selector lists this file used to carry.
- */
-@supports not (
-  (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))
-) {
-  .surface,
-  .button {
-    background: var(--color-surface);
-  }
-
-  .button-primary {
-    background: var(--color-brand);
-  }
-
-  .button-tertiary {
-    background: transparent;
-  }
-}
-
-@media (prefers-reduced-transparency: reduce) {
-  * {
-    --glass-filter: none !important;
-  }
-
-  body::before {
-    opacity: 0.03;
-  }
-
-  .surface,
-  .button {
-    background: var(--color-surface);
-  }
-
-  .button-primary {
-    background: var(--color-brand);
-  }
-
-  .button-tertiary {
-    background: transparent;
-  }
-}
-
-@media (prefers-contrast: more) {
-  :root {
-    --color-line: rgb(48 61 88 / 52%);
-    --color-line-strong: #4a5872;
-    --color-muted: #344259;
-    --color-muted-dark: #46536a;
-    --color-glass-edge: #65718a;
-  }
-
-  * {
-    --glass-filter: none !important;
-  }
-
-  body::before {
-    opacity: 0;
-  }
-
-  :focus-visible {
-    outline-width: 3px;
-  }
-
-  .surface,
-  .button {
-    background: var(--color-white);
-    border-color: var(--color-glass-edge);
-    box-shadow: 0 1px 0 rgb(16 24 39 / 14%);
-  }
-
-  .button-primary {
-    background: #4546bd;
-    color: var(--color-white);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  *,
-  *::before,
-  *::after {
-    scroll-behavior: auto !important;
-    transition-duration: 0.01ms !important;
-    animation-duration: 0.01ms !important;
-  }
-
-  .button:hover,
-  .button:hover .button__trailing {
-    transform: none !important;
-  }
-}
-
 @media print {
   @page {
     size: A4;
-    margin: 14mm 16mm;
+    margin: 14mm 12mm;
   }
 
-  :root {
-    --color-canvas: #ffffff;
-    --color-canvas-raised: #ffffff;
-    --color-line: #b7b7b7;
-    --color-line-strong: #5d5d5d;
-    --color-ink: #111111;
-    --color-ink-soft: #222222;
-    --color-muted: #424242;
-    --color-muted-dark: #626262;
-    --color-accent: #111111;
-    --color-accent-soft: #111111;
-    --color-warn: #111111;
-  }
-
-  html,
-  body {
+  html {
     background: #ffffff;
-    color: #111111;
-    font-size: 10pt;
-    line-height: 1.5;
+  }
+
+  body {
+    min-height: 0;
+    font-size: 10.5pt;
   }
 
   body::before {
     display: none;
   }
 
+  main {
+    width: 100% !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+  }
+
+  .glass,
+  .glass-nav {
+    background: #ffffff;
+    border-color: #d4d4d4;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    box-shadow: none;
+  }
+
+  /*
+   * Let a long card flow across sheets — pinning whole cards leaves half a
+   * page empty. Each achievement is what has to stay in one piece, and
+   * `break-inside-avoid` in the markup does that.
+   */
+  h1,
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+
   a {
-    color: #111111;
     text-decoration: none;
   }
+}
 
-  .site-shell {
-    width: 100%;
+@layer utilities {
+  /*
+   * The Intro illustration. The doodle is drawn mid-shake, so it gets a
+   * matching two-degree sway rather than sitting still.
+   */
+  .wobble {
+    animation: wobble 4s var(--ease-soft) infinite;
+    transform-origin: 50% 88%;
   }
 
-  * {
-    --glass-filter: none !important;
+  @keyframes wobble {
+    0%,
+    100% {
+      transform: rotate(-1.6deg);
+    }
+    50% {
+      transform: rotate(1.6deg);
+    }
   }
 
-  .surface {
-    background: #ffffff !important;
-    box-shadow: none !important;
+  @media (prefers-reduced-motion: reduce) {
+    .wobble {
+      animation: none;
+    }
   }
 }

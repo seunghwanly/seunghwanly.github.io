@@ -1,30 +1,37 @@
 import type { Metadata } from "next";
-import { CaseRow, PageIntro } from "@/components/content-ui";
-import { caseStudies, workIndex } from "@/lib/content";
+import {
+  BackLink,
+  Screen,
+  WorkCard,
+  column,
+  stack,
+} from "@/components/content-ui";
+import { caseStudies, ui, workIndex } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: workIndex.meta.title,
   description: workIndex.meta.description,
 };
 
-export default function WorkPage() {
+/**
+ * Works. A single centred column of cards, with the way back to Intro parked
+ * in the top-left corner — the same arrangement as the Figma frame.
+ */
+export default function WorksPage() {
   return (
-    <main id="main-content">
-      <PageIntro
-        title={workIndex.intro.title}
-        description={workIndex.intro.description}
-      />
+    <Screen>
+      <BackLink href="/" label={ui.backToTop} />
 
-      <section
+      <ul
         aria-label={workIndex.listAriaLabel}
-        className="site-shell pb-[clamp(4.5rem,8vw,6.5rem)]"
+        className={`mx-auto mt-10 list-none md:mt-14 ${column} ${stack} pb-6`}
       >
-        <div className="border-b border-line-strong">
-          {caseStudies.map((item) => (
-            <CaseRow item={item} key={item.id} />
-          ))}
-        </div>
-      </section>
-    </main>
+        {caseStudies.map((item) => (
+          <li key={item.id}>
+            <WorkCard item={item} />
+          </li>
+        ))}
+      </ul>
+    </Screen>
   );
 }
