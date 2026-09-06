@@ -156,6 +156,16 @@ export default function ResumePage() {
             ))}
           </div>
         </SectionCard>
+
+        <SectionCard index={3} label={resume.sections.awards}>
+          <div className="flex flex-col gap-3">
+            {resume.awards.map((entry) => (
+              <Field key={entry.label} label={entry.label}>
+                <p className="text-body text-ink">{entry.detail}</p>
+              </Field>
+            ))}
+          </div>
+        </SectionCard>
       </div>
     </Screen>
   );

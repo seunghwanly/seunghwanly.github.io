@@ -239,6 +239,7 @@ export type ResumeCopy = {
     records: string;
     education: string;
     teaching: string;
+    awards: string;
   };
   skills: LabelledDetail[];
   education: {
@@ -246,6 +247,7 @@ export type ResumeCopy = {
     detail: string;
   };
   teaching: LabelledDetail[];
+  awards: LabelledDetail[];
 };
 
 /* ================================================================== *

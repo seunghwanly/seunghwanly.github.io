@@ -18,7 +18,7 @@ import type {
 } from "./schema.dto";
 
 /** 이력서와 공개 기록에 함께 쓰는 기준일. */
-const asOf = "2026년 8월 10일 기준";
+const asOf = "2026년 9월 4일 기준";
 
 export const profileLinks: SourceLink[] = [
   { label: "GitHub", href: "https://github.com/seunghwanly" },
@@ -56,23 +56,23 @@ export const proofMetrics: ProofMetric[] = [
 
 export const caseStudies: CaseStudy[] = [
   {
-    id: "1",
+    id: "membership",
     category: "통합멤버십 · O2O",
     title: "온라인과 오프라인 매장 고객을 하나로",
     summary:
-      "본인인증 기반으로 온라인 고객과 오프라인 매장 고객 199,000+명을 연결했습니다. 예약 상태 API를 설계⋅구현하고 4개 브랜드와 오프라인 예약내역을 하나의 웹 서비스로 통합했습니다.",
-    role: "본인인증 · 예약 상태 API · 공용 예약 상세 · 앱/웹 연동 · 배포",
-    tags: ["O2O", "본인인증", "공용 예약 상세", "App · Web 연동"],
+      "브랜드마다 흩어져 있던 고객 정보를 본인인증을 기준으로 연결했습니다. 2026년 9월까지 온라인 고객과 오프라인 매장 고객 245,000+명이 하나의 계정으로 이어졌습니다.",
+    role: "연결 기준 설계 · 본인인증 연동 · 신청 흐름 · 앱/웹 연동 · 배포",
+    tags: ["O2O", "본인인증", "통합멤버십", "App · Web 연동"],
     metrics: [
       {
-        value: "199,000+",
+        value: "245,000+",
         label: "통합멤버십 연동한 브랜드 유저수",
-        context: "2026-03-11 출시 후 2026-08-10까지 누적",
+        context: "2026-03-11 출시 후 2026-09-04까지 누적",
       },
       {
-        value: "4개",
-        label: "윙크⋅하파크리스틴⋅젬아워⋅츄렌즈",
-        context: "2026-07-31 공용 예약 상세 운영 반영",
+        value: "99.84%",
+        label: "앱 crash-free 세션",
+        context: "출시 첫 달 242,694 sessions 기준",
       },
       {
         value: "99.92%",
@@ -87,36 +87,212 @@ export const caseStudies: CaseStudy[] = [
         title: "브랜드마다 흩어진 고객 정보로 동일 고객 식별 불가",
         paragraphs: [
           "각 브랜드에서 예약한 유저와 매장에서 구매한 고객 정보가 분리돼 같은 고객인지 확인하기 어려웠습니다. 매장에서도 고객의 지난 온라인 예약 건을 확인할 수 없었습니다.",
-          "브랜드별로 예약상세화면이 다르고 같은 예약 프로세스도 표현이 달랐습니다. 수정이 필요할 때마다 여러 화면의 상태와 동작을 함께 고쳐야 했습니다.",
+          "이메일만으로는 동일 사용자를 가려낼 수 없었습니다. 같은 사람이 브랜드마다 다른 계정으로 남아 혜택도 이력도 따로 쌓였습니다.",
         ],
       },
       {
         id: "changes",
         label: "바꾼 것",
-        title: "본인인증 기반 고객 연결 및 예약 화면 통합",
+        title: "본인인증을 연결 기준으로 삼은 계정 통합",
         bullets: [
-          "유저 동의하에 본인인증 정보를 기준으로 온라인·오프라인 유저 정보 연결",
-          "예약 유형에 따라 바뀌는 상태 API 응답 구조를 직접 설계·구현해 앱과 웹이 같은 기준으로 화면을 그리도록 정리",
-          "4개 브랜드 예약 상세를 공용 웹(React)으로 이관, 일반예약⋅구매예약 화면 동시 운영",
-          "별도 도메인⋅QR 숏링크 서버, 딥링크, 인앱브라우저, 레거시 유저 예외를 처리한 뒤 배포",
+          "본인인증과 제3자 정보제공 동의를 연결 기준으로 정하고, 유저 동의하에 온라인·오프라인 유저 정보를 잇도록 설계",
+          "신청 화면과 완료 화면을 분리해 어느 단계에서 이탈하는지 추적할 수 있게 구성",
+          "별도 도메인과 QR 숏링크, 딥링크, 인앱브라우저, 레거시 유저 예외를 처리한 뒤 배포",
         ],
       },
       {
         id: "result",
         label: "확인한 결과",
-        title: "고객 199,000+명 연결 및 공용 예약 화면 운영 반영",
+        title: "고객 245,000+명 연결",
         paragraphs: [
+          "2026년 3월 첫 배포 후 9월까지 온·오프라인 고객 245,000+명이 연결됐습니다.",
           "출시 첫 달 앱 242,694 sessions의 crash-free는 99.84%, 장바구니 354,758 views는 99.92%, 웹 4,014 sessions는 100%였습니다.",
-          "2026년 7월에는 공용 예약 화면을 운영에 반영하고 윙크 앱 업데이트까지 마쳤습니다.",
         ],
       },
     ],
     limitation:
-      "공용 예약 화면으로 바꾼 뒤 로딩 시간과 작업 시간이 얼마나 줄었는지는 측정하지 않았습니다.",
+      "연결된 고객이 실제로 브랜드를 오가며 더 많이 구매했는지는 측정하지 않았습니다. 연결 자체가 목표였고 그 뒤의 행동 변화는 다음 과제로 남겼습니다.",
     sources: [],
   },
   {
-    id: "2",
+    id: "observability",
+    category: "관측성 · 렌더링 전환",
+    title: "관측할 수 있게 렌더링 방식을 두 번 바꿨다",
+    summary:
+      "Flutter Web은 Canvas로 그려서 화면 안에서 무슨 일이 일어나는지 볼 수 없었습니다. 관측 가능한 DOM으로 옮겨 이탈 구간을 드러냈고, 수단이 틀렸다는 걸 인정하고 한 번 더 되돌렸습니다.",
+    role: "렌더링 방식 판단 · 화면 분리 · Datadog 대시보드·알림 구성 · 재이관",
+    tags: ["Datadog RUM", "Product Analytics", "Expo Web", "Vite", "퍼널"],
+    metrics: [
+      { value: "77%", label: "유저통합 완료 퍼널", context: "2026-05-10 기준" },
+      {
+        value: "1.85%",
+        label: "에러 세션 비율",
+        context: "문의가 오기 전에 확인 가능",
+      },
+      {
+        value: "636ms",
+        label: "p75 LCP",
+        context: "매장연동 완료 퍼널 73%와 함께 관측",
+      },
+    ],
+    sections: [
+      {
+        id: "situation",
+        label: "상황",
+        title: "Canvas 렌더링이라 에러를 고객 문의로만 알았다",
+        paragraphs: [
+          "통합멤버십을 처음에 Flutter Web으로 만들었는데 Canvas 렌더링이라 Datadog SDK가 DOM 이벤트를 자동으로 수집하지 못했습니다. 에러가 나도 CS 문의가 들어와야 알 수 있었습니다.",
+          "본인인증⋅유저통합⋅매장연동 중 어느 구간에서 이탈하는지도 알 수 없었습니다. 전환율을 올리는 것보다 먼저 보이게 만드는 게 순서였습니다.",
+        ],
+      },
+      {
+        id: "changes",
+        label: "바꾼 것",
+        title: "DOM 기반으로 옮기고 퍼널 경계를 화면 단위로 드러냄",
+        bullets: [
+          "SEO가 필요 없는 서비스라 DOM 기반이면 관측성이 생긴다고 판단해 React Native / Expo Web으로 이관",
+          "결과⋅로딩⋅에러 화면을 유스케이스별로 분리해 퍼널 경계가 화면 단위로 드러나게 구성",
+          "본인인증⋅유저통합⋅매장연동 퍼널, RUM 에러, LCP·INP·CLS, Frustration 세션을 하나의 대시보드로 모음",
+          "이상 징후가 생기면 Slack으로 알림이 가도록 모니터 구성",
+        ],
+      },
+      {
+        id: "result",
+        label: "확인한 결과",
+        title: "문의가 오기 전에 에러를 먼저 보는 구조",
+        paragraphs: [
+          "2026년 5월 10일 기준으로 유저통합 완료 77%, 매장연동 완료 73%, 에러 세션 비율 1.85%, p75 LCP 636ms를 운영 지표로 보게 됐습니다.",
+          "다만 React Native Web 의존이 번들 크기와 빌드 설정을 키웠습니다. 웹만 서빙하는 앱에 네이티브 레이어를 얹은 셈이라 Vite 정적 React로 다시 옮겼고, 이후 신규 웹은 DOM 기반으로 통일했습니다.",
+        ],
+      },
+    ],
+    limitation:
+      "React Native Web은 실패한 실험이었습니다. 관측 가능해야 개선할 수 있다는 목표는 맞았지만 수단이 틀렸습니다. 이후로는 기술을 고를 때 관측⋅빌드⋅테스트에서 치를 비용을 먼저 따집니다.",
+    sources: [],
+  },
+  {
+    id: "reservation",
+    category: "예약 상세 통합 · WebView",
+    title: "4개 브랜드 예약 상세를 하나의 웹으로",
+    summary:
+      "브랜드마다 예약 상세 화면이 달라 같은 버그가 네 번 났고, 고칠 때마다 앱 심사를 기다려야 했습니다. 주문 상태 계약을 하나로 통일하고 앱은 그 계약을 소비하는 WebView로 바꿨습니다.",
+    role: "상태 계약 설계 · 백엔드 조율 · 공용 웹 구현 · 브릿지 계층 · 어드민 읽기 모드",
+    tags: ["예약 상세", "WebView", "브릿지", "React", "하위 호환"],
+    metrics: [
+      {
+        value: "4개",
+        label: "예약 상세를 통합한 브랜드",
+        context: "윙크⋅하파크리스틴⋅젬아워⋅츄렌즈",
+      },
+      {
+        value: "5개",
+        label: "한 코드베이스를 공유하는 화면",
+        context: "4개 브랜드와 어드민 읽기 모드",
+      },
+      {
+        value: "심사 없이",
+        label: "예약 상세 배포",
+        context: "앱은 WebView 껍데기로 남김",
+      },
+    ],
+    sections: [
+      {
+        id: "situation",
+        label: "상황",
+        title: "같은 예약 프로세스인데 브랜드마다 표현이 달랐다",
+        paragraphs: [
+          "브랜드별로 예약 상세 화면이 따로 있었고, 주문 상태와 액션이 각 화면의 파생 로직에 의존했습니다. 그래서 같은 성격의 버그가 브랜드마다 따로 났습니다.",
+          "수정이 필요할 때마다 여러 화면의 상태와 동작을 함께 고쳐야 했고, 앱은 고칠 때마다 스토어 심사를 기다려야 했습니다. 어드민에서는 고객이 지금 어떤 화면을 보고 있는지 알 수 없어 직접 물어봐야 했습니다.",
+        ],
+      },
+      {
+        id: "changes",
+        label: "바꾼 것",
+        title: "상태 계약을 하나로 만들고 앱은 그 계약을 소비하게",
+        bullets: [
+          "화면을 네 번 고치는 대신 주문 상태 계약을 전체 단계⋅현재 단계⋅종료 원인으로 통일하고 백엔드 응답을 그 기준에 맞춤",
+          "React 정적 웹으로 공용 예약 상세를 만들고 앱의 예약 상세 화면을 WebView로 교체",
+          "호스트 판별과 메시지 송수신을 단일화한 브릿지 계층을 두어 4개 브랜드가 같은 인터페이스로 통신",
+          "같은 화면을 읽기 전용으로 열어 어드민에서도 고객과 같은 상태를 보게 함",
+        ],
+      },
+      {
+        id: "result",
+        label: "확인한 결과",
+        title: "다섯 개 화면이 한 코드베이스를 공유",
+        paragraphs: [
+          "4개 브랜드와 어드민이 같은 코드베이스를 쓰게 됐습니다. 새 API 필드는 하위 호환을 확인한 뒤 배포했습니다.",
+          "예약 상세는 앱 심사를 거치지 않고 배포할 수 있게 됐고, CS 문의가 들어오면 고객과 같은 예약 상태를 보면서 응대합니다.",
+        ],
+      },
+    ],
+    limitation:
+      "브릿지 계약을 한 번에 크게 바꾸려다 되돌린 적이 있습니다. 앱과 웹은 같은 시각에 배포되지 않아서 어느 쪽이 먼저 나가도 하위 호환이 지켜져야 했습니다. 이후로는 필드 추가 → 양쪽 배포 → 구버전 제거 순으로 나누고 브릿지 메시지에 버전을 붙였습니다. 통합 뒤 브랜드별 중복 수정이 얼마나 줄었는지는 측정하지 않았습니다.",
+    sources: [],
+  },
+  {
+    id: "dto",
+    category: "모노레포 · 타입 안정성",
+    title: "조용히 삼켜지던 파싱 실패를 드러낸 DTO 표준화",
+    summary:
+      "DTO에 변환 로직이 섞여 같은 값이 두 이름으로 공존했고, 파싱에 실패해도 기본값을 채우고 넘어가 화면만 비었습니다. 14개 feature의 DTO를 서버 응답의 직역으로 되돌리고 실패가 드러나게 했습니다.",
+    role: "DTO 규약 설계 · 실패 흐름 정의 · 전 feature 전환 · 데드코드 정리",
+    tags: ["zod", "DTO", "모노레포", "Datadog", "AI 에이전트 규약"],
+    metrics: [
+      {
+        value: "14개",
+        label: "순수 zod로 전환한 feature",
+        context: "2026-08-13 ~ 08-25",
+      },
+      {
+        value: "6,334줄",
+        label: "제거한 데드코드",
+        context: "소비자가 없던 feature 9개 · 128파일",
+      },
+      {
+        value: "119 → 17",
+        label: "DTO에 남은 변환 로직 사용처",
+        context: "전환 전후 비교",
+      },
+    ],
+    sections: [
+      {
+        id: "situation",
+        label: "상황",
+        title: "실패해도 기본값을 채우고 넘어가 아무 데도 남지 않았다",
+        paragraphs: [
+          "DTO에 변환과 헬퍼가 섞여 있어 같은 값이 두 이름으로 공존하는 등 중복 키와 타입 불일치가 반복됐습니다.",
+          "파싱에 실패해도 기본값을 채워 넣고 넘어가서 화면에는 빈 값이 보이는데 에러는 어디에도 남지 않았습니다. 여기에 더 이상 쓰이지 않는 feature 9개가 남아 전환 범위를 부풀리고 있었습니다.",
+        ],
+      },
+      {
+        id: "changes",
+        label: "바꾼 것",
+        title: "DTO는 서버 응답의 직역, 실패는 한 방향으로",
+        bullets: [
+          "DTO를 순수 zod로 되돌리고, 타입이 맞지 않으면 클라이언트에서 변환하지 않고 서버를 고치는 쪽으로 기준을 세움",
+          "파싱 실패를 Datadog으로 보내는 보고 채널과 응답 봉투를 벗기는 공통 래퍼를 추가",
+          "실패 흐름을 값 반환에서 예외를 던지고 훅이 보고하는 한 방향으로 바꿔 테스트할 지점을 명확히 함",
+          "baseURL과 토큰을 props로 내려주던 체인을 컨텍스트 주입으로 전환하고, 소비자가 없는 feature 9개를 제거",
+          "규약을 AGENTS.md에 명문화 — 사람만 읽는 문서가 아니라 AI 에이전트도 읽으니 생성되는 코드도 같은 규칙을 따르게",
+        ],
+      },
+      {
+        id: "result",
+        label: "확인한 결과",
+        title: "2주 만에 14개 feature 전환, 실패가 보이기 시작",
+        paragraphs: [
+          "2026년 8월 13일부터 25일까지 14개 feature의 DTO를 전환했습니다. DTO 안에 남아 있던 변환 로직 사용처는 119곳에서 17곳으로 줄었습니다.",
+          "파싱 실패가 Datadog에 보고되기 시작했고, 소비자가 없던 feature 9개(128파일 6,334줄)가 사라졌습니다. 에이전트가 만든 PR도 같은 규약을 따르게 됐습니다.",
+        ],
+      },
+    ],
+    limitation:
+      "기본값으로 실패를 덮던 코드를 걷어내며 조용한 성공이 가장 늦게 발견되는 버그라는 걸 확인했습니다. 다만 전환 전후로 파싱 실패 보고가 실제로 몇 건이나 늘었는지는 아직 추이를 확인하지 않았습니다.",
+    sources: [],
+  },
+  {
+    id: "flutter-web",
     category: "레거시 정상화 · Flutter Web",
     title: "예약이 되지 않던 Vue2 웹, Flutter 앱 코드베이스로 대체",
     summary:
@@ -185,74 +361,7 @@ export const caseStudies: CaseStudy[] = [
     ],
   },
   {
-    id: "3",
-    category: "운영 안정성 · 오픈소스",
-    title: "Datadog RUM 이슈 발견 및 오픈소스 기여",
-    summary:
-      "문제를 재현해 SDK를 수정하고 테스트와 외부 리뷰를 거쳐 공식 버전에 반영했습니다. AI는 코드 탐색과 첫 구현안 작성에 활용했습니다.",
-    role: "원인 분석 · SDK 수정 · 테스트 · 외부 리뷰 · 제품 적용",
-    tags: ["RUM", "Flutter SDK", "오픈소스", "AI"],
-    metrics: [
-      {
-        value: "12일",
-        label: "제안부터 병합까지",
-        context: "2026-06-25 → 2026-07-07",
-      },
-      {
-        value: "5개",
-        label: "쿼리 테스트",
-        context: "기존 화면 경로와 쿼리가 포함된 경로",
-      },
-      {
-        value: "11개",
-        label: "CI 검사",
-        context: "외부 프로젝트의 병합 전 검사",
-      },
-    ],
-    sections: [
-      {
-        id: "situation",
-        label: "상황",
-        title: "모바일 화면 URL의 쿼리 정보 누락",
-        paragraphs: [
-          "Datadog의 실제 사용자 모니터링(RUM)에서 서로 다른 유입이 같은 화면으로 집계됐습니다. 제품 코드에서 우회하면 빠르게 고칠 수 있지만 SDK를 올릴 때마다 같은 패치를 유지해야 했습니다.",
-        ],
-      },
-      {
-        id: "changes",
-        label: "바꾼 것",
-        title: "Flutter SDK 원인 규명 및 공식 저장소 수정안 제출",
-        bullets: [
-          "Flutter부터 네이티브 SDK까지 쿼리가 사라지는 지점 재현",
-          "화면 URL과 쿼리 속성 전달 및 기존 경로 회귀 테스트",
-          "외부 메인테이너 리뷰 반영으로 수정 범위 축소",
-          "AI로 관련 SDK 탐색과 첫 구현안·테스트·문서 초안 작성, 문제 범위와 수정안·리뷰 대응은 직접 판단",
-        ],
-      },
-      {
-        id: "result",
-        label: "확인한 결과",
-        title: "12일 만에 병합, 다음 날 공식 버전 배포",
-        paragraphs: [
-          "코드 파일 2개와 쿼리 테스트 5개, CI 검사 11개를 거쳐 수정안이 공식 저장소에 병합됐습니다. 제품에 새 버전을 적용한 뒤 iOS와 Android에서 쿼리가 수집되는지도 확인했습니다.",
-        ],
-      },
-    ],
-    limitation:
-      "개발 속도 향상률과 장애 복구 시간은 측정하지 않았습니다. AI는 개발 보조 도구로 사용했으며 SDK 유지보수와 병합 결정은 외부 메인테이너가 맡았습니다.",
-    sources: [
-      {
-        label: "Datadog Flutter SDK PR #1069",
-        href: "https://github.com/DataDog/dd-sdk-flutter/pull/1069",
-      },
-      {
-        label: "과정과 역할 분담",
-        href: "https://medium.com/@seunghwanly/datadog-flutter-sdk-%EC%98%A4%ED%94%88%EC%86%8C%EC%8A%A4-%EA%B8%B0%EC%97%AC%ED%95%98%EA%B8%B0-ai%EC%99%80-%ED%95%A8%EA%BB%98-2%EC%A3%BC-%EB%A7%8C%EC%97%90-%EA%B3%B5%EC%8B%9D-%EB%B0%B0%ED%8F%AC%EA%B9%8C%EC%A7%80-a5a25b209c47",
-      },
-    ],
-  },
-  {
-    id: "4",
+    id: "design-system",
     category: "디자인 시스템",
     title: "일관된 디자인으로 사용자 경험과 생산성을 개선",
     summary:
@@ -322,6 +431,7 @@ export const caseStudies: CaseStudy[] = [
     ],
   },
 ];
+
 
 /* ================================================================== *
  * 사이트 전체
@@ -442,13 +552,13 @@ export const about: AboutCopy = {
         company: "PPB Studios",
         role: "플랫폼팀 매니저",
         summary:
-          "온라인과 오프라인을 연결하고 모바일과 웹으로 나뉜 서비스를 함께 운영합니다.",
+          "윙크⋅하파크리스틴⋅츄렌즈⋅젬아워 등 7개 서비스의 앱(Flutter)과 웹(React), 인프라(AWS)를 2인 프론트 조직에서 맡고 있습니다.",
         highlights: [
           {
             id: "membership",
-            title: "통합 멤버십으로 고객 199,000+명 연결",
+            title: "통합 멤버십으로 고객 245,000+명 연결",
             detail:
-              "브랜드별로 유저가 분산돼 이메일만으로는 동일 사용자 식별이 어려운 상태. 본인인증과 제3자 정보제공 동의를 연결 기준으로 정하고 Flutter Web → React Native Web → React로 점진 이관, 신청과 완료 화면을 분리해 이탈 지점 추적 가능하게 구성. 2026년 8월까지 온·오프라인 고객 199,000+명 연결, 이관 후 Datadog으로 가입 전환·오류 세션·Web Vitals 관측",
+              "브랜드별로 유저가 분산돼 이메일만으로는 동일 사용자 식별이 어려운 상태. 본인인증과 제3자 정보제공 동의를 연결 기준으로 정하고 Flutter Web → React Native Web → React로 점진 이관, 신청과 완료 화면을 분리해 이탈 지점 추적 가능하게 구성. 2026년 9월까지 온·오프라인 고객 245,000+명 연결, 이관 후 Datadog으로 가입 전환·오류 세션·Web Vitals 관측",
           },
           {
             id: "reservation",
@@ -579,42 +689,50 @@ export const resume: ResumeCopy = {
     records: "Public Records",
     education: "Education",
     teaching: "Lecture",
+    awards: "Award",
   },
   skills: [
-      {
-        label: "웹",
-        detail: "React · TypeScript · Flutter Web",
-      },
-      {
-        label: "크로스 플랫폼",
-        detail: "Flutter · Dart · BLoC · React Native · WebView",
-      },
-      {
-        label: "네이티브 연동",
-        detail: "Kotlin · Swift · SPM · Platform Channel",
-      },
-      { label: "서버", detail: "NestJS · FastAPI" },
-      {
-        label: "관측",
-        detail: "Datadog RUM",
-      },
-      {
-        label: "빌드·배포",
-        detail: "Fastlane · GitHub Actions · AWS",
-      },
-      {
-        label: "AI 개발 도구",
-        detail: "Codex · Claude Code",
-      },
-    ],
+    { label: "웹", detail: "React · TypeScript · Next.js · Vite · Flutter Web" },
+    {
+      label: "크로스 플랫폼",
+      detail: "Flutter · Dart · Bloc · React Native / Expo Web · WebView",
+    },
+    {
+      label: "네이티브 연동",
+      detail: "Kotlin · Swift · SPM · Platform Channel · Shorebird",
+    },
+    { label: "서버", detail: "NestJS · FastAPI" },
+    {
+      label: "인프라",
+      detail:
+        "AWS(S3 · CloudFront · Lambda · ECS · ELB · Route53) · Terraform · Atlantis",
+    },
+    {
+      label: "관측",
+      detail:
+        "Datadog RUM · Product Analytics · Monitor · Error Tracking · Lighthouse",
+    },
+    {
+      label: "빌드·배포",
+      detail: "Fastlane · GitHub Actions · GitHub Environments",
+    },
+    { label: "디자인 시스템", detail: "WDS · Widgetbook · Figma MCP" },
+    {
+      label: "AI 개발 도구",
+      detail: "Claude Code · Codex · Linear 에이전트 · n8n · MCP",
+    },
+  ],
   education: {
     title: "동국대학교 컴퓨터공학과",
     detail: "학사 · 2016.02–2022.02 · GPA 3.85 / 4.5",
   },
   teaching: [
-      { label: "Goorm", detail: "Dart 64강 · Flutter e-commerce 34강" },
-      { label: "Comento", detail: "Flutter 실무 PT 강사" },
-    ],
+    { label: "Goorm", detail: "Dart 64강 · Flutter e-commerce 34강" },
+    { label: "Comento", detail: "Flutter 실무 PT 강사" },
+  ],
+  awards: [
+    { label: "NH농협은행 메타버스 핀테크 해커톤 장려상", detail: "2021.12" },
+  ],
 };
 
 /* ================================================================== *
