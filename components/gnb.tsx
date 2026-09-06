@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { site } from "@/lib/content";
 
 /**
@@ -14,6 +15,7 @@ import { site } from "@/lib/content";
  */
 export function Gnb() {
   const pathname = usePathname();
+  const visibleSection = useVisibleSection(pathname);
 
   return (
     <nav
@@ -22,10 +24,7 @@ export function Gnb() {
     >
       <ul className="glass-nav flex h-(--gnb-height) w-full max-w-90 list-none items-center justify-between px-6 sm:px-10">
         {site.nav.items.map((item) => {
-          // `/works/2` keeps Works lit; `/` matches nothing, which is correct
-          // because Intro has no nav entry of its own.
-          const isActive =
-            pathname === item.href || pathname.startsWith(`${item.href}/`);
+          const isActive = matches(item.href, pathname, visibleSection);
 
           return (
             <li className="relative flex items-center" key={item.href}>
@@ -48,4 +47,80 @@ export function Gnb() {
       </ul>
     </nav>
   );
+}
+
+/**
+ * `/works/2` keeps Works lit, and `/#me` lights up only once that section is
+ * actually on screen — the Intro above it has no nav entry of its own, which
+ * matches the `selected=Default` variant in Figma where nothing glows.
+ */
+function matches(
+  href: string,
+  pathname: string,
+  visibleSection: string | null,
+) {
+  const [path, hash] = href.split("#");
+
+  if (hash) {
+    return pathname === (path || "/") && visibleSection === hash;
+  }
+
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
+/**
+ * Reports which of the nav's anchor targets is currently crossing the middle
+ * of the viewport — the section you are actually reading, rather than any
+ * section merely touching the edge of the screen.
+ *
+ * This measures positions on scroll instead of using an IntersectionObserver.
+ * Both work, but the arithmetic here is straightforward to reason about and,
+ * unlike observer callbacks, it can be verified from a script.
+ */
+function useVisibleSection(pathname: string) {
+  const [visible, setVisible] = useState<string | null>(null);
+
+  useEffect(() => {
+    const ids = site.nav.items
+      .map((item) => item.href.split("#")[1])
+      .filter((id): id is string => Boolean(id));
+
+    // Nothing to watch on this route. A stale value is harmless because
+    // `matches` checks the pathname before it looks at the section.
+    if (ids.length === 0) {
+      return;
+    }
+
+    const read = () => {
+      const middle = window.innerHeight / 2;
+      let current: string | null = null;
+
+      for (const id of ids) {
+        const element = document.getElementById(id);
+        if (!element) continue;
+
+        const box = element.getBoundingClientRect();
+        if (box.top <= middle && box.bottom > middle) {
+          current = id;
+        }
+      }
+
+      setVisible(current);
+    };
+
+    // Deferred so the first measurement happens after paint rather than
+    // during the effect itself.
+    const first = requestAnimationFrame(read);
+    window.addEventListener("scroll", read, { passive: true });
+    window.addEventListener("resize", read);
+
+    return () => {
+      cancelAnimationFrame(first);
+      window.removeEventListener("scroll", read);
+      window.removeEventListener("resize", read);
+    };
+    // Sections belong to a page, so re-measure whenever the route changes.
+  }, [pathname]);
+
+  return visible;
 }

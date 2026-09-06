@@ -153,10 +153,13 @@ export type UiCopy = {
  * ================================================================== */
 
 export type IntroCopy = {
+  /** Intro 와 Me 를 함께 담는 첫 화면의 meta. */
   meta: PageMetaCopy;
   /** 이름 옆 일러스트의 대체 텍스트. */
   illustrationAlt: string;
   emailAriaLabel: string;
+  /** 아래로 이어진다는 것을 알리는 표시의 대체 텍스트. */
+  scrollHintLabel: string;
 };
 
 /* ================================================================== *
@@ -187,7 +190,6 @@ export type ProjectEntry = {
 };
 
 export type AboutCopy = {
-  meta: PageMetaCopy;
   /** 두 줄 헤드라인. Figma 시안은 "모바일" 과 "웹" 만 굵게 씁니다. */
   headline: TextRun[];
   techListAriaLabel: string;

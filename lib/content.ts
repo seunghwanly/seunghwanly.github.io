@@ -490,7 +490,7 @@ export const site: SiteCopy = {
   nav: {
     ariaLabel: "주요 메뉴",
     items: [
-      { label: "Me", href: "/about" },
+      { label: "Me", href: "/#me" },
       { label: "Works", href: "/works" },
       { label: "Resume", href: "/resume" },
     ],
@@ -517,10 +517,11 @@ export const intro: IntroCopy = {
   meta: {
     title: "Frontend Engineer",
     description:
-      "모바일과 웹을 오가며 서비스를 만들고 운영해 온 Frontend Engineer 이승환입니다.",
+      "모바일과 웹을 오가며 서비스를 만들고 운영해 온 Frontend Engineer 이승환입니다. 경력과 주로 쓰는 기술을 함께 정리했습니다.",
   },
   illustrationAlt: "흔들리는 노트북을 그린 손그림",
   emailAriaLabel: "이메일 보내기",
+  scrollHintLabel: "아래로 스크롤",
 };
 
 /* ================================================================== *
@@ -528,11 +529,6 @@ export const intro: IntroCopy = {
  * ================================================================== */
 
 export const about: AboutCopy = {
-  meta: {
-    title: "소개",
-    description:
-      "Frontend Engineer 이승환의 소개와 경력. 모바일과 웹을 오가며 서비스를 만들고 운영해 왔습니다.",
-  },
   headline: [
     { text: "모바일", strong: true },
     { text: "과 " },

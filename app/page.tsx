@@ -1,7 +1,16 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Screen } from "@/components/content-ui";
-import { intro, site } from "@/lib/content";
+import {
+  Field,
+  GlassCard,
+  Screen,
+  SectionCard,
+  SourceList,
+  TechCard,
+  column,
+  stack,
+} from "@/components/content-ui";
+import { about, intro, site } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: intro.meta.title,
@@ -20,19 +29,25 @@ const personSchema = {
 };
 
 /**
- * Intro. The illustration and the name sit on one line at desktop width and
- * stack on a phone. Figma right-aligns the whole name block against the
- * frame edge, which is what keeps the doodle and the type from colliding.
+ * Intro and Me on one page.
+ *
+ * They were two routes; now they are two full-height sections you scroll
+ * between, with the career list continuing under the second one. The bottom
+ * navigation points at `#me` and lights up once that section reaches the
+ * middle of the viewport, so the nav still says where you are.
  */
-export default function IntroPage() {
+export default function HomePage() {
   return (
-    <Screen centered>
+    <Screen flush>
       <script
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
         type="application/ld+json"
       />
 
-      <div className="flex flex-col items-center gap-10 md:flex-row md:justify-between md:gap-12">
+      <section
+        className="flex min-h-dvh flex-col items-center justify-center gap-10 md:flex-row md:justify-between md:gap-12"
+        id="intro"
+      >
         <Image
           alt={intro.illustrationAlt}
           className="wobble w-56 max-w-full sm:w-80 md:w-104 lg:w-125"
@@ -53,7 +68,71 @@ export default function IntroPage() {
             {site.email}
           </a>
         </div>
-      </div>
+      </section>
+
+      {/*
+       * Everything below is Me. The whole region carries the id so the nav
+       * stays lit while the career list is being read, not just while the
+       * headline happens to be on screen.
+       */}
+      <section id="me">
+        <div className="flex min-h-dvh flex-col items-center justify-center gap-10 md:gap-14">
+          <h2 className="text-headline whitespace-pre-line text-center text-ink">
+            {about.headline.map((run) => (
+              <span
+                className={run.strong ? "font-bold" : undefined}
+                key={run.text}
+              >
+                {run.text}
+              </span>
+            ))}
+          </h2>
+
+          <ul
+            aria-label={about.techListAriaLabel}
+            className="flex list-none flex-wrap justify-center gap-4 md:gap-6"
+          >
+            {about.tech.map((item) => (
+              <TechCard item={item} key={item.name} />
+            ))}
+          </ul>
+        </div>
+
+        <div className={`mx-auto mt-16 md:mt-24 ${column} ${stack} pb-6`}>
+          <h3 className="text-card text-ink">{about.career.title}</h3>
+          {about.career.entries.map((entry, index) => (
+            <SectionCard index={index} key={entry.company} label={entry.company}>
+              <p className="text-body text-muted">
+                {entry.period} · {entry.role}
+              </p>
+              <p className="mt-2 mb-4 text-lede text-ink">{entry.summary}</p>
+              <div className="flex flex-col gap-4">
+                {entry.highlights.map((highlight) => (
+                  <Field key={highlight.id} label={highlight.title}>
+                    <p className="text-body text-ink">{highlight.detail}</p>
+                  </Field>
+                ))}
+              </div>
+            </SectionCard>
+          ))}
+
+          <h3 className="mt-6 text-card text-ink">{about.projects.title}</h3>
+          {about.projects.entries.map((entry) => (
+            <GlassCard key={entry.title}>
+              <p className="text-body text-muted">
+                {entry.period} · {entry.role}
+              </p>
+              <h4 className="mt-1 mb-2 text-section text-ink">{entry.title}</h4>
+              <p className="text-body text-ink">{entry.description}</p>
+              {entry.sources.length > 0 ? (
+                <div className="mt-4">
+                  <SourceList sources={entry.sources} />
+                </div>
+              ) : null}
+            </GlassCard>
+          ))}
+        </div>
+      </section>
     </Screen>
   );
 }
