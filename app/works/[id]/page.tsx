@@ -51,13 +51,18 @@ export default async function WorkCasePage({ params }: CasePageProps) {
 
       <div className="mx-auto mt-10 grid max-w-(--container-card) gap-6 pb-6 md:mt-14 lg:max-w-none lg:grid-cols-[minmax(0,640px)_minmax(0,1fr)] lg:items-start">
         <div className={stack}>
-          <GlassCard>
+          <GlassCard surface="panel">
             <h1 className="mb-2 text-card text-ink">{item.title}</h1>
             <p className="text-lede text-ink">{item.summary}</p>
           </GlassCard>
 
           {item.sections.map((section, index) => (
-            <CaseSectionCard index={index} key={section.id} section={section} />
+            <CaseSectionCard
+              index={index}
+              key={section.id}
+              section={section}
+              surface="panel"
+            />
           ))}
         </div>
 
@@ -65,7 +70,7 @@ export default async function WorkCasePage({ params }: CasePageProps) {
           aria-label={caseDetail.asideAriaLabel}
           className={`${stack} lg:sticky lg:top-12`}
         >
-          <GlassCard>
+          <GlassCard surface="panel">
             <p className="text-body text-muted">{item.category}</p>
             <div className="mt-4 flex flex-col gap-5">
               <Field label={caseDetail.roleLabel}>
@@ -75,7 +80,7 @@ export default async function WorkCasePage({ params }: CasePageProps) {
             </div>
           </GlassCard>
 
-          <GlassCard>
+          <GlassCard surface="panel">
             <p className="mb-4 text-section text-ink">
               {caseDetail.metricsLabel}
             </p>
@@ -83,7 +88,7 @@ export default async function WorkCasePage({ params }: CasePageProps) {
           </GlassCard>
 
           {item.limitation && (
-            <GlassCard>
+            <GlassCard surface="panel">
               <p className="mb-2 text-section text-ink">
                 {caseDetail.limitationLabel}
               </p>
@@ -92,7 +97,7 @@ export default async function WorkCasePage({ params }: CasePageProps) {
           )}
 
           {item.sources.length > 0 && (
-            <GlassCard>
+            <GlassCard surface="panel">
               <p className="mb-3 text-section text-ink">
                 {caseDetail.sourcesLabel}
               </p>

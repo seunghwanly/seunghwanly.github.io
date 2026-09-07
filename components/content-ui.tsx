@@ -67,14 +67,26 @@ export function BackLink({ href, label }: { href: string; label: string }) {
   );
 }
 
+/**
+ * `panel` is the more opaque plate the case studies use, where a page of body
+ * copy needs the wash behind it to settle down.
+ */
+type Surface = "glass" | "panel";
+
 export function GlassCard({
   children,
   className,
+  surface = "glass",
 }: {
   children: React.ReactNode;
   className?: string;
+  surface?: Surface;
 }) {
-  return <div className={cx("glass p-6 md:p-8", className)}>{children}</div>;
+  return (
+    <div className={cx(surface === "panel" ? "glass-panel" : "glass", "p-6 md:p-8", className)}>
+      {children}
+    </div>
+  );
 }
 
 const signColors = [
@@ -100,13 +112,15 @@ export function SectionCard({
   index,
   label,
   children,
+  surface = "glass",
 }: {
   index: number;
   label: string;
   children: React.ReactNode;
+  surface?: Surface;
 }) {
   return (
-    <GlassCard>
+    <GlassCard surface={surface}>
       <div className="mb-2 flex items-center gap-3">
         <Sign index={index} />
         <h2 className="text-section text-ink">{label}</h2>
@@ -146,12 +160,14 @@ function Bullets({ items }: { items: string[] }) {
 export function CaseSectionCard({
   index,
   section,
+  surface = "glass",
 }: {
   index: number;
   section: CaseSection;
+  surface?: Surface;
 }) {
   return (
-    <SectionCard index={index} label={section.label}>
+    <SectionCard index={index} label={section.label} surface={surface}>
       <p className="mb-3 text-lede text-ink">{section.title}</p>
       {section.paragraphs && <Paragraphs items={section.paragraphs} />}
       {section.bullets && <Bullets items={section.bullets} />}
@@ -179,19 +195,9 @@ export function WorkCard({ item }: { item: CaseStudy }) {
 
         <p className="text-summary text-ink-soft">{item.summary}</p>
 
-        <ul
-          aria-label={ui.tagListAriaLabel}
-          className="mt-1 flex list-none flex-wrap gap-2"
-        >
-          {item.tags.map((tag) => (
-            <li
-              className="rounded-2xl border border-glass-line bg-[rgb(239_239_239/80%)] px-3 py-2 font-mono text-tag text-black"
-              key={tag}
-            >
-              {tag}
-            </li>
-          ))}
-        </ul>
+        <div className="mt-1">
+          <TagList tags={item.tags} />
+        </div>
       </div>
     </Link>
   );
@@ -220,7 +226,7 @@ export function TagList({ tags }: { tags: string[] }) {
     >
       {tags.map((tag) => (
         <li
-          className="rounded-full border border-glass-line bg-white/45 px-3 py-1 text-body text-ink-soft"
+          className="rounded-2xl border border-glass-line bg-[rgb(239_239_239/80%)] px-3 py-2 font-mono text-tag text-black"
           key={tag}
         >
           {tag}

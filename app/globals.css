@@ -249,20 +249,34 @@
    * badge inside the card header (teal 20%, no stroke).
    */
   .glass-card,
+  .glass-panel,
   .glass-pill,
   .glass-badge {
     -webkit-backdrop-filter: blur(16px) saturate(140%);
     backdrop-filter: blur(16px) saturate(140%);
   }
 
-  .glass-card {
-    background: rgb(239 239 239 / 40%);
+  .glass-card,
+  .glass-panel {
     border-radius: var(--radius-card);
     box-shadow:
       0 0 0 2px var(--color-glass-line),
       inset 0 1px 0 rgb(255 255 255 / 70%),
       inset 0 -4px 8px 8px rgb(255 255 255 / 25%),
       0 8px 24px rgb(84 104 92 / 8%);
+  }
+
+  .glass-card {
+    background: rgb(239 239 239 / 40%);
+  }
+
+  /*
+   * The same plate, more opaque. A case study is a wall of body copy, so the
+   * page wash showing through at 40% makes it restless to read; at 65% the
+   * card still reads as glass but settles down behind the text.
+   */
+  .glass-panel {
+    background: rgb(239 239 239 / 65%);
   }
 
   /*
