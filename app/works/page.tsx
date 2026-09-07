@@ -4,7 +4,6 @@ import {
   Screen,
   WorkCard,
   column,
-  stack,
 } from "@/components/content-ui";
 import { caseStudies, ui, workIndex } from "@/lib/content";
 
@@ -15,12 +14,12 @@ export const metadata: Metadata = {
 
 export default function WorksPage() {
   return (
-    <Screen>
+    <Screen edge>
       <BackLink href="/" label={ui.backToTop} />
 
       <ul
         aria-label={workIndex.listAriaLabel}
-        className={`mx-auto mt-10 list-none md:mt-14 ${column} ${stack} pb-6`}
+        className={`mx-auto mt-10 flex list-none flex-col gap-8 md:mt-15 ${column} pb-6`}
       >
         {caseStudies.map((item) => (
           <li key={item.id}>
