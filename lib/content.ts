@@ -489,9 +489,9 @@ export const site: SiteCopy = {
   nav: {
     ariaLabel: "주요 메뉴",
     items: [
-      { label: "Me", href: "/#me" },
-      { label: "Works", href: "/works" },
-      { label: "Resume", href: "/resume" },
+      { label: "Me", href: "/#me", variant: "me" },
+      { label: "Works", href: "/works", variant: "works" },
+      { label: "Resume", href: "/resume", variant: "resume" },
     ],
   },
 };

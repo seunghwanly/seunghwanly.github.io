@@ -21,7 +21,7 @@
   --color-muted: #7d7d7d;
 
   --color-glass: rgb(239 239 239 / 50%);
-  --color-glass-nav: rgb(239 239 239 / 25%);
+  --color-glass-nav: rgb(239 239 239 / 50%);
   --color-glass-line: #dedede;
   --color-glass-line-soft: #efefef;
   --color-sign-ring: #ededed;
@@ -30,8 +30,6 @@
   --color-sign-2: #88dd93;
   --color-sign-3: #ddc385;
   --color-sign-4: #c7b6e6;
-
-  --color-glow: rgb(118 226 106 / 80%);
 
   --text-*: initial;
 
@@ -206,6 +204,66 @@
     -webkit-backdrop-filter: blur(16px);
     backdrop-filter: blur(16px);
     box-shadow: inset 0 -4px 8px 8px rgb(255 255 255 / 40%);
+  }
+
+  /*
+   * The active navigation item's wash, painted as the pill's own background
+   * so it covers the border box exactly the way Figma's 180×64 rectangle sits
+   * on the 360px pill — half its width, full height, clipped by the radius.
+   *
+   * The angles are the handle directions, not `to bottom right`: for corner
+   * keywords CSS points the gradient perpendicular to the opposite diagonal,
+   * which on a box this flat comes out almost vertical (70.43deg instead of
+   * 109.57deg). At these angles the CSS gradient line measures 191.04px, the
+   * same as Figma's handle distance, so the 30% stop lands where Figma puts it.
+   *
+   * The middle stops are not decoration either. Figma interpolates without
+   * premultiplying alpha and CSS premultiplies, so a plain two stop fade holds
+   * the colour too long — at the midpoint (207,237,236) against Figma's
+   * (227,242,241). These stops sample Figma's curve at quarters.
+   */
+  .nav-glow-me,
+  .nav-glow-works,
+  .nav-glow-resume {
+    background-origin: border-box;
+    background-repeat: no-repeat;
+    background-size: 50% 100%;
+  }
+
+  .nav-glow-me {
+    background-position: left center;
+    background-image: linear-gradient(
+      109.57deg,
+      rgb(159 218 216) 30%,
+      rgb(179 223 222 / 0.75) 47.5%,
+      rgb(199 228 228 / 0.5) 65%,
+      rgb(219 234 233 / 0.25) 82.5%,
+      transparent 100%
+    );
+  }
+
+  .nav-glow-works {
+    background-position: center;
+    background-image: radial-gradient(
+      50% 50% at 50% 50%,
+      rgb(191 251 184 / 0.8) 30%,
+      rgb(203 248 198 / 0.6) 47.5%,
+      rgb(215 245 212 / 0.4) 65%,
+      rgb(227 242 225 / 0.2) 82.5%,
+      transparent 100%
+    );
+  }
+
+  .nav-glow-resume {
+    background-position: right center;
+    background-image: linear-gradient(
+      70.43deg,
+      transparent 0%,
+      rgb(234 228 212 / 0.25) 25%,
+      rgb(230 217 186 / 0.5) 50%,
+      rgb(226 206 160 / 0.75) 75%,
+      rgb(221 195 133) 100%
+    );
   }
 
   /* Without the blur the plate needs its own opacity to keep text readable. */

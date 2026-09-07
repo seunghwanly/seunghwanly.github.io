@@ -98,11 +98,11 @@ export default function ResumePage() {
                   {entry.period} · {entry.role}
                 </p>
                 <p className="text-body text-ink">{entry.description}</p>
-                {entry.sources.length > 0 ? (
+                {entry.sources.length > 0 && (
                   <div className="mt-3">
                     <SourceList sources={entry.sources} />
                   </div>
-                ) : null}
+                )}
               </div>
             ))}
           </div>

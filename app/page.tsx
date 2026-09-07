@@ -111,11 +111,11 @@ export default function HomePage() {
               </p>
               <h4 className="mt-1 mb-2 text-section text-ink">{entry.title}</h4>
               <p className="text-body text-ink">{entry.description}</p>
-              {entry.sources.length > 0 ? (
+              {entry.sources.length > 0 && (
                 <div className="mt-4">
                   <SourceList sources={entry.sources} />
                 </div>
-              ) : null}
+              )}
             </GlassCard>
           ))}
         </div>

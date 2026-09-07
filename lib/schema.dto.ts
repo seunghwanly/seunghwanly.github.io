@@ -107,9 +107,16 @@ type PersonSchemaCopy = {
   knowsAbout: string[];
 };
 
+/** Figma GNB 컴포넌트셋의 `selected` 변형 이름. */
+export type NavVariant = "default" | "me" | "works" | "resume";
+
+type NavItem = ActionCopy & {
+  variant: Exclude<NavVariant, "default">;
+};
+
 type NavCopy = {
   ariaLabel: string;
-  items: ActionCopy[];
+  items: NavItem[];
 };
 
 export type SiteCopy = {

@@ -82,23 +82,23 @@ export default async function WorkCasePage({ params }: CasePageProps) {
             <MetricList metrics={item.metrics} />
           </GlassCard>
 
-          {item.limitation ? (
+          {item.limitation && (
             <GlassCard>
               <p className="mb-2 text-section text-ink">
                 {caseDetail.limitationLabel}
               </p>
               <p className="text-body text-ink">{item.limitation}</p>
             </GlassCard>
-          ) : null}
+          )}
 
-          {item.sources.length > 0 ? (
+          {item.sources.length > 0 && (
             <GlassCard>
               <p className="mb-3 text-section text-ink">
                 {caseDetail.sourcesLabel}
               </p>
               <SourceList sources={item.sources} />
             </GlassCard>
-          ) : null}
+          )}
         </aside>
       </div>
     </Screen>

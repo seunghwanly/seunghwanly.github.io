@@ -146,8 +146,8 @@ export function CaseSectionCard({
   return (
     <SectionCard index={index} label={section.label}>
       <p className="mb-3 text-lede text-ink">{section.title}</p>
-      {section.paragraphs ? <Paragraphs items={section.paragraphs} /> : null}
-      {section.bullets ? <Bullets items={section.bullets} /> : null}
+      {section.paragraphs && <Paragraphs items={section.paragraphs} />}
+      {section.bullets && <Bullets items={section.bullets} />}
     </SectionCard>
   );
 }

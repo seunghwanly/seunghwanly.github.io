@@ -4,31 +4,41 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { site } from "@/lib/content";
+import type { NavVariant } from "@/lib/schema.dto";
 
-export function Gnb() {
-  const pathname = usePathname();
-  const visibleSection = useVisibleSection(pathname);
+const glow: Record<NavVariant, string> = {
+  default: "",
+  me: "nav-glow-me",
+  works: "nav-glow-works",
+  resume: "nav-glow-resume",
+};
+
+/**
+ * Pass `variant` to pin the pill to one of the Figma variants. Left out, it
+ * follows the route — and, on the home page, the section being scrolled past.
+ */
+export function Gnb({ variant }: { variant?: NavVariant }) {
+  const detected = useActiveVariant();
+  const active = variant ?? detected;
 
   return (
     <nav
       aria-label={site.nav.ariaLabel}
       className="fixed inset-x-0 bottom-0 z-100 flex justify-center px-4 pb-[calc(env(safe-area-inset-bottom,0px)+var(--gnb-inset))] print:hidden"
     >
-      <ul className="glass-nav flex h-(--gnb-height) w-full max-w-90 list-none items-center justify-between px-6 sm:px-10">
+      <ul
+        className={`glass-nav flex h-(--gnb-height) w-full max-w-90 list-none items-center justify-between px-6 ${glow[active]}`}
+      >
         {site.nav.items.map((item) => {
-          const isActive = matches(item.href, pathname, visibleSection);
+          const isActive = item.variant === active;
 
           return (
-            <li className="relative flex items-center" key={item.href}>
-              {isActive ? (
-                <span
-                  aria-hidden="true"
-                  className="pointer-events-none absolute -top-1.5 left-1/2 size-10 -translate-x-1/2 rounded-full bg-[radial-gradient(circle,var(--color-glow)_0%,transparent_70%)]"
-                />
-              ) : null}
+            <li className="flex max-w-21 flex-1 justify-center" key={item.href}>
               <Link
                 aria-current={isActive ? "page" : undefined}
-                className="relative inline-flex min-h-10 items-center text-nav text-ink-soft no-underline transition-opacity duration-200 ease-soft hover:opacity-70"
+                className={`inline-flex min-h-10 items-center text-nav no-underline transition-opacity duration-200 ease-soft hover:opacity-70 ${
+                  isActive ? "text-ink" : "text-ink-soft"
+                }`}
                 href={item.href}
               >
                 {item.label}
@@ -42,22 +52,26 @@ export function Gnb() {
 }
 
 /**
- * `/works/2` keeps Works lit, and `/#me` lights up only once that section is
- * actually on screen — the Intro above it has no nav entry of its own, which
- * matches the `selected=Default` variant in Figma where nothing glows.
+ * `/works/dto` keeps Works lit, and `/#me` lights up only once that section is
+ * on screen — the Intro above it has no nav entry, which is Figma's `default`.
  */
-function matches(
-  href: string,
-  pathname: string,
-  visibleSection: string | null,
-) {
-  const [path, hash] = href.split("#");
+function useActiveVariant(): NavVariant {
+  const pathname = usePathname();
+  const visibleSection = useVisibleSection(pathname);
 
-  if (hash) {
-    return pathname === (path || "/") && visibleSection === hash;
+  for (const item of site.nav.items) {
+    const [path, hash] = item.href.split("#");
+
+    const hit = hash
+      ? pathname === (path || "/") && visibleSection === hash
+      : pathname === item.href || pathname.startsWith(`${item.href}/`);
+
+    if (hit) {
+      return item.variant;
+    }
   }
 
-  return pathname === href || pathname.startsWith(`${href}/`);
+  return "default";
 }
 
 function useVisibleSection(pathname: string) {
@@ -68,8 +82,8 @@ function useVisibleSection(pathname: string) {
       .map((item) => item.href.split("#")[1])
       .filter((id): id is string => Boolean(id));
 
-    // Nothing to watch on this route. A stale value is harmless because
-    // `matches` checks the pathname before it looks at the section.
+    // Nothing to watch on this route. A stale value is harmless because the
+    // pathname is checked before the section.
     if (ids.length === 0) {
       return;
     }
