@@ -5,14 +5,6 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { site } from "@/lib/content";
 
-/**
- * The one piece of chrome on the site. It floats over every screen at the
- * bottom, clears the home indicator on iOS, and marks the current section
- * with the green bloom from the Figma component set (`selected=` variants).
- *
- * There is no header — the nav is the only way between screens, so it stays
- * reachable with a thumb rather than at the top of a scrolled page.
- */
 export function Gnb() {
   const pathname = usePathname();
   const visibleSection = useVisibleSection(pathname);
@@ -68,15 +60,6 @@ function matches(
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
-/**
- * Reports which of the nav's anchor targets is currently crossing the middle
- * of the viewport — the section you are actually reading, rather than any
- * section merely touching the edge of the screen.
- *
- * This measures positions on scroll instead of using an IntersectionObserver.
- * Both work, but the arithmetic here is straightforward to reason about and,
- * unlike observer callbacks, it can be verified from a script.
- */
 function useVisibleSection(pathname: string) {
   const [visible, setVisible] = useState<string | null>(null);
 

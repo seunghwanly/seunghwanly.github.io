@@ -1,4 +1,4 @@
-/** Cloudflare Worker entry point for the vinext-starter template. */
+/** Cloudflare Worker entry point. */
 import { handleImageOptimization, DEFAULT_DEVICE_SIZES, DEFAULT_IMAGE_SIZES } from "vinext/server/image-optimization";
 import handler from "vinext/server/app-router-entry";
 
@@ -21,21 +21,14 @@ interface ExecutionContext {
   passThroughOnException(): void;
 }
 
-// Image security config. SVG sources with .svg extension auto-skip the
-// optimization endpoint on the client side (served directly, no proxy).
-// To route SVGs through the optimizer (with security headers), set
-// dangerouslyAllowSVG: true in next.config.js and uncomment below:
-// const imageConfig: ImageConfig = { dangerouslyAllowSVG: true };
-
 const worker = {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
 
     if (url.pathname === "/_vinext/image") {
-      // No bindings means `vinext dev`: there is nothing to read the asset
-      // with and nothing to transform it with. Serve the original file so the
-      // local site renders. The GitHub Pages build sets `images.unoptimized`,
-      // so this endpoint is never reached in production.
+      // No bindings means `vinext dev`. Serve the original file instead; the
+      // GitHub Pages build sets `images.unoptimized`, so production never
+      // reaches this endpoint.
       if (!env.ASSETS || !env.IMAGES) {
         const source = url.searchParams.get("url");
 

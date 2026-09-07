@@ -11,57 +11,28 @@
   font-display: swap;
 }
 
-/*
- * Design tokens
- * -------------
- * Every value below is read off the Figma file (Portfolio → Web Portfolio,
- * node 2301:152). The default Tailwind palette and type scale are cleared
- * on purpose — `--color-*: initial` and `--text-*: initial` remove
- * `text-red-500`, `text-sm` and friends so a page can only reach for the
- * roles defined here.
- */
 @theme {
   --color-*: initial;
-  --color-transparent: transparent;
-  --color-current: currentColor;
   --color-white: #ffffff;
 
-  /* Text — four roles, darkest to lightest. */
   --color-ink: #121212;
   --color-ink-mid: #3e3e3e;
   --color-ink-soft: #3d3d3d;
   --color-muted: #7d7d7d;
 
-  /* Glass surfaces and their hairlines. */
   --color-glass: rgb(239 239 239 / 50%);
   --color-glass-nav: rgb(239 239 239 / 25%);
   --color-glass-line: #dedede;
   --color-glass-line-soft: #efefef;
   --color-sign-ring: #ededed;
 
-  /* Section markers, in the order sections appear. */
   --color-sign-1: #9fdad8;
   --color-sign-2: #88dd93;
   --color-sign-3: #ddc385;
   --color-sign-4: #c7b6e6;
 
-  /* The green bloom behind the active nav item. */
   --color-glow: rgb(118 226 106 / 80%);
 
-  /*
-   * Typography — seven roles.
-   * Figma sizes are the upper bound of each clamp; the lower bound keeps the
-   * same proportions on a 375px screen. Pretendard's intrinsic line height is
-   * 119.3%, which is why most roles land on 1.193.
-   *
-   *   text-name     the Intro name (120px)
-   *   text-headline page headline (40px)
-   *   text-card     card title (36px)
-   *   text-section  section title, back button (24px)
-   *   text-lede     card description (20px)
-   *   text-body     body copy inside a section (16px)
-   *   text-nav      bottom navigation label (20px)
-   */
   --text-*: initial;
 
   --text-name: clamp(3.75rem, 11.5vw, 7.5rem);
@@ -110,17 +81,12 @@
   --breakpoint-md: 861px;
   --breakpoint-lg: 1061px;
 
-  /* Figma draws its cards at 640px on a 1440px frame. */
   --container-card: 640px;
   --container-shell: 1180px;
 }
 
 @layer base {
   :root {
-    /*
-     * The bottom navigation floats over the page, so every screen reserves
-     * this much room underneath its content. 64px pill + 24px inset + air.
-     */
     --gnb-height: 64px;
     --gnb-inset: 20px;
     --gnb-clearance: calc(
@@ -128,7 +94,6 @@
     );
   }
 
-  /* Figma leaves 48px under the pill on the 1024px-tall desktop frame. */
   @media (width >= 861px) {
     :root {
       --gnb-inset: 48px;
@@ -158,9 +123,11 @@
   }
 
   /*
-   * Page wash. Two stacked gradients copied from the Figma frame fill, plus
-   * the soft blue blob that sits on the right of every frame. Fixed so it
-   * never scrolls away on a long case study.
+   * Figma paints its `fills` array bottom-first and CSS paints top-first, so
+   * the order here is reversed. Every number comes from the gradient handle
+   * positions in pixel space on the 1440×1024 frame: 222deg with the far stop
+   * at 79.9% of the gradient line, and an ellipse whose rotated axes give the
+   * 52.6%/78.7% bounding box.
    */
   body::before {
     content: "";
@@ -168,36 +135,13 @@
     z-index: -1;
     inset: 0;
     pointer-events: none;
-    /*
-     * Three layers, matching the Figma frame. Figma paints its `fills` array
-     * bottom-first and CSS paints top-first, so the order here is reversed:
-     * the decorative disc sits above the linear wash, which sits above the
-     * radial. Every number is derived from the gradient handle positions in
-     * *pixel* space on the 1440×1024 frame — reading the handles as plain
-     * 0–1 coordinates loses the aspect ratio and drains the blue out of the
-     * left-hand side.
-     */
     background:
-      /* Child ellipse: an 800px disc centred at 79.9%/50%. */
       radial-gradient(
         27.8% 39.1% at 79.9% 50%,
         rgb(189 226 255 / 40%) 0%,
         rgb(217 217 217 / 0%) 100%
       ),
-      /*
-       * Handles run (1440,0) → (517,1024): 222deg, and the far stop lands at
-       * 79.9% of the CSS gradient line rather than at its end.
-       */
-      linear-gradient(
-        222deg,
-        #cfdb7d 0%,
-        rgb(189 226 255 / 50%) 79.9%
-      ),
-      /*
-       * Handles describe an ellipse with semi-axes 893px and 652px rotated
-       * 50.9°, centred at 23.6%/32.3%. CSS cannot rotate a gradient, so this
-       * is its axis-aligned bounding box.
-       */
+      linear-gradient(222deg, #cfdb7d 0%, rgb(189 226 255 / 50%) 79.9%),
       radial-gradient(
         52.6% 78.7% at 23.6% 32.3%,
         rgb(191 251 184 / 80%) 0%,
@@ -234,13 +178,6 @@
   }
 }
 
-/*
- * Components
- * ----------
- * Only the two glass recipes and the page gutter live here — they carry
- * vendor-prefixed and layered values that would be unreadable inline.
- * Grids, spacing and colour are written in the JSX.
- */
 @layer components {
   .site-shell {
     width: min(calc(100% - 32px), var(--container-shell));
@@ -253,11 +190,6 @@
     }
   }
 
-  /*
-   * The card surface used by every block on every screen: a translucent
-   * grey plate, a hairline, and a white inner glow along the bottom edge
-   * that reads as light catching a bevel.
-   */
   .glass {
     background: var(--color-glass);
     border: 1px solid var(--color-glass-line);
@@ -267,7 +199,6 @@
     box-shadow: inset 0 -4px 8px 8px rgb(255 255 255 / 40%);
   }
 
-  /* Same recipe, thinner and more transparent, for the floating nav. */
   .glass-nav {
     background: var(--color-glass-nav);
     border: 0.5px solid var(--color-glass-line-soft);
@@ -277,11 +208,7 @@
     box-shadow: inset 0 -4px 8px 8px rgb(255 255 255 / 40%);
   }
 
-  /*
-   * Safari and older WebKit drop `backdrop-filter` when the element is
-   * inside a transformed ancestor. Raising the plate's own opacity keeps
-   * the text contrast even when the blur is missing.
-   */
+  /* Without the blur the plate needs its own opacity to keep text readable. */
   @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
     .glass {
       background: rgb(244 244 244 / 82%);
@@ -293,16 +220,7 @@
   }
 }
 
-/*
- * Print
- * -----
- * `npm run resume:pdf` prints /resume with headless Chrome, so the PDF is
- * derived from the same page rather than authored separately. Here the page
- * drops to A4, the floating navigation and the download button go away
- * (`print:hidden` in the markup), and the glass plates flatten — a
- * backdrop-filter prints as a muddy grey box, and the fixed page wash would
- * repeat on every sheet.
- */
+/* `npm run resume:pdf` prints /resume, so the PDF comes from this block. */
 @media print {
   @page {
     size: A4;
@@ -337,11 +255,6 @@
     box-shadow: none;
   }
 
-  /*
-   * Let a long card flow across sheets — pinning whole cards leaves half a
-   * page empty. Each achievement is what has to stay in one piece, and
-   * `break-inside-avoid` in the markup does that.
-   */
   h1,
   h2,
   h3 {
@@ -354,10 +267,6 @@
 }
 
 @layer utilities {
-  /*
-   * The Intro illustration. The doodle is drawn mid-shake, so it gets a
-   * matching two-degree sway rather than sitting still.
-   */
   .wobble {
     animation: wobble 4s var(--ease-soft) infinite;
     transform-origin: 50% 88%;

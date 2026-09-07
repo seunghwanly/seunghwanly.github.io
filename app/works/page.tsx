@@ -13,10 +13,6 @@ export const metadata: Metadata = {
   description: workIndex.meta.description,
 };
 
-/**
- * Works. A single centred column of cards, with the way back to Intro parked
- * in the top-left corner — the same arrangement as the Figma frame.
- */
 export default function WorksPage() {
   return (
     <Screen>

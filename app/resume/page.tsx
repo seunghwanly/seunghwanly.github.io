@@ -17,11 +17,6 @@ export const metadata: Metadata = {
   description: resume.meta.description,
 };
 
-/**
- * Resume. There is no Figma frame for this screen, so it is assembled from
- * the same parts as the others: one 640px column of cards, the coloured
- * section markers running in order, and the PDF within reach at the top.
- */
 export default function ResumePage() {
   return (
     <Screen>

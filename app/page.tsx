@@ -28,14 +28,6 @@ const personSchema = {
   knowsAbout: site.person.knowsAbout,
 };
 
-/**
- * Intro and Me on one page.
- *
- * They were two routes; now they are two full-height sections you scroll
- * between, with the career list continuing under the second one. The bottom
- * navigation points at `#me` and lights up once that section reaches the
- * middle of the viewport, so the nav still says where you are.
- */
 export default function HomePage() {
   return (
     <Screen flush>
@@ -70,11 +62,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/*
-       * Everything below is Me. The whole region carries the id so the nav
-       * stays lit while the career list is being read, not just while the
-       * headline happens to be on screen.
-       */}
       <section id="me">
         <div className="flex min-h-dvh flex-col items-center justify-center gap-10 md:gap-14">
           <h2 className="text-headline whitespace-pre-line text-center text-ink">

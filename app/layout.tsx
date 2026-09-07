@@ -47,7 +47,6 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   colorScheme: "light",
   themeColor: "#dff3d8",
-  // The page wash runs edge to edge, so let it reach under the status bar.
   viewportFit: "cover",
 };
 

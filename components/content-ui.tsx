@@ -9,30 +9,18 @@ import type {
 } from "@/lib/schema.dto";
 import { ui } from "@/lib/content";
 
-export function cx(...values: Array<string | false | null | undefined>) {
+function cx(...values: Array<string | false | null | undefined>) {
   return values.filter(Boolean).join(" ");
 }
 
-export function caseHref(item: Pick<CaseStudy, "id">) {
+function caseHref(item: Pick<CaseStudy, "id">) {
   return `/works/${item.id}`;
 }
 
-/**
- * Figma draws every block 640px wide on a 1440px frame and stacks them with
- * a 24px gutter. `column` is that measure; `stack` is that gutter.
- */
+/** Figma draws every block 640px wide and stacks them with a 24px gutter. */
 export const column = "w-full max-w-(--container-card)";
 export const stack = "flex flex-col gap-6";
 
-/* ================================================================== *
- * 화면 골격
- * ================================================================== */
-
-/**
- * Every screen sits inside one of these. It reserves room for the floating
- * navigation and decides whether the content is parked in the middle of the
- * viewport (Intro, Me, 404) or flows from the top (Works, Resume).
- */
 export function Screen({
   children,
   centered = false,
@@ -41,11 +29,7 @@ export function Screen({
 }: {
   children: React.ReactNode;
   centered?: boolean;
-  /**
-   * Drop the top padding so a child can be exactly one viewport tall. Used by
-   * screens whose first section is a full-height hero — otherwise the padding
-   * pushes the section below it up under the floating navigation.
-   */
+  /** Drop the top padding so a child can be exactly one viewport tall. */
   flush?: boolean;
   className?: string;
 }) {
@@ -64,11 +48,6 @@ export function Screen({
   );
 }
 
-/**
- * The back affordance in the top-left of the Works screens. Figma pads it
- * 16/32 and gives it the same plate as a card, so it reads as a card that
- * happens to be a link.
- */
 export function BackLink({ href, label }: { href: string; label: string }) {
   return (
     <Link
@@ -81,11 +60,6 @@ export function BackLink({ href, label }: { href: string; label: string }) {
   );
 }
 
-/* ================================================================== *
- * 카드
- * ================================================================== */
-
-/** The plate. Padding matches Figma's 32px, easing off on small screens. */
 export function GlassCard({
   children,
   className,
@@ -93,15 +67,9 @@ export function GlassCard({
   children: React.ReactNode;
   className?: string;
 }) {
-  return (
-    <div className={cx("glass p-6 md:p-8", className)}>{children}</div>
-  );
+  return <div className={cx("glass p-6 md:p-8", className)}>{children}</div>;
 }
 
-/**
- * Marker beside a section title. The palette runs in the order sections
- * appear, so the same step keeps the same colour across every case study.
- */
 const signColors = [
   "bg-sign-1",
   "bg-sign-2",
@@ -109,7 +77,7 @@ const signColors = [
   "bg-sign-4",
 ] as const;
 
-export function Sign({ index }: { index: number }) {
+function Sign({ index }: { index: number }) {
   return (
     <span
       aria-hidden="true"
@@ -121,10 +89,6 @@ export function Sign({ index }: { index: number }) {
   );
 }
 
-/**
- * A titled block inside a case study or the resume: coloured marker, title,
- * then either paragraphs or a bulleted list.
- */
 export function SectionCard({
   index,
   label,
@@ -157,7 +121,7 @@ export function Paragraphs({ items }: { items: string[] }) {
   );
 }
 
-export function Bullets({ items }: { items: string[] }) {
+function Bullets({ items }: { items: string[] }) {
   return (
     <ul className="flex list-none flex-col gap-2">
       {items.map((text) => (
@@ -172,7 +136,6 @@ export function Bullets({ items }: { items: string[] }) {
   );
 }
 
-/** Renders one case-study section, whichever shape its content takes. */
 export function CaseSectionCard({
   index,
   section,
@@ -189,11 +152,6 @@ export function CaseSectionCard({
   );
 }
 
-/* ================================================================== *
- * 목록 조각
- * ================================================================== */
-
-/** A card in the Works list: title, then the summary. Nothing else. */
 export function WorkCard({ item }: { item: CaseStudy }) {
   return (
     <Link
@@ -207,7 +165,6 @@ export function WorkCard({ item }: { item: CaseStudy }) {
   );
 }
 
-/** The two icon cards on the Me screen. Figma sizes them 216×216. */
 export function TechCard({ item }: { item: TechItem }) {
   return (
     <li className="glass flex size-40 flex-col items-center justify-center gap-4 md:size-54">
@@ -274,7 +231,6 @@ export function SourceList({ sources }: { sources: SourceLink[] }) {
   );
 }
 
-/** A small titled group used in the aside column and on the resume. */
 export function Field({
   label,
   children,

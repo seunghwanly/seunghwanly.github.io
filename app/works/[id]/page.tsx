@@ -37,12 +37,6 @@ export async function generateMetadata({
   };
 }
 
-/**
- * One case study. Figma runs the story down a 640px column on the left and
- * keeps the right side for product shots; with no screenshots to show, that
- * column carries the facts about the work instead — role, numbers, scope,
- * sources — so the layout keeps its balance and nothing gets dropped.
- */
 export default async function WorkCasePage({ params }: CasePageProps) {
   const { id } = await params;
   const item = caseStudies.find((entry) => entry.id === id);
@@ -55,11 +49,6 @@ export default async function WorkCasePage({ params }: CasePageProps) {
     <Screen>
       <BackLink href="/works" label={ui.backToList} />
 
-      {/*
-       * One column at the Figma measure until there is room for the aside
-       * beside it; letting the cards stretch past 640px on a tablet would
-       * push the line length well past comfortable reading.
-       */}
       <div className="mx-auto mt-10 grid max-w-(--container-card) gap-6 pb-6 md:mt-14 lg:max-w-none lg:grid-cols-[minmax(0,640px)_minmax(0,1fr)] lg:items-start">
         <div className={stack}>
           <GlassCard>

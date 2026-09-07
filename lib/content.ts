@@ -17,7 +17,6 @@ import type {
   WorkIndexCopy,
 } from "./schema.dto";
 
-/** 이력서와 공개 기록에 함께 쓰는 기준일. */
 const asOf = "2026년 9월 4일 기준";
 
 export const profileLinks: SourceLink[] = [
@@ -505,12 +504,11 @@ export const ui: UiCopy = {
   tagListAriaLabel: "관련 기술과 주제",
   backToTop: "위로",
   backToList: "목록으로",
-  newTabSuffix: "새 창에서 열기",
   caseLinkAriaSuffix: "자세히 보기",
 };
 
 /* ================================================================== *
- * Intro (`/`)
+ * Home (`/`) — Intro
  * ================================================================== */
 
 export const intro: IntroCopy = {
@@ -521,11 +519,10 @@ export const intro: IntroCopy = {
   },
   illustrationAlt: "흔들리는 노트북을 그린 손그림",
   emailAriaLabel: "이메일 보내기",
-  scrollHintLabel: "아래로 스크롤",
 };
 
 /* ================================================================== *
- * Me (`/about`)
+ * Home (`/`) — Me
  * ================================================================== */
 
 export const about: AboutCopy = {
