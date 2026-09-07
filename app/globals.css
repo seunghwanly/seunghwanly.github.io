@@ -238,18 +238,26 @@
   }
 
   /*
-   * Figma switched the Works cards to its native GLASS effect, which is more
+   * Figma switched the Works screens to its native GLASS effect, which is more
    * than a blur: the plate refracts what is behind it and catches light along
-   * its edges. Read off node 2303:372 — 40% fill, a 2px outside stroke, 24px
-   * radius — with the blur raised by a little saturation so the wash behind
-   * stays colourful, a bright top edge for the specular highlight, and a soft
-   * drop shadow so the card sits above the page rather than in it.
+   * its edges. Reproduced here as the blur plus a little saturation, so the
+   * wash behind stays colourful, a bright top edge for the specular highlight,
+   * and a soft drop shadow so the plate sits above the page rather than in it.
+   *
+   * The three sizes differ only in fill and stroke, read off the nodes:
+   * card 2303:372 (40%, 2px outside), pill 2303:399 (20%, 2px inside),
+   * badge inside the card header (teal 20%, no stroke).
    */
+  .glass-card,
+  .glass-pill,
+  .glass-badge {
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    backdrop-filter: blur(16px) saturate(140%);
+  }
+
   .glass-card {
     background: rgb(239 239 239 / 40%);
     border-radius: var(--radius-card);
-    -webkit-backdrop-filter: blur(16px) saturate(140%);
-    backdrop-filter: blur(16px) saturate(140%);
     box-shadow:
       0 0 0 2px var(--color-glass-line),
       inset 0 1px 0 rgb(255 255 255 / 70%),
@@ -257,11 +265,23 @@
       0 8px 24px rgb(84 104 92 / 8%);
   }
 
-  /* The empty disc in a card's top-right corner. Same glass, smaller plate. */
+  /*
+   * No top highlight here, unlike the card. The card's stroke sits outside its
+   * box, so its own first row of pixels catches the light; the pill's stroke is
+   * inside, so that row is the stroke itself and Figma shows no lift under it.
+   */
+  .glass-pill {
+    background: rgb(239 239 239 / 20%);
+    border: 2px solid var(--color-glass-line);
+    border-radius: var(--radius-card);
+    box-shadow:
+      inset 0 -4px 8px 8px rgb(255 255 255 / 25%),
+      0 4px 16px rgb(84 104 92 / 8%);
+  }
+
+  /* The empty disc in a card's top-right corner. */
   .glass-badge {
     background: rgb(159 218 216 / 20%);
-    -webkit-backdrop-filter: blur(16px) saturate(140%);
-    backdrop-filter: blur(16px) saturate(140%);
     box-shadow:
       inset 0 1px 0 rgb(255 255 255 / 60%),
       0 2px 6px rgb(84 104 92 / 8%);

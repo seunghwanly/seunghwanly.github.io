@@ -58,7 +58,7 @@ export function Screen({
 export function BackLink({ href, label }: { href: string; label: string }) {
   return (
     <Link
-      className="inline-flex items-center gap-2 self-start rounded-(--radius-card) border-2 border-glass-line bg-[rgb(239_239_239/20%)] px-6 py-3 text-section text-ink no-underline backdrop-blur-[16px] transition-opacity duration-200 ease-soft hover:opacity-75 md:px-8 md:py-4"
+      className="glass-pill inline-flex items-center gap-2 self-start px-6 py-3 text-section text-ink no-underline transition-opacity duration-200 ease-soft hover:opacity-75 md:px-8 md:py-4"
       href={href}
     >
       <span aria-hidden="true">↩</span>
