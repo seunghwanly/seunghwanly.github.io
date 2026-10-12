@@ -3,22 +3,6 @@
 @source "../app";
 @source "../components";
 
-/*
- * Tags are set in JetBrains Mono. Only the latin subset is pulled — the
- * unicode-range keeps Korean tags on Pretendard without fetching this at all.
- */
-@font-face {
-  font-family: "JetBrains Mono";
-  src: url("https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@5/files/jetbrains-mono-latin-500-normal.woff2")
-    format("woff2");
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
-    U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
 @font-face {
   font-family: "Pretendard";
   src: url("/fonts/PretendardVariable.ttf") format("truetype-variations");
@@ -29,44 +13,48 @@
 
 @theme {
   --color-*: initial;
-  --color-white: #ffffff;
-  --color-black: #000000;
-
-  --color-ink: #121212;
-  --color-ink-mid: #3e3e3e;
+  /*
+   * Nine colours. Six neutrals carry all text and surfaces. The three accents
+   * and ink are the only fills a block may take; text on an accent is ink,
+   * text on ink is surface.
+   */
+  --color-surface: #ffffff;
+  --color-paper: #f4f8f2;
+  --color-line: #e3e7e0;
+  --color-muted: #666666;
   --color-ink-soft: #3d3d3d;
-  --color-muted: #7d7d7d;
+  --color-ink: #121212;
 
-  --color-glass: rgb(239 239 239 / 50%);
-  --color-glass-nav: rgb(239 239 239 / 50%);
-  --color-glass-line: #dedede;
-  --color-glass-line-soft: #efefef;
-  --color-sign-ring: #ededed;
+  --color-accent-sky: #bde2ff;
+  --color-accent-mint: #bffbb8;
+  --color-accent-lime: #cfdb7d;
 
-  --color-sign-1: #9fdad8;
-  --color-sign-2: #88dd93;
-  --color-sign-3: #ddc385;
-  --color-sign-4: #c7b6e6;
+  --shadow-rest:
+    0 1px 2px color-mix(in srgb, var(--color-ink) 4%, transparent),
+    0 6px 20px color-mix(in srgb, var(--color-ink) 6%, transparent);
+  --shadow-raised:
+    0 2px 4px color-mix(in srgb, var(--color-ink) 5%, transparent),
+    0 12px 32px color-mix(in srgb, var(--color-ink) 10%, transparent);
 
   --text-*: initial;
 
   --text-name: clamp(3.75rem, 11.5vw, 7.5rem);
-  --text-name--line-height: 1.193;
-  --text-name--letter-spacing: -0.003em;
+  --text-name--line-height: 1.1;
+  --text-name--letter-spacing: -0.02em;
   --text-name--font-weight: 800;
 
   --text-headline: clamp(1.625rem, 4vw, 2.5rem);
-  --text-headline--line-height: 1.193;
+  --text-headline--line-height: 1.35;
   --text-headline--letter-spacing: -0.003em;
   --text-headline--font-weight: 500;
 
   --text-card: clamp(1.375rem, 3.2vw, 2.25rem);
-  --text-card--line-height: 1.193;
-  --text-card--letter-spacing: -0.003em;
-  --text-card--font-weight: 600;
+  --text-card--line-height: 1.3;
+  --text-card--letter-spacing: -0.02em;
+  --text-card--font-weight: 800;
 
   --text-section: clamp(1.125rem, 2.2vw, 1.5rem);
-  --text-section--line-height: 1.193;
+  --text-section--line-height: 1.4;
   --text-section--letter-spacing: -0.003em;
   --text-section--font-weight: 500;
 
@@ -80,13 +68,13 @@
   --text-tag--letter-spacing: -0.003em;
   --text-tag--font-weight: 500;
 
-  --text-lede: clamp(0.9375rem, 1.7vw, 1.25rem);
-  --text-lede--line-height: 1.55;
+  --text-lede: clamp(1.0625rem, 1.7vw, 1.25rem);
+  --text-lede--line-height: 1.6;
   --text-lede--letter-spacing: -0.003em;
-  --text-lede--font-weight: 400;
+  --text-lede--font-weight: 500;
 
-  --text-body: clamp(0.875rem, 1.3vw, 1rem);
-  --text-body--line-height: 1.6;
+  --text-body: 1rem;
+  --text-body--line-height: 1.7;
   --text-body--letter-spacing: -0.003em;
   --text-body--font-weight: 400;
 
@@ -96,10 +84,8 @@
   --text-nav--font-weight: 600;
 
   --font-sans: "Pretendard", sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
   --radius-card: 24px;
-  --radius-sign: 12px;
 
   --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
 
@@ -127,7 +113,7 @@
   }
 
   html {
-    background: #f4f8f2;
+    background: var(--color-paper);
     color-scheme: light;
     scroll-behavior: smooth;
   }
@@ -148,36 +134,8 @@
     text-rendering: optimizeLegibility;
   }
 
-  /*
-   * Figma paints its `fills` array bottom-first and CSS paints top-first, so
-   * the order here is reversed. Every number comes from the gradient handle
-   * positions in pixel space on the 1440×1024 frame: 222deg with the far stop
-   * at 79.9% of the gradient line, and an ellipse whose rotated axes give the
-   * 52.6%/78.7% bounding box.
-   */
-  body::before {
-    content: "";
-    position: fixed;
-    z-index: -1;
-    inset: 0;
-    pointer-events: none;
-    background:
-      radial-gradient(
-        27.8% 39.1% at 79.9% 50%,
-        rgb(189 226 255 / 40%) 0%,
-        rgb(217 217 217 / 0%) 100%
-      ),
-      linear-gradient(222deg, #cfdb7d 0%, rgb(189 226 255 / 50%) 79.9%),
-      radial-gradient(
-        52.6% 78.7% at 23.6% 32.3%,
-        rgb(191 251 184 / 80%) 0%,
-        rgb(225 252 222 / 80%) 50%,
-        #ffffff 100%
-      );
-  }
-
   ::selection {
-    background: rgb(118 226 106 / 32%);
+    background: var(--color-accent-mint);
     color: var(--color-ink);
   }
 
@@ -228,157 +186,44 @@
     }
   }
 
-  .glass {
-    background: var(--color-glass);
-    border: 1px solid var(--color-glass-line);
-    border-radius: var(--radius-card);
-    -webkit-backdrop-filter: blur(16px);
-    backdrop-filter: blur(16px);
-    box-shadow: inset 0 -4px 8px 8px rgb(255 255 255 / 40%);
-  }
-
   /*
-   * Figma switched the Works screens to its native GLASS effect, which is more
-   * than a blur: the plate refracts what is behind it and catches light along
-   * its edges. Reproduced here as the blur plus a little saturation, so the
-   * wash behind stays colourful, a bright top edge for the specular highlight,
-   * and a soft drop shadow so the plate sits above the page rather than in it.
-   *
-   * The three sizes differ only in fill and stroke, read off the nodes:
-   * card 2303:372 (40%, 2px outside), pill 2303:399 (20%, 2px inside),
-   * badge inside the card header (teal 20%, no stroke).
+   * Two kinds of surface. A card is white and outlined and holds reading copy.
+   * A block is a solid accent or ink fill and holds one loud thing: a name, a
+   * number, a logo. A shadow means "this moves when you press it", so only
+   * links get one.
    */
-  .glass-card,
-  .glass-panel,
-  .glass-pill,
-  .glass-badge {
-    -webkit-backdrop-filter: blur(16px) saturate(140%);
-    backdrop-filter: blur(16px) saturate(140%);
+  .card,
+  .pill {
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
   }
 
-  .glass-card,
-  .glass-panel {
+  .card,
+  .tone-block {
     border-radius: var(--radius-card);
-    box-shadow:
-      0 0 0 2px var(--color-glass-line),
-      inset 0 1px 0 rgb(255 255 255 / 70%),
-      inset 0 -4px 8px 8px rgb(255 255 255 / 25%),
-      0 8px 24px rgb(84 104 92 / 8%);
   }
 
-  .glass-card {
-    background: rgb(239 239 239 / 40%);
+  .pill {
+    border-radius: 999px;
   }
 
-  /*
-   * The same plate, more opaque. A case study is a wall of body copy, so the
-   * page wash showing through at 40% makes it restless to read; at 65% the
-   * card still reads as glass but settles down behind the text.
-   */
-  .glass-panel {
-    background: rgb(239 239 239 / 65%);
+  .card-link,
+  .pill {
+    box-shadow: var(--shadow-rest);
+    transition:
+      transform 300ms var(--ease-soft),
+      box-shadow 300ms var(--ease-soft);
   }
 
-  /*
-   * No top highlight here, unlike the card. The card's stroke sits outside its
-   * box, so its own first row of pixels catches the light; the pill's stroke is
-   * inside, so that row is the stroke itself and Figma shows no lift under it.
-   */
-  .glass-pill {
-    background: rgb(239 239 239 / 20%);
-    border: 2px solid var(--color-glass-line);
+  .card-link:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-raised);
+  }
+
+  .nav-pill {
+    background: var(--color-ink);
     border-radius: var(--radius-card);
-    box-shadow:
-      inset 0 -4px 8px 8px rgb(255 255 255 / 25%),
-      0 4px 16px rgb(84 104 92 / 8%);
-  }
-
-  /* The empty disc in a card's top-right corner. */
-  .glass-badge {
-    background: rgb(159 218 216 / 20%);
-    box-shadow:
-      inset 0 1px 0 rgb(255 255 255 / 60%),
-      0 2px 6px rgb(84 104 92 / 8%);
-  }
-
-  .glass-nav {
-    background: var(--color-glass-nav);
-    border: 0.5px solid var(--color-glass-line-soft);
-    border-radius: var(--radius-card);
-    -webkit-backdrop-filter: blur(16px);
-    backdrop-filter: blur(16px);
-    box-shadow: inset 0 -4px 8px 8px rgb(255 255 255 / 40%);
-  }
-
-  /*
-   * The active navigation item's wash, painted as the pill's own background
-   * so it covers the border box exactly the way Figma's 180×64 rectangle sits
-   * on the 360px pill — half its width, full height, clipped by the radius.
-   *
-   * The angles are the handle directions, not `to bottom right`: for corner
-   * keywords CSS points the gradient perpendicular to the opposite diagonal,
-   * which on a box this flat comes out almost vertical (70.43deg instead of
-   * 109.57deg). At these angles the CSS gradient line measures 191.04px, the
-   * same as Figma's handle distance, so the 30% stop lands where Figma puts it.
-   *
-   * The middle stops are not decoration either. Figma interpolates without
-   * premultiplying alpha and CSS premultiplies, so a plain two stop fade holds
-   * the colour too long — at the midpoint (207,237,236) against Figma's
-   * (227,242,241). These stops sample Figma's curve at quarters.
-   */
-  .nav-glow-me,
-  .nav-glow-works,
-  .nav-glow-resume {
-    background-origin: border-box;
-    background-repeat: no-repeat;
-    background-size: 50% 100%;
-  }
-
-  .nav-glow-me {
-    background-position: left center;
-    background-image: linear-gradient(
-      109.57deg,
-      rgb(159 218 216) 30%,
-      rgb(179 223 222 / 0.75) 47.5%,
-      rgb(199 228 228 / 0.5) 65%,
-      rgb(219 234 233 / 0.25) 82.5%,
-      transparent 100%
-    );
-  }
-
-  .nav-glow-works {
-    background-position: center;
-    background-image: radial-gradient(
-      50% 50% at 50% 50%,
-      rgb(191 251 184 / 0.8) 30%,
-      rgb(203 248 198 / 0.6) 47.5%,
-      rgb(215 245 212 / 0.4) 65%,
-      rgb(227 242 225 / 0.2) 82.5%,
-      transparent 100%
-    );
-  }
-
-  .nav-glow-resume {
-    background-position: right center;
-    background-image: linear-gradient(
-      70.43deg,
-      transparent 0%,
-      rgb(234 228 212 / 0.25) 25%,
-      rgb(230 217 186 / 0.5) 50%,
-      rgb(226 206 160 / 0.75) 75%,
-      rgb(221 195 133) 100%
-    );
-  }
-
-  /* Without the blur the plate needs its own opacity to keep text readable. */
-  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-    .glass {
-      background: rgb(244 244 244 / 82%);
-    }
-
-    .glass-nav {
-      background: rgb(244 244 244 / 74%);
-    }
+    box-shadow: var(--shadow-raised);
   }
 }
 
@@ -390,16 +235,12 @@
   }
 
   html {
-    background: #ffffff;
+    background: var(--color-surface);
   }
 
   body {
     min-height: 0;
     font-size: 10.5pt;
-  }
-
-  body::before {
-    display: none;
   }
 
   main {
@@ -408,12 +249,11 @@
     padding: 0 !important;
   }
 
-  .glass,
-  .glass-nav {
-    background: #ffffff;
-    border-color: #d4d4d4;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
+  .card,
+  .pill,
+  .tone-block {
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
     box-shadow: none;
   }
 
@@ -425,28 +265,5 @@
 
   a {
     text-decoration: none;
-  }
-}
-
-@layer utilities {
-  .wobble {
-    animation: wobble 4s var(--ease-soft) infinite;
-    transform-origin: 50% 88%;
-  }
-
-  @keyframes wobble {
-    0%,
-    100% {
-      transform: rotate(-1.6deg);
-    }
-    50% {
-      transform: rotate(1.6deg);
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .wobble {
-      animation: none;
-    }
   }
 }

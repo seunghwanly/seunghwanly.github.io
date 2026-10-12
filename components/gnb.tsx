@@ -6,11 +6,11 @@ import { useEffect, useState } from "react";
 import { site } from "@/lib/content";
 import type { NavVariant } from "@/lib/schema.dto";
 
-const glow: Record<NavVariant, string> = {
-  default: "",
-  me: "nav-glow-me",
-  works: "nav-glow-works",
-  resume: "nav-glow-resume",
+/** The active item is filled with the accent its section uses. */
+const fill: Record<Exclude<NavVariant, "default">, string> = {
+  me: "bg-accent-sky",
+  works: "bg-accent-mint",
+  resume: "bg-accent-lime",
 };
 
 /**
@@ -18,26 +18,32 @@ const glow: Record<NavVariant, string> = {
  * follows the route — and, on the home page, the section being scrolled past.
  */
 export function Gnb({ variant }: { variant?: NavVariant }) {
+  const pathname = usePathname();
   const detected = useActiveVariant();
   const active = variant ?? detected;
+
+  // The share image route is screenshotted bare.
+  if (pathname.replace(/\/$/, "") === "/og") {
+    return null;
+  }
 
   return (
     <nav
       aria-label={site.nav.ariaLabel}
       className="fixed inset-x-0 bottom-0 z-100 flex justify-center px-4 pb-[calc(env(safe-area-inset-bottom,0px)+var(--gnb-inset))] print:hidden"
     >
-      <ul
-        className={`glass-nav flex h-(--gnb-height) w-full max-w-90 list-none items-center justify-between px-6 ${glow[active]}`}
-      >
+      <ul className="nav-pill flex h-(--gnb-height) w-full max-w-90 list-none items-center gap-1 px-2">
         {site.nav.items.map((item) => {
           const isActive = item.variant === active;
 
           return (
-            <li className="flex max-w-21 flex-1 justify-center" key={item.href}>
+            <li className="flex-1" key={item.href}>
               <Link
                 aria-current={isActive ? "page" : undefined}
-                className={`inline-flex min-h-10 items-center text-nav no-underline transition-opacity duration-200 ease-soft hover:opacity-70 ${
-                  isActive ? "text-ink" : "text-ink-soft"
+                className={`flex h-12 items-center justify-center rounded-2xl text-nav no-underline transition-colors duration-200 ease-soft ${
+                  isActive
+                    ? `${fill[item.variant]} text-ink`
+                    : "text-surface/70 hover:text-surface"
                 }`}
                 href={item.href}
               >

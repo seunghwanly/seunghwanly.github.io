@@ -143,7 +143,6 @@ export type UiCopy = {
 
 export type IntroCopy = {
   meta: PageMetaCopy;
-  illustrationAlt: string;
   emailAriaLabel: string;
 };
 
@@ -169,11 +168,44 @@ type ProjectEntry = {
   sources: SourceLink[];
 };
 
+export type StackKey = "flutter" | "flutterWeb" | "react";
+
+export type TimelineStep = {
+  id: string;
+  /** "YYYY.MM", or "YYYY" when the month is unknown; also places the step on the axis. */
+  date: string;
+  title: string;
+  summary: string;
+  /** Which of the three stacks this step was built on. */
+  stack: StackKey[];
+  /** A case study path, or an outside URL that opens in a new tab. */
+  href?: string;
+};
+
+type FeaturedWork = {
+  /** `caseStudies` 의 id 입니다. */
+  id: string;
+  /** 카드에 크게 보여줄 `metrics` 의 순번입니다. */
+  metric: number;
+};
+
 export type AboutCopy = {
   /** Figma 시안은 "모바일" 과 "웹" 만 굵게 씁니다. */
   headline: TextRun[];
   techListAriaLabel: string;
   tech: TechItem[];
+  featured: {
+    title: string;
+    moreLabel: string;
+    items: FeaturedWork[];
+  };
+  timeline: {
+    title: string;
+    linkLabel: string;
+    stackLabels: Record<StackKey, string>;
+    steps: TimelineStep[];
+  };
+  worksLinkLabel: string;
   career: {
     title: string;
     entries: CareerEntry[];
@@ -235,6 +267,11 @@ export type ResumeCopy = {
 /* ================================================================== *
  * 404
  * ================================================================== */
+
+/** `/og` is screenshotted into public/og.png; only its tab title is copy. */
+export type OgCopy = {
+  title: string;
+};
 
 export type NotFoundCopy = {
   code: string;

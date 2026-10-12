@@ -1,16 +1,15 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import Link from "next/link";
 import {
-  Field,
-  GlassCard,
+  FeaturedWorkCard,
   Screen,
-  SectionCard,
-  SourceList,
   TechCard,
   column,
   stack,
 } from "@/components/content-ui";
-import { about, intro, site } from "@/lib/content";
+import { CareerTimeline } from "@/components/career-timeline";
+import { HeroBlocks } from "@/components/hero-blocks";
+import { about, caseStudies, intro, site } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: intro.meta.title,
@@ -28,6 +27,11 @@ const personSchema = {
   knowsAbout: site.person.knowsAbout,
 };
 
+const featured = about.featured.items.flatMap(({ id, metric }) => {
+  const item = caseStudies.find((entry) => entry.id === id);
+  return item ? [{ item, metric: item.metrics[metric] }] : [];
+});
+
 export default function HomePage() {
   return (
     <Screen flush>
@@ -37,34 +41,26 @@ export default function HomePage() {
       />
 
       <section
-        className="flex min-h-dvh flex-col items-center justify-center gap-10 md:flex-row md:justify-between md:gap-12"
+        className="grid items-center gap-10 pt-16 pb-8 md:min-h-dvh md:grid-cols-[minmax(0,1fr)_minmax(0,480px)] md:gap-12 md:py-0"
         id="intro"
       >
-        <Image
-          alt={intro.illustrationAlt}
-          className="wobble w-56 max-w-full sm:w-80 md:w-104 lg:w-125"
-          height={677}
-          priority
-          src="/macbook.png"
-          width={677}
-        />
-
-        <div className="flex flex-col items-center text-center md:items-end md:text-right">
+        <div className="flex flex-col">
           <h1 className="text-name text-ink">{site.name}</h1>
-          <p className="text-headline text-ink-mid">{site.role}</p>
+          <p className="mt-2 text-headline text-ink-soft">{site.role}</p>
           <a
             aria-label={intro.emailAriaLabel}
-            className="mt-1 text-section text-muted no-underline transition-opacity duration-200 ease-soft hover:opacity-70"
+            className="mt-4 self-start text-section text-muted no-underline transition-opacity duration-200 ease-soft hover:opacity-70"
             href={`mailto:${site.email}`}
           >
             {site.email}
           </a>
         </div>
+        <HeroBlocks className="w-full max-w-120 justify-self-center md:justify-self-end" />
       </section>
 
       <section id="me">
-        <div className="flex min-h-dvh flex-col items-center justify-center gap-10 md:gap-14">
-          <h2 className="text-headline whitespace-pre-line text-center text-ink">
+        <div className={`mx-auto flex flex-col gap-8 pt-16 md:pt-24 ${column}`}>
+          <h2 className="text-headline whitespace-pre-line text-ink">
             {about.headline.map((run) => (
               <span
                 className={run.strong ? "font-bold" : undefined}
@@ -77,47 +73,49 @@ export default function HomePage() {
 
           <ul
             aria-label={about.techListAriaLabel}
-            className="flex list-none flex-wrap justify-center gap-4 md:gap-6"
+            className="grid list-none grid-cols-2 gap-4"
           >
-            {about.tech.map((item) => (
-              <TechCard item={item} key={item.name} />
+            {about.tech.map((item, index) => (
+              <TechCard index={index} item={item} key={item.name} />
             ))}
           </ul>
         </div>
 
         <div className={`mx-auto mt-16 md:mt-24 ${column} ${stack} pb-6`}>
-          <h3 className="text-card text-ink">{about.career.title}</h3>
-          {about.career.entries.map((entry, index) => (
-            <SectionCard index={index} key={entry.company} label={entry.company}>
-              <p className="text-body text-muted">
-                {entry.period} · {entry.role}
-              </p>
-              <p className="mt-2 mb-4 text-lede text-ink">{entry.summary}</p>
-              <div className="flex flex-col gap-4">
-                {entry.highlights.map((highlight) => (
-                  <Field key={highlight.id} label={highlight.title}>
-                    <p className="text-body text-ink">{highlight.detail}</p>
-                  </Field>
-                ))}
-              </div>
-            </SectionCard>
-          ))}
+          <h3 className="text-card text-ink">{about.featured.title}</h3>
+          <ul className="grid list-none gap-4 sm:grid-cols-2">
+            {featured.map(({ item, metric }, index) => (
+              <li key={item.id}>
+                <FeaturedWorkCard index={index} item={item} metric={metric} />
+              </li>
+            ))}
+          </ul>
+          <Link
+            className="pill inline-flex items-center gap-2 self-center px-6 py-3 text-section text-ink no-underline transition-opacity duration-200 ease-soft hover:opacity-75"
+            href="/works"
+          >
+            {about.featured.moreLabel}
+            <span aria-hidden="true">→</span>
+          </Link>
+        </div>
 
-          <h3 className="mt-6 text-card text-ink">{about.projects.title}</h3>
-          {about.projects.entries.map((entry) => (
-            <GlassCard key={entry.title}>
-              <p className="text-body text-muted">
-                {entry.period} · {entry.role}
-              </p>
-              <h4 className="mt-1 mb-2 text-section text-ink">{entry.title}</h4>
-              <p className="text-body text-ink">{entry.description}</p>
-              {entry.sources.length > 0 && (
-                <div className="mt-4">
-                  <SourceList sources={entry.sources} />
-                </div>
-              )}
-            </GlassCard>
-          ))}
+        <div className={`mx-auto mt-12 ${column}`}>
+          <CareerTimeline
+            linkLabel={about.timeline.linkLabel}
+            stackLabels={about.timeline.stackLabels}
+            steps={about.timeline.steps}
+            title={about.timeline.title}
+          />
+        </div>
+
+        <div className={`mx-auto mt-12 flex flex-col pb-6 ${column}`}>
+          <Link
+            className="pill inline-flex items-center gap-2 self-center px-6 py-3 text-section text-ink no-underline transition-opacity duration-200 ease-soft hover:opacity-75"
+            href="/works"
+          >
+            {about.worksLinkLabel}
+            <span aria-hidden="true">→</span>
+          </Link>
         </div>
       </section>
     </Screen>

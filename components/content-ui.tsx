@@ -58,7 +58,7 @@ export function Screen({
 export function BackLink({ href, label }: { href: string; label: string }) {
   return (
     <Link
-      className="glass-pill inline-flex items-center gap-2 self-start px-6 py-3 text-section text-ink no-underline transition-opacity duration-200 ease-soft hover:opacity-75 md:px-8 md:py-4"
+      className="pill inline-flex items-center gap-2 self-start px-6 py-3 text-section text-ink no-underline transition-opacity duration-200 ease-soft hover:opacity-75 md:px-8 md:py-4"
       href={href}
     >
       <span aria-hidden="true">↩</span>
@@ -67,42 +67,63 @@ export function BackLink({ href, label }: { href: string; label: string }) {
   );
 }
 
-/**
- * `panel` is the more opaque plate the case studies use, where a page of body
- * copy needs the wash behind it to settle down.
- */
-type Surface = "glass" | "panel";
-
-export function GlassCard({
+export function Card({
   children,
   className,
-  surface = "glass",
 }: {
   children: React.ReactNode;
   className?: string;
-  surface?: Surface;
 }) {
   return (
-    <div className={cx(surface === "panel" ? "glass-panel" : "glass", "p-6 md:p-8", className)}>
+    <div className={cx("card p-6 md:p-8", className)}>
       {children}
     </div>
   );
 }
 
-const signColors = [
-  "bg-sign-1",
-  "bg-sign-2",
-  "bg-sign-3",
-  "bg-sign-4",
+/**
+ * The fills a block may take, in the order a sequence uses them. Text on an
+ * accent is ink; text on ink is surface, with `sub` for its second line.
+ */
+const tones = {
+  lime: { fill: "bg-accent-lime text-ink", sub: "text-ink-soft" },
+  sky: { fill: "bg-accent-sky text-ink", sub: "text-ink-soft" },
+  mint: { fill: "bg-accent-mint text-ink", sub: "text-ink-soft" },
+  ink: { fill: "bg-ink text-surface", sub: "text-surface/70" },
+} as const;
+
+export type Tone = keyof typeof tones;
+
+const markColors = [
+  "bg-accent-sky",
+  "bg-accent-mint",
+  "bg-accent-lime",
 ] as const;
 
-function Sign({ index }: { index: number }) {
+export function Block({
+  tone,
+  children,
+  className,
+}: {
+  tone: Tone;
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={cx("tone-block p-6 md:p-8", tones[tone].fill, className)}>
+      {children}
+    </div>
+  );
+}
+
+/** A rounded square, the hero's tile at card scale. */
+function Mark({ index }: { index: number }) {
   return (
     <span
       aria-hidden="true"
       className={cx(
-        "size-7 shrink-0 rounded-(--radius-sign) ring-2 ring-sign-ring md:size-7.5",
-        signColors[index % signColors.length],
+        "size-3 shrink-0 rounded-[4px] ring-1 ring-ink/10 ring-inset",
+        markColors[index % markColors.length],
       )}
     />
   );
@@ -112,21 +133,19 @@ export function SectionCard({
   index,
   label,
   children,
-  surface = "glass",
 }: {
   index: number;
   label: string;
   children: React.ReactNode;
-  surface?: Surface;
 }) {
   return (
-    <GlassCard surface={surface}>
-      <div className="mb-2 flex items-center gap-3">
-        <Sign index={index} />
-        <h2 className="text-section text-ink">{label}</h2>
+    <Card>
+      <div className="mb-3 flex items-center gap-2.5">
+        <Mark index={index} />
+        <h2 className="text-body font-semibold text-ink">{label}</h2>
       </div>
       {children}
-    </GlassCard>
+    </Card>
   );
 }
 
@@ -160,14 +179,12 @@ function Bullets({ items }: { items: string[] }) {
 export function CaseSectionCard({
   index,
   section,
-  surface = "glass",
 }: {
   index: number;
   section: CaseSection;
-  surface?: Surface;
 }) {
   return (
-    <SectionCard index={index} label={section.label} surface={surface}>
+    <SectionCard index={index} label={section.label}>
       <p className="mb-3 text-lede text-ink">{section.title}</p>
       {section.paragraphs && <Paragraphs items={section.paragraphs} />}
       {section.bullets && <Bullets items={section.bullets} />}
@@ -179,41 +196,74 @@ export function WorkCard({ item }: { item: CaseStudy }) {
   return (
     <Link
       aria-label={`${item.title} ${ui.caseLinkAriaSuffix}`}
-      className="glass-card block px-6 pt-6 pb-3 no-underline transition-transform duration-300 ease-soft hover:-translate-y-0.5 md:px-8 md:pt-8 md:pb-4"
+      className="card card-link flex flex-col gap-3 p-6 no-underline md:p-8"
       href={caseHref(item)}
     >
-      <div className="flex flex-col gap-2">
-        <div className="flex items-center gap-4 md:h-12">
-          <h2 className="min-w-0 flex-1 text-section font-semibold text-ink">
-            {item.title}
-          </h2>
-          <span
-            aria-hidden="true"
-            className="size-10 shrink-0 rounded-full glass-badge"
-          />
-        </div>
+      <div>
+        <p className="text-body text-muted">{item.category}</p>
+        <h2 className="text-section font-semibold text-ink">
+          {item.title}
+          <span aria-hidden="true">{"\u00a0→"}</span>
+        </h2>
+      </div>
+      <p className="text-summary text-ink-soft">{item.summary}</p>
+      <TagList tags={item.tags} />
+    </Link>
+  );
+}
 
-        <p className="text-summary text-ink-soft">{item.summary}</p>
+const featuredTones: Tone[] = ["lime", "sky", "ink", "mint"];
 
-        <div className="mt-1">
-          <TagList tags={item.tags} />
-        </div>
+export function FeaturedWorkCard({
+  item,
+  metric,
+  index,
+}: {
+  item: CaseStudy;
+  metric: CaseMetric;
+  index: number;
+}) {
+  const tone = tones[featuredTones[index % featuredTones.length]];
+
+  return (
+    <Link
+      aria-label={`${item.title} ${ui.caseLinkAriaSuffix}`}
+      className="card card-link flex h-full flex-col overflow-hidden no-underline"
+      href={caseHref(item)}
+    >
+      <div className={cx("px-6 pt-6 pb-5 md:px-8 md:pt-8", tone.fill)}>
+        <p className="text-card">{metric.value}</p>
+        <p className={cx("text-body", tone.sub)}>{metric.label}</p>
+      </div>
+      <div className="flex flex-1 flex-col px-6 pt-5 pb-6 md:px-8 md:pb-8">
+        <p className="text-body text-muted">{item.category}</p>
+        <h4 className="text-section font-semibold text-ink">
+          {item.title}
+          <span aria-hidden="true">{"\u00a0→"}</span>
+        </h4>
       </div>
     </Link>
   );
 }
 
-export function TechCard({ item }: { item: TechItem }) {
+const techTones: Tone[] = ["lime", "ink"];
+
+export function TechCard({ item, index }: { item: TechItem; index: number }) {
   return (
-    <li className="glass flex size-40 flex-col items-center justify-center gap-4 md:size-54">
+    <li
+      className={cx(
+        "tone-block flex aspect-[4/3] flex-col justify-between p-6 md:p-8",
+        tones[techTones[index % techTones.length]].fill,
+      )}
+    >
       <Image
         alt=""
-        className="h-16 w-auto md:h-24"
+        className="h-14 w-auto self-start md:h-20"
         height={item.height}
         src={item.icon}
         width={item.width}
       />
-      <span className="text-section text-ink-soft">{item.name}</span>
+      <span className="text-card">{item.name}</span>
     </li>
   );
 }
@@ -226,7 +276,7 @@ export function TagList({ tags }: { tags: string[] }) {
     >
       {tags.map((tag) => (
         <li
-          className="rounded-2xl border border-glass-line bg-[rgb(239_239_239/80%)] px-3 py-2 font-mono text-tag text-black"
+          className="rounded-full bg-paper px-3 py-1 text-tag text-ink-soft"
           key={tag}
         >
           {tag}
@@ -236,14 +286,20 @@ export function TagList({ tags }: { tags: string[] }) {
   );
 }
 
-export function MetricList({ metrics }: { metrics: CaseMetric[] }) {
+export function MetricList({
+  metrics,
+  tone = "ink",
+}: {
+  metrics: CaseMetric[];
+  tone?: Tone;
+}) {
   return (
-    <ul className="flex list-none flex-col gap-4">
+    <ul className="flex list-none flex-col gap-5">
       {metrics.map((metric) => (
         <li key={metric.label}>
-          <p className="text-section text-ink">{metric.value}</p>
-          <p className="text-body text-ink-soft">{metric.label}</p>
-          <p className="text-body text-muted">{metric.context}</p>
+          <p className="text-card">{metric.value}</p>
+          <p className="text-body">{metric.label}</p>
+          <p className={cx("text-body", tones[tone].sub)}>{metric.context}</p>
         </li>
       ))}
     </ul>
@@ -261,7 +317,7 @@ export function SourceList({ sources }: { sources: SourceLink[] }) {
             rel="noreferrer"
             target="_blank"
           >
-            {source.label} <span aria-hidden="true">↗</span>
+            {source.label} <span aria-hidden="true">→</span>
           </a>
         </li>
       ))}
@@ -278,7 +334,7 @@ export function Field({
 }) {
   return (
     <div className="break-inside-avoid">
-      <p className="mb-1.5 text-body text-muted">{label}</p>
+      <p className="mb-1 text-body font-semibold text-ink">{label}</p>
       {children}
     </div>
   );

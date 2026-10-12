@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import {
   BackLink,
+  Card,
   Field,
-  GlassCard,
   Paragraphs,
   Screen,
   SectionCard,
@@ -25,9 +25,9 @@ export default function ResumePage() {
       </div>
 
       <div className={`mx-auto mt-10 md:mt-14 ${column} ${stack} pb-6`}>
-        <GlassCard>
+        <Card>
           <h1 className="text-card text-ink">{site.name}</h1>
-          <p className="mt-1 text-section text-ink-mid">{resume.headline}</p>
+          <p className="mt-1 text-section text-ink-soft">{resume.headline}</p>
           <p className="mt-1 text-body text-muted">{resume.updatedAt}</p>
 
           <ul
@@ -50,20 +50,20 @@ export default function ResumePage() {
                   rel="noreferrer"
                   target="_blank"
                 >
-                  {link.label} <span aria-hidden="true">↗</span>
+                  {link.label} <span aria-hidden="true">→</span>
                 </a>
               </li>
             ))}
           </ul>
 
           <a
-            className="mt-6 inline-flex items-center gap-2 rounded-full border border-glass-line bg-white/55 px-5 py-2.5 text-body text-ink no-underline transition-opacity duration-200 ease-soft hover:opacity-75 print:hidden"
+            className="mt-6 inline-flex items-center gap-2 pill px-5 py-2.5 text-body text-ink no-underline transition-opacity duration-200 ease-soft hover:opacity-75 print:hidden"
             href={resume.download.href}
           >
             {resume.download.label}
             <span aria-hidden="true">↓</span>
           </a>
-        </GlassCard>
+        </Card>
 
         <SectionCard index={0} label={resume.sections.profile}>
           <Paragraphs items={resume.profile} />
@@ -80,7 +80,7 @@ export default function ResumePage() {
                 <div className="flex flex-col gap-3">
                   {entry.highlights.map((highlight) => (
                     <Field key={highlight.id} label={highlight.title}>
-                      <p className="text-body text-ink">{highlight.detail}</p>
+                      <p className="text-body text-ink-soft">{highlight.detail}</p>
                     </Field>
                   ))}
                 </div>
@@ -128,7 +128,7 @@ export default function ResumePage() {
                   rel="noreferrer"
                   target="_blank"
                 >
-                  {record.value} <span aria-hidden="true">↗</span>
+                  {record.value} <span aria-hidden="true">→</span>
                 </a>
                 <p className="text-body text-ink-soft">{record.label}</p>
                 <p className="text-body text-muted">{record.detail}</p>

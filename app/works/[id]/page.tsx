@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import {
   BackLink,
+  Block,
+  Card,
   CaseSectionCard,
   Field,
-  GlassCard,
   MetricList,
   Screen,
   SourceList,
@@ -51,18 +52,13 @@ export default async function WorkCasePage({ params }: CasePageProps) {
 
       <div className="mx-auto mt-10 grid max-w-(--container-card) gap-6 pb-6 md:mt-14 lg:max-w-none lg:grid-cols-[minmax(0,640px)_minmax(0,1fr)] lg:items-start">
         <div className={stack}>
-          <GlassCard surface="panel">
-            <h1 className="mb-2 text-card text-ink">{item.title}</h1>
-            <p className="text-lede text-ink">{item.summary}</p>
-          </GlassCard>
+          <Block tone="lime">
+            <h1 className="mb-3 text-card">{item.title}</h1>
+            <p className="text-lede">{item.summary}</p>
+          </Block>
 
           {item.sections.map((section, index) => (
-            <CaseSectionCard
-              index={index}
-              key={section.id}
-              section={section}
-              surface="panel"
-            />
+            <CaseSectionCard index={index} key={section.id} section={section} />
           ))}
         </div>
 
@@ -70,7 +66,7 @@ export default async function WorkCasePage({ params }: CasePageProps) {
           aria-label={caseDetail.asideAriaLabel}
           className={`${stack} lg:sticky lg:top-12`}
         >
-          <GlassCard surface="panel">
+          <Card>
             <p className="text-body text-muted">{item.category}</p>
             <div className="mt-4 flex flex-col gap-5">
               <Field label={caseDetail.roleLabel}>
@@ -78,31 +74,31 @@ export default async function WorkCasePage({ params }: CasePageProps) {
               </Field>
               <TagList tags={item.tags} />
             </div>
-          </GlassCard>
+          </Card>
 
-          <GlassCard surface="panel">
-            <p className="mb-4 text-section text-ink">
+          <Block tone="ink">
+            <p className="mb-4 text-body font-semibold">
               {caseDetail.metricsLabel}
             </p>
             <MetricList metrics={item.metrics} />
-          </GlassCard>
+          </Block>
 
           {item.limitation && (
-            <GlassCard surface="panel">
-              <p className="mb-2 text-section text-ink">
+            <Card>
+              <p className="mb-3 text-body font-semibold text-ink">
                 {caseDetail.limitationLabel}
               </p>
               <p className="text-body text-ink">{item.limitation}</p>
-            </GlassCard>
+            </Card>
           )}
 
           {item.sources.length > 0 && (
-            <GlassCard surface="panel">
-              <p className="mb-3 text-section text-ink">
+            <Card>
+              <p className="mb-3 text-body font-semibold text-ink">
                 {caseDetail.sourcesLabel}
               </p>
               <SourceList sources={item.sources} />
-            </GlassCard>
+            </Card>
           )}
         </aside>
       </div>

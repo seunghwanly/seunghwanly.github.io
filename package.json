@@ -12,6 +12,7 @@
     "start": "WRANGLER_LOG_PATH=.wrangler/wrangler.log vinext start",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "resume:pdf": "node scripts/build-resume-pdf.mjs",
+    "og:image": "node scripts/build-og-image.mjs",
     "deploy": "node scripts/deploy-pages.mjs"
   },
   "dependencies": {

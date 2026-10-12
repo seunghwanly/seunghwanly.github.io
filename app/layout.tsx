@@ -30,8 +30,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: ogImage,
-        width: 1568,
-        height: 1003,
+        width: 1200,
+        height: 630,
         alt: site.metadata.ogImageAlt,
       },
     ],
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   colorScheme: "light",
-  themeColor: "#dff3d8",
+  themeColor: "#f4f8f2",
   viewportFit: "cover",
 };
 
@@ -59,7 +59,7 @@ export default function RootLayout({
     <html lang="ko">
       <body>
         <a
-          className="glass fixed top-3 left-3 z-1000 -translate-y-[160%] px-4 py-2.5 text-body text-ink focus:translate-y-0 print:hidden"
+          className="card fixed top-3 left-3 z-1000 -translate-y-[160%] px-4 py-2.5 text-body text-ink focus:translate-y-0 print:hidden"
           href="#main-content"
         >
           {site.skipToContent}

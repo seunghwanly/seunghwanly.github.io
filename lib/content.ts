@@ -9,6 +9,7 @@ import type {
   CaseStudy,
   IntroCopy,
   NotFoundCopy,
+  OgCopy,
   ProofMetric,
   ResumeCopy,
   SiteCopy,
@@ -461,7 +462,8 @@ export const site: SiteCopy = {
     shareTitle: "이승환 — Frontend Engineer",
     shareDescription:
       "모바일과 웹을 오가며 서비스를 만들고 운영한 이승환의 대표 작업.",
-    ogImageAlt: "Seunghwan Lee · Frontend Engineer · Mobile · Web",
+    ogImageAlt:
+      "이승환 · Frontend Engineer · 모바일과 웹을 오가며 서비스를 만들고 운영해왔습니다.",
   },
   person: {
     name: "이승환",
@@ -517,7 +519,6 @@ export const intro: IntroCopy = {
     description:
       "모바일과 웹을 오가며 서비스를 만들고 운영해 온 Frontend Engineer 이승환입니다. 경력과 주로 쓰는 기술을 함께 정리했습니다.",
   },
-  illustrationAlt: "흔들리는 노트북을 그린 손그림",
   emailAriaLabel: "이메일 보내기",
 };
 
@@ -537,6 +538,122 @@ export const about: AboutCopy = {
     { name: "Flutter", icon: "/tech/flutter.png", width: 300, height: 372 },
     { name: "React", icon: "/tech/react.png", width: 512, height: 512 },
   ],
+  featured: {
+    title: "대표 작업",
+    moreLabel: "작업 전체 보기",
+    items: [
+      { id: "flutter-web", metric: 0 },
+      { id: "observability", metric: 2 },
+      { id: "reservation", metric: 2 },
+      { id: "dto", metric: 0 },
+    ],
+  },
+  timeline: {
+    title: "Flutter에서 웹으로",
+    linkLabel: "자세히 보기",
+    stackLabels: {
+      flutter: "Flutter 앱",
+      flutterWeb: "Flutter Web",
+      react: "React 웹",
+    },
+    steps: [
+      {
+        id: "relay",
+        date: "2020.11",
+        title: "봉사로 만든 첫 Flutter 앱",
+        summary:
+          "동국대와 미국 고등학교 북 셰어링 클럽이 함께 연 기부 마라톤의 참가·기록 앱을 다섯 명이 Flutter와 Firebase로 만들었습니다. 저장소를 공개했고, 커밋의 절반 이상을 맡았습니다.",
+        stack: ["flutter"],
+        href: "https://github.com/seunghwanly/minimarathon",
+      },
+      {
+        id: "lab",
+        date: "2021.04",
+        title: "처음 운영에 내보낸 Flutter",
+        summary:
+          "연세대학교 Fintech Center 홈페이지를 Flutter Web으로 만들어, 처음으로 Flutter를 운영 환경에 배포했습니다.",
+        stack: ["flutterWeb"],
+        href: "https://github.com/ysfintech/ysfintech",
+      },
+      {
+        id: "first-app",
+        date: "2022.08",
+        title: "첫 앱 출시",
+        summary:
+          "Databank에서 TOEFL 학습 서비스 TestGlider의 첫 iOS·Android 앱을 출시하고, 같은 달 모바일 파트를 맡았습니다.",
+        stack: ["flutter"],
+      },
+      {
+        id: "bloc-testglider",
+        date: "2023.04",
+        title: "첫 GetX → Bloc",
+        summary:
+          "GetX로 짜인 TestGlider 앱을 2023년 4월부터 두 달 동안 Bloc으로 옮겼습니다. 같은 전환을 윙크 앱에서 한 번 더 하게 됩니다.",
+        stack: ["flutter"],
+      },
+      {
+        id: "types",
+        date: "2023.09",
+        title: "타입부터 선언",
+        summary:
+          "PPB Studios에서 맡은 윙크 앱에는 타입 선언이 없었습니다. 함수의 인자와 반환 타입을 코드 전체에 적어, 실행해야 보이던 오류를 코드에서 보이게 했고, 구독이 쌓이던 Event Bus도 걷어내기 시작했습니다.",
+        stack: ["flutter"],
+      },
+      {
+        id: "bloc",
+        date: "2024.02",
+        title: "두 번째 GetX → Bloc",
+        summary:
+          "윙크 앱도 멤버십부터 Bloc을 들이고 2024년 7월 GetX를 걷어냈습니다. 서비스를 멈추지 않고 화면 단위로 옮겼습니다.",
+        stack: ["flutter"],
+      },
+      {
+        id: "lint",
+        date: "2024.06",
+        title: "규칙을 코드에",
+        summary:
+          "lint 규칙을 켜 새로 들어오는 코드가 자동으로 검사받게 했습니다. 이후 반복되는 실수는 custom_lint 규칙으로 막고, 테스트를 700개 넘게 쌓았습니다.",
+        stack: ["flutter"],
+      },
+      {
+        id: "outside",
+        date: "2025.06",
+        title: "오픈소스 패키지와 프리랜스 앱",
+        summary:
+          "Kakao Maps SDK v2를 Flutter에서 쓸 수 있게 kakao_maps_flutter 패키지를 만들어 pub.dev에 배포했습니다. 이어서 프리랜서로 한일 교류 SNS 우리다치의 Flutter 앱을 맡아 WebSocket 채팅에 AI 번역을 붙였습니다.",
+        stack: ["flutter"],
+        href: "https://pub.dev/packages/kakao_maps_flutter",
+      },
+      {
+        id: "flutter-web",
+        date: "2025.11",
+        title: "앱 코드로 웹을 열다",
+        summary:
+          "예약이 되지 않던 Vue2 웹을 고치는 대신, 이미 검증된 Flutter 앱을 웹으로 확장해 기한보다 한 달 앞서 열었습니다.",
+        stack: ["flutter", "flutterWeb"],
+        href: "/works/flutter-web",
+      },
+      {
+        id: "membership",
+        date: "2026.03",
+        title: "볼 수 있는 웹으로",
+        summary:
+          "Flutter Web으로 연 통합멤버십은 Canvas라 계측이 되지 않았습니다. DOM으로 두 번 옮겨 Vite React에 정착하고 나서야 이탈 구간이 보였습니다.",
+        stack: ["flutterWeb", "react"],
+        href: "/works/observability",
+      },
+      {
+        id: "reservation",
+        date: "2026.07",
+        title: "앱 안의 React",
+        summary:
+          "4개 브랜드의 예약 상세를 React 앱 하나로 합치고, Flutter 앱은 WebView로 그 화면을 엽니다. 이제 앱 심사 없이 고칩니다.",
+        stack: ["flutter", "react"],
+        href: "/works/reservation",
+      },
+    ],
+  },
+  worksLinkLabel: "작업 내역 보러가기",
   career: {
     title: "경력",
     entries: [
@@ -731,6 +848,10 @@ export const resume: ResumeCopy = {
 /* ================================================================== *
  * 404
  * ================================================================== */
+
+export const og: OgCopy = {
+  title: "공유 이미지",
+};
 
 export const notFound: NotFoundCopy = {
   code: "404",
